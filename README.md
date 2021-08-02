@@ -26,6 +26,8 @@ The following user/developer stories detail the major functionality for this pha
 
 ![UML1](./src/assets/virtual-store-UML.jpg)
 
+## Deployed Site
+https://sharp-panini-d4b21b.netlify.app/ 
 
 --- 
 
