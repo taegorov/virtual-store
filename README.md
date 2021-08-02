@@ -1,3 +1,34 @@
+# Virtual Store
+
+An online shopping portal for a fictional store
+
+
+## Requirements
+
+Our application will power an online storefront that will allow our users to browse our product offerings by category, place items in their shopping cart, and check-out when they are ready to make their purchase
+
+### Phase 1 Requirements
+
+**Virtual Store Phase 1: For this assignment, you will be starting the process of creating an e-Commerce storefront using React with Redux, coupled with your live API server**
+
+Today, we begin the first of a 4-Phase build of the storefront application, written in React. In this first phase, our goal is to setup the basic scaffolding of the application with initial styling and basic behaviors. This initial build sets up the file structure and state management so that we can progressively build this application in a scalable manner
+
+The following user/developer stories detail the major functionality for this phase of the project.
+
+- As a user, I expect to see a list of available product categories in the store so that I can easily browse products
+  
+- As a user, I want to choose a category and see a list of all available products matching that category
+  
+- As a user, I want a clean, easy to use user interface so that I can shop the online store with confidence
+
+
+## UML
+
+![UML1](assets/virtual-store-UML.jpg)
+
+
+--- 
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -68,4 +99,3 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `yarn build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-# virtual-store
