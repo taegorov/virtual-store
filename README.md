@@ -24,7 +24,7 @@ The following user/developer stories detail the major functionality for this pha
 
 ## UML
 
-![UML1](assets/virtual-store-UML.jpg)
+![UML1](./src/assets/virtual-store-UML.jpg)
 
 
 --- 
