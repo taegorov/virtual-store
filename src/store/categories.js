@@ -1,15 +1,16 @@
 const initialState = {
   categoryList: [
-    { _id: 98765, name: 'Electronics', description: 'Category Description Goes Here' },
-    { _id: 12345, name: 'Food', description: 'Category Description Goes Here' }
+    { _id: 10, name: 'Electronics', description: 'Category Description Goes Here' },
+    { _id: 20, name: 'Food', description: 'Category Description Goes Here' }
   ],
   activatedCategory: '',
   activatedDescription: '',
 }
 
-export default function reducer(state = initialState, action) {
-  const { type, payload } = action;
 
+export default function reducer(state = initialState, action) {
+
+  const { type, payload } = action;
   switch (type) {
     case 'INACTIVE':
       return initialState;
@@ -20,11 +21,13 @@ export default function reducer(state = initialState, action) {
   }
 }
 
+// === === exports === === //
 export const inactive = () => {
   return {
     type: 'INACTIVE'
   }
 }
+
 
 export const active = (category, description) => {
   return {
