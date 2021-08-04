@@ -1,0 +1,18 @@
+#delete-button {
+  /* background-color: bisque; */
+  color: rgb(245, 145, 145);
+  max-height: 1.2em;
+}
+
+#grid {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  /* background-color: coral; */
+  align-items: center;
+}
+
+#main-grid {
+  z-index:1;
+  position: relative;
+}

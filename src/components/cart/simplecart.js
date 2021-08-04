@@ -1,17 +1,20 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import { connect } from 'react-redux';
-import { makeStyles } from '@material-ui/core';
+import { makeStyles, IconButton } from '@material-ui/core';
+import DeleteTwoToneIcon from '@material-ui/icons/DeleteTwoTone';
+import { removeFromCart } from '../../store/cart.js';
 
+import './simplecart.css';
 
 // === === JSS styling taken from material-ui docs === === //
 const useStyles = makeStyles({
   base: {
-    width: '7em',
+    width: '10em',
     color: 'white',
     background: 'linear-gradient(45deg, #000000 30%, #31364a 90%)',
     border: 0,
@@ -30,17 +33,26 @@ const SimpleCart = (props) => {
   if (props.cart.cart.length > 0) {
     return (
 
-      <Grid container justify="flex-end">
+      <Grid id="main-grid" container justify="flex-end">
         <Card alignContent='center' className={cart.base}>
-          <CardContent>
+          <CardContent >
+
             <p>Cart:</p>
             {props.cart.cart.map((product, item) => {
               return (
-                <Typography key={item}>
-                  {product.name}
-                </Typography>
+                <div id="grid">
+
+                  <Typography key={item}>
+                    {product.name}
+                  </Typography>
+                  <IconButton id='delete-button' size='medium' onClick={() => props.removeFromCart(product)} >
+                    <DeleteTwoToneIcon />
+                  </IconButton>
+
+                </div>
               )
             })}
+
           </CardContent>
         </Card>
       </Grid>
@@ -58,5 +70,9 @@ const mapState = (state) => {
   }
 }
 
+const mapDispatch = {
+  removeFromCart
+}
 
-export default connect(mapState)(SimpleCart);
+
+export default connect(mapState, mapDispatch)(SimpleCart);
