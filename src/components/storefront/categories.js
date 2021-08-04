@@ -18,6 +18,12 @@ const CategoryViewer = (props) => {
 
       <Button id="card-buttons" variant="contained" color="primary" onClick={() => props.active('Food', 'Food')}>Food</Button>
 
+      <Button id="card-buttons" variant="contained" color="primary" onClick={() => props.active('Mobile', 'Mobile')}>Mobile</Button>
+
+      <Button id="card-buttons" variant="contained" color="primary" onClick={() => props.active('Console', 'Console')}>Consoles</Button>
+
+      <Button id="card-buttons" variant="contained" color="primary" onClick={() => props.active('Shirts', 'Shirts')}>Shirts</Button>
+
       <Typography id="p-tag" variant="p" component="p"> {props.activatedDescription}</Typography>
 
     </>

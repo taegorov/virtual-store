@@ -34,8 +34,14 @@ export default function productReducer(state = initialState, action) {
     case 'LOAD_PRODUCTS':
       return {
         productList: payload.results,
-        image: 'https://picsum.photos/200/300'
       }
+    case 'ADD_TO_CART':
+      const deductor = state.productList.filter(item => {
+        return item === payload;
+      })
+      payload.inStock -= 1;
+      deductor.push(payload);
+      return { ...state, productsList: deductor };
     default:
       return state;
   }
@@ -53,9 +59,18 @@ export const getProducts = (category) => {
 export const loadProducts = () => (dispatch, getState) => {
   return axios.get('https://api-js401.herokuapp.com/api/v1/products')
     .then(response => {
+      console.log('response.data', response.data);
       dispatch({
         type: 'LOAD_PRODUCTS',
         payload: response.data
       })
     })
+}
+
+
+export function addToCart(name) {
+  return {
+    type: 'ADD_TO_CART',
+    payload: name,
+  }
 }

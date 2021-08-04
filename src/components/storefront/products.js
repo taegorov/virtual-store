@@ -12,10 +12,18 @@ import './products.css';
 // import dog from '../../assets/dog.jpg'
 
 
-const ProductsViewer = (props) => {
+const ProductsViewer = ({ loadProducts, products, activatedCategory, addToCart }) => {
   useEffect(() => {
-    props.loadProducts();
-  });
+    loadProducts();
+  }, []);
+
+
+  function productImage(description) {
+    if (!description) {
+      return 'https://picsum.photos/200/300';
+    }
+    return description.split('$')[1]
+  }
 
 
   return (
@@ -24,14 +32,16 @@ const ProductsViewer = (props) => {
       <Paper className="paper" elevation={3}>
 
         <Grid id="grid-categories" style={{ backgroundColor: '#97b2bd' }} spacing={4} container justify="center" >
-          {props.products.productList.map((product, index) => {
-            if (product.category === props.activatedCategory.toLowerCase()) {
+          {products.productList.map((product, index) => {
+            if (product.category === activatedCategory.toLowerCase()) {
 
+              console.log('🎭', product);
               return (
                 <Grid item key={index}>
                   <Card style={{ backgroundColor: '#e6e8bc' }}>
                     <CardMedia
-                      image={product.image}
+                      image={productImage(product.description)}
+                      // image={product.image}
                       style={{ height: 10, paddingTop: '100%' }}
                     />
                     <CardHeader title={product.name} />
@@ -40,7 +50,7 @@ const ProductsViewer = (props) => {
                     </CardContent>
                     <CardActions>
 
-                      <Button size="small" color="primary" variant="contained" onClick={() => props.addToCart(product)} > Add to Cart </Button>
+                      <Button size="small" color="primary" variant="contained" onClick={() => addToCart(product)} > Add to Cart </Button>
                       <Button size="small" color="primary" variant="contained"> View Details </Button>
 
                     </CardActions>
