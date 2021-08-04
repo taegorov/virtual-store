@@ -15,7 +15,7 @@ import './products.css';
 const ProductsViewer = ({ loadProducts, products, activatedCategory, addToCart }) => {
   useEffect(() => {
     loadProducts();
-  }, []);
+  }, [loadProducts]);
 
 
   function productImage(description) {
