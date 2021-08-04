@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import { Typography, Toolbar, IconButton, Grid, Button } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -6,7 +7,6 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import { StylesProvider } from '@material-ui/styles';
 
 import './header.css';
-import { connect } from 'react-redux';
 
 
 

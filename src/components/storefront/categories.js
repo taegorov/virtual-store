@@ -1,7 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux';
+
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import { connect } from 'react-redux';
 import { inactive, active } from '../../store/categories.js';
 
 import './categories.css';
@@ -16,6 +17,12 @@ const CategoryViewer = (props) => {
       <Button id="card-buttons" variant="contained" color="primary" onClick={() => props.active('Electronics', 'Electronics')}>Electronics</Button>
 
       <Button id="card-buttons" variant="contained" color="primary" onClick={() => props.active('Food', 'Food')}>Food</Button>
+
+      <Button id="card-buttons" variant="contained" color="primary" onClick={() => props.active('Mobile', 'Mobile')}>Mobile</Button>
+
+      <Button id="card-buttons" variant="contained" color="primary" onClick={() => props.active('Console', 'Console')}>Consoles</Button>
+
+      <Button id="card-buttons" variant="contained" color="primary" onClick={() => props.active('Shirts', 'Shirts')}>Shirts</Button>
 
       <Typography id="p-tag" variant="p" component="p"> {props.activatedDescription}</Typography>
 
