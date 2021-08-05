@@ -69,7 +69,7 @@ const ProductsViewer = ({ loadProducts, products, activatedCategory, addToCart }
   )
 }
 
-const stateToProps = (state) => {
+const mapStateToProps = (state) => {
   return {
     products: state.products,
     activatedCategory: state.categories.activatedCategory,
@@ -77,7 +77,7 @@ const stateToProps = (state) => {
   }
 }
 
-const dispatch = {
+const mapDispatchToProps = {
   inactive,
   active,
   getProducts,
@@ -86,4 +86,4 @@ const dispatch = {
 }
 
 
-export default connect(stateToProps, dispatch)(ProductsViewer);
+export default connect(mapStateToProps, mapDispatchToProps)(ProductsViewer);
