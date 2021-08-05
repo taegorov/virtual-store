@@ -23,6 +23,7 @@ const useStyles = makeStyles({
     padding: '0 10px',
     position: 'fixed',
     marginRight: '.5em',
+    opacity: '0.9',
   }
 })
 
