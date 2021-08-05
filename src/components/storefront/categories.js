@@ -18,7 +18,7 @@ const CategoryViewer = (props) => {
 
       <Button id="card-buttons" variant="contained" color="primary" onClick={() => props.active('Food', 'Food')}>Food</Button>
 
-      <Button id="card-buttons" variant="contained" color="primary" onClick={() => props.active('Mobile', 'Mobile')}>Mobile</Button>
+      <Button id="card-buttons" variant="contained" color="primary" onClick={() => props.active('Phones', 'Phones')}>Phones</Button>
 
       <Button id="card-buttons" variant="contained" color="primary" onClick={() => props.active('Console', 'Console')}>Consoles</Button>
 

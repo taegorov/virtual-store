@@ -49,6 +49,20 @@ The user stories from Phases 1 and 2 remain unchanged. For this phase, we are no
 - As a user, I want to know to that when I add an item to my cart, that it is removed from inventory so that no other users can purchase it
 
 
+### Phase 4 Requirements
+
+Phase 4 Requirements
+
+In phase 4, we will be completing work on our Virtual Store by adding a two full page views to the application: Product Details and Checkout
+
+The user stories from Phases 1, 2 and 3 remain unchanged. For this phase, we are now adding the following new user stories to meet the new requirements.
+
+- As a user, I want to see a full detail view of a product so that I can make a more informed choice about purchasing it.
+
+
+- As a user, I want to view my full cart and initiate the checkout process so that I can purchase my items and have them delivered
+
+
 ## UML
 
 ![UML1](./src/assets/virtual-store-UML.jpg)

@@ -7,6 +7,7 @@ import { getProducts } from '../../store/products.js';
 import { addToCart } from '../../store/cart.js';
 import CategoryViewer from './categories.js';
 import { loadProducts } from '../../store/products';
+import { Link } from 'react-router-dom';
 
 import './products.css';
 // import dog from '../../assets/dog.jpg'
@@ -51,7 +52,7 @@ const ProductsViewer = ({ loadProducts, products, activatedCategory, addToCart }
                     <CardActions>
 
                       <Button size="small" color="primary" variant="contained" onClick={() => addToCart(product)} > Add to Cart </Button>
-                      <Button size="small" color="primary" variant="contained"> View Details </Button>
+                      <Button size="small" color="primary" variant="contained" component={Link} to={`/products/${product._id}`}> View Details </Button>
 
                     </CardActions>
                   </Card>

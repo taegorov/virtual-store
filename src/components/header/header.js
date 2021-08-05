@@ -3,9 +3,10 @@ import { connect } from 'react-redux';
 
 import { Typography, Toolbar, IconButton, Grid, Button } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+// import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import ShoppingCartTwoToneIcon from '@material-ui/icons/ShoppingCartTwoTone';
 import { StylesProvider } from '@material-ui/styles';
-
+import { NavLink } from 'react-router-dom';
 import './header.css';
 
 
@@ -21,10 +22,11 @@ function Header(props) {
           <IconButton edge="start" aria-label="menu">
             <MenuIcon id="nav-button" />
           </IconButton>
-          <Typography variant="h3">😎 Le Epic Store 😎</Typography>
+          <Typography variant="h3"> ⛵ Nile ⛵ </Typography>
           <Grid className={StylesProvider.button}>
             <Button align-content="right" id="nav-button">
-              <ShoppingCartIcon /> Cart Items: {props.cart.cart.length}
+              <ShoppingCartTwoToneIcon fontSize="small" />
+              <NavLink to="/cart" /> Cart Items: {props.cart.cart.length}
             </Button>
           </Grid>
 
