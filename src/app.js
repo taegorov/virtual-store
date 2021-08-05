@@ -8,7 +8,7 @@ import Products from "./components/storefront/products.js";
 import SimpleCart from './components/cart/simplecart';
 import { Route } from 'react-router-dom';
 import Details from './components/product-details/details';
-import Cart from './components/cart/shopping-cart';
+import ShoppingCart from './components/cart/shopping-cart';
 
 
 function App() {
@@ -21,7 +21,7 @@ function App() {
         {/* <Products /> */}
         <Route exact path='/' component={Products} />
         <Route exact path='/products/:id' component={Details} />
-        <Route exact path='/cart' component={Cart} />
+        <Route exact path='/cart' component={ShoppingCart} />
       </main>
       <Footer />
       {/* </Provider> */}

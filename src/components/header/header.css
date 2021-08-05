@@ -17,3 +17,12 @@
   font-size: 1.2em;
   -webkit-text-stroke: .5px black;
 }
+
+#cart {
+  color: white;
+  font-size: 1.2em;
+  -webkit-text-stroke: .5px black;
+  text-decoration: none;
+  margin-left: 0.1em;
+  text-transform: capitalize;
+}

@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+
 import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { Button } from '@material-ui/core';
@@ -19,7 +20,7 @@ export default function Details(props) {
 
   let products = useSelector(state => state.products)
   const { id } = useParams();
-  console.log('🎨', products)
+  // console.log('🎨', products)
   const result = products.productList.filter(product => product._id === id);
   let shownItem = result[0];
 
@@ -46,6 +47,7 @@ export default function Details(props) {
     },
     buy: {
       marginTop: '1em',
+      marginBottom: '.5em',
       backgroundColor: 'green',
       color: 'white',
     },
@@ -55,10 +57,14 @@ export default function Details(props) {
     accordion: {
       color: 'white',
       maxWidth: '45em',
+      minWidth: '45em',
       padding: '-2em',
       margin: '.5em',
       background: 'linear-gradient(45deg, #000000 30%, #31364a 90%)',
       textAlign: 'center',
+    },
+    productDetails: {
+      marginBottom: '0em',
     }
   });
 
@@ -111,7 +117,7 @@ export default function Details(props) {
 
         <Accordion className={classes.accordion}>
           <AccordionSummary>
-            <Typography>
+            <Typography className={classes.productDetails}>
               <p>Product Details</p>
             </Typography>
           </AccordionSummary>
@@ -119,6 +125,24 @@ export default function Details(props) {
             <Typography>
               <p>{shownItem.description}</p>
               <p>Category: {shownItem.category}</p>
+            </Typography>
+          </AccordionDetails>
+        </Accordion>
+
+      </Grid>
+
+
+      <Grid container justify="center">
+
+        <Accordion className={classes.accordion}>
+          <AccordionSummary>
+            <Typography className={classes.productDetails}>
+              <p>User Reviews</p>
+            </Typography>
+          </AccordionSummary>
+          <AccordionDetails className={classes.description}>
+            <Typography>
+              <p>Reviews Go Here...</p>
             </Typography>
           </AccordionDetails>
         </Accordion>
