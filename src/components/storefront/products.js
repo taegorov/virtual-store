@@ -18,14 +18,13 @@ const ProductsViewer = ({ loadProducts, products, activatedCategory, addToCart }
     loadProducts();
   }, [loadProducts]);
 
-
-  function productImage(description) {
-    if (!description) {
-      return 'https://picsum.photos/200/300';
+  const renderProducts = (productList, isCatActivated) => {
+    if (isCatActivated) {
+      return productList.filter(product => product.category === activatedCategory)
+    } else {
+      return productList
     }
-    return description.split('$')[1]
   }
-
 
   return (
     <>
@@ -33,35 +32,33 @@ const ProductsViewer = ({ loadProducts, products, activatedCategory, addToCart }
       <Paper className="paper" elevation={3}>
 
         <Grid id="grid-categories" style={{ backgroundColor: '#97b2bd' }} spacing={4} container justify="center" >
-          {products.productList.map((product, index) => {
-            if (product.category === activatedCategory.toLowerCase()) {
+          {renderProducts(products.productList, activatedCategory).map((product, index) => {
+            // if (product.category === activatedCategory) {
+            // console.log('🎭', products);
+            return (
+              <Grid item key={index}>
+                <Card style={{ backgroundColor: '#e6e8bc' }}>
+                  <CardMedia
+                    image={product.image}
+                    style={{ height: 10, paddingTop: '100%' }}
+                  />
+                  <CardHeader title={product.name} />
+                  <CardContent>
+                    <Typography variant="p" component="p"> ${product.price} - In Stock: {product.inStock} </Typography>
+                  </CardContent>
+                  <CardActions>
 
-              console.log('🎭', product);
-              return (
-                <Grid item key={index}>
-                  <Card style={{ backgroundColor: '#e6e8bc' }}>
-                    <CardMedia
-                      image={productImage(product.description)}
-                      // image={product.image}
-                      style={{ height: 10, paddingTop: '100%' }}
-                    />
-                    <CardHeader title={product.name} />
-                    <CardContent>
-                      <Typography variant="p" component="p"> ${product.price} - In Stock: {product.inStock} </Typography>
-                    </CardContent>
-                    <CardActions>
+                    <Button size="small" color="primary" variant="contained" onClick={() => addToCart(product)} > Add to Cart </Button>
+                    <Button size="small" color="primary" variant="contained" component={Link} to={`/products/${product._id}`}> View Details </Button>
 
-                      <Button size="small" color="primary" variant="contained" onClick={() => addToCart(product)} > Add to Cart </Button>
-                      <Button size="small" color="primary" variant="contained" component={Link} to={`/products/${product._id}`}> View Details </Button>
+                  </CardActions>
+                </Card>
+              </Grid>
+            )
 
-                    </CardActions>
-                  </Card>
-                </Grid>
-              )
-
-            } else {
-              return null;
-            }
+            // } else {
+            //   return null;
+            // }
 
           })}
         </Grid>

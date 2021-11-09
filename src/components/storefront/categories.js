@@ -3,30 +3,34 @@ import { connect } from 'react-redux';
 
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import { inactive, active } from '../../store/categories.js';
+import { inactive, active, allProducts } from '../../store/categories.js';
 
 import './categories.css';
 
 
 const CategoryViewer = (props) => {
   return (
-    <>
+    <div id="container">
 
-      <Typography variant="h4" component='h4'> Browse By Category </Typography>
+      <Typography variant="h4" component='h4'> Filter By Category </Typography>
 
-      <Button id="card-buttons" variant="contained" color="primary" onClick={() => props.active('Electronics', 'Electronics')}>Electronics</Button>
+      <Button id="card-buttons" variant="contained" color="primary" onClick={() => props.allProducts('Accessibility', 'All')}>All</Button>
 
-      <Button id="card-buttons" variant="contained" color="primary" onClick={() => props.active('Food', 'Food')}>Food</Button>
+      <Button id="card-buttons" variant="contained" color="primary" onClick={() => props.active('Accessibility', 'Accessibility')}>Accessibility</Button>
 
-      <Button id="card-buttons" variant="contained" color="primary" onClick={() => props.active('Phones', 'Phones')}>Phones</Button>
+      <Button id="card-buttons" variant="contained" color="primary" onClick={() => props.active('Web Design', 'Web Design')}>Web Design</Button>
 
-      <Button id="card-buttons" variant="contained" color="primary" onClick={() => props.active('Console', 'Console')}>Consoles</Button>
+      <Button id="card-buttons" variant="contained" color="primary" onClick={() => props.active('Design', 'Design')}>Design</Button>
 
-      <Button id="card-buttons" variant="contained" color="primary" onClick={() => props.active('Shirts', 'Shirts')}>Shirts</Button>
+      <Button id="card-buttons" variant="contained" color="primary" onClick={() => props.active('Apps', 'Apps')}>Apps</Button>
+
+      <Button id="card-buttons" variant="contained" color="primary" onClick={() => props.active('Tutoring', 'Tutoring')}>Tutoring</Button>
+
+      <Button id="card-buttons" variant="contained" color="primary" onClick={() => props.active('Misc', 'Misc')}>Misc</Button>
 
       <Typography id="p-tag" variant="p" component="p"> {props.activatedDescription}</Typography>
 
-    </>
+    </div>
   )
 }
 
@@ -43,6 +47,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
   inactive,
   active,
+  allProducts,
 }
 
 

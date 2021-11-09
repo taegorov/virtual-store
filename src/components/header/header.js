@@ -23,7 +23,7 @@ function Header(props) {
           <IconButton edge="start" aria-label="menu">
             <MenuIcon id="nav-button" />
           </IconButton>
-          <Typography variant="h3"> Rhône </Typography>
+          <Typography variant="h3"> Nile </Typography>
           <Grid className={StylesProvider.button}>
             <Button align-content="right" id="nav-button">
               <ShoppingCartTwoToneIcon fontSize="small" />
