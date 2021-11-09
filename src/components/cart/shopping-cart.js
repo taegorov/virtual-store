@@ -27,9 +27,7 @@ function ShoppingCart(props) {
         Back to Store
       </Button>
 
-      <Typography>
-        Product Detail
-      </Typography>
+      <Typography>Product Detail</Typography>
       <Grid style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap' }}>
         {cart.map(rendered => {
           return (

@@ -28,7 +28,7 @@ const CategoryViewer = (props) => {
 
       <Button id="card-buttons" variant="contained" color="primary" onClick={() => props.active('Misc', 'Misc')}>Misc</Button>
 
-      <Typography id="p-tag" variant="p" component="p"> {props.activatedDescription}</Typography>
+      <Typography> {props.activatedDescription}</Typography>
 
     </div>
   )

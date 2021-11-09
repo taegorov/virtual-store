@@ -47,6 +47,7 @@ const SimpleCart = (props) => {
     if (props.cart.cart.length > 0 && !showSimpleCart) {
       setShowSimpleCart(!showSimpleCart)
     }
+    // eslint-disable-next-line
   }, [props.cart.cart.length])
 
   if (showSimpleCart) {
@@ -62,9 +63,7 @@ const SimpleCart = (props) => {
               return (
                 <div key={product.id} id="grid">
 
-                  <Typography key={item}>
-                    {product.name}
-                  </Typography>
+                  <Typography>{product.name}</Typography>
                   <IconButton id='delete-button' size='medium' onClick={() => props.removeFromCart(product)} >
                     <DeleteTwoToneIcon />
                   </IconButton>
