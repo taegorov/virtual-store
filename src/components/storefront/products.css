@@ -4,7 +4,12 @@
 }
 
 #card-buttons {
-  margin: .5em;
+  margin: .7em;
+}
+
+#card-buttons2 {
+  margin-left: 15%;
+  /* background-color: blueviolet; */
 }
 
 p {
@@ -13,4 +18,14 @@ p {
 
 #grid-categories {
   margin-top: 1em;
+}
+
+#card-image {
+  max-width: 15em;
+  min-height: 20em;
+  border: 10em;
+}
+
+h5 {
+  font-size: 10px;
 }

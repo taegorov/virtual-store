@@ -1,7 +1,6 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-
-import { useParams } from 'react-router-dom';
+// import { useSelector } from 'react-redux';
+// import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { Button } from '@material-ui/core';
 import ArrowBackIosTwoToneIcon from '@material-ui/icons/ArrowBackIosTwoTone';
@@ -14,16 +13,14 @@ import Accordion from '@material-ui/core/Accordion';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 
+const mapDispatchToProps = {
+  addToCart
+}
 
-export default function Details(props) {
+export default function Details(props, mapDispatchToProps) {
 
-
-  let products = useSelector(state => state.products)
-  const { id } = useParams();
-  // console.log('🎨', products)
-  const result = products.productList.filter(product => product._id === id);
-  let shownItem = result[0];
-
+  const { shownItem } = props.location.state;
+  console.log('shownitem', shownItem);
 
   const useStyles = makeStyles({
     root: {
@@ -72,15 +69,8 @@ export default function Details(props) {
   const classes = useStyles();
 
 
-  function productImage(description) {
-    if (!description) {
-      return 'https://picsum.photos/200/300';
-    }
-    return description.split('$')[1]
-  }
-
-
   return (
+
     <>
 
       <Button
@@ -99,18 +89,27 @@ export default function Details(props) {
 
       <Card className={classes.root}>
         <CardMedia
-          image={productImage(shownItem.description)}
+          image={shownItem.image}
           style={{ maxWidth: '50em', height: 10, paddingTop: '100%' }}
         />
 
         <Typography className={classes.p}>
           <p>${shownItem.price}</p>
-          <p>{shownItem.inStock} in stock</p>
+          <p>{shownItem.freelancer} is the freelancer</p>
         </Typography>
       </Card>
 
       <Grid container justify="center">
-        <Button className={classes.buy} variant="contained" style={{ maxWidth: '50em', maxHeight: '3em', minWidth: '50em', minHeight: '3em' }} onClick={() => addToCart(shownItem)} > Add to Cart </Button>
+        {/* <Button
+          className={classes.buy}
+          variant="contained"
+          style={{ maxWidth: '50em', maxHeight: '3em', minWidth: '50em', minHeight: '3em' }}
+          onClick={() => addToCart(shownItem)} >
+          Add to Cart
+        </Button> */}
+
+        <Button size="small" color="primary" variant="contained" onClick={() => addToCart(shownItem)} > Add </Button>
+
       </Grid>
 
       <Grid container justify="center">
@@ -118,12 +117,12 @@ export default function Details(props) {
         <Accordion className={classes.accordion}>
           <AccordionSummary>
             <Typography className={classes.productDetails}>
-              <p>Product Details</p>
+              <p>Service Details</p>
             </Typography>
           </AccordionSummary>
           <AccordionDetails className={classes.description}>
             <Typography>
-              <p>{shownItem.description}</p>
+              <p>{shownItem.details}</p>
               <p>Category: {shownItem.category}</p>
             </Typography>
           </AccordionDetails>
