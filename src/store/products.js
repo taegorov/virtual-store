@@ -50,7 +50,7 @@ export default function productReducer(state = initialState, action) {
 // === === export again === === //
 export const getProducts = (category) => {
   const products = initialState.productList;
-  console.log('👾 initial state product list', initialState.productList);
+  // console.log('👾 initial state product list', initialState.productList);
   const response = products.filter(product => product.category === category);
   return response;
 }
@@ -61,7 +61,7 @@ export const loadProducts = () => (dispatch, getState) => {
   // return axios.get('https://api-js401.herokuapp.com/api/v1/products') // old
   return axios.get('https://div-center-backend.herokuapp.com/services')
     .then(response => {
-      console.log('🤬 response.data', response.data);
+      // console.log('🤬 response.data', response.data);
       dispatch({
         type: 'LOAD_PRODUCTS',
         payload: response.data
