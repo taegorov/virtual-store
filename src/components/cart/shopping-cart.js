@@ -28,21 +28,21 @@ function ShoppingCart(props) {
       </Button>
 
       <Typography>
-        <h1>Product Detail</h1>
+        Product Detail
       </Typography>
       <Grid style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap' }}>
         {cart.map(rendered => {
           return (
-            <>
+            <div key={rendered.id}>
               <Card style={{ margin: '1em', maxWidth: '15em', padding: '2em' }}>
-                <Typography>
-                  <p style={{ fontSize: 20 }}>{rendered.name}</p>
-                  <p>${rendered.price}</p>
-                  <p>{rendered.inStock} in stock</p>
-                  <p>Category: {rendered.category}</p>
+                <Typography style={{ fontSize: 20 }}>
+                  {rendered.name}
                 </Typography>
+                <Typography>${rendered.price}</Typography>
+                <Typography>Freelancer ID: {rendered.freelancer}</Typography>
+                <Typography>Category: {rendered.category}</Typography>
               </Card>
-            </>
+            </div>
           )
         })}
       </Grid>
