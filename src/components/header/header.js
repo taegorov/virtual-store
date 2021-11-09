@@ -18,7 +18,7 @@ function Header(props) {
     <div id="header">
       {/* <AppBar position="static"> */}
       <Toolbar>
-        <Grid container justify="space-between" alignItems="center">
+        <Grid container justifyContent="space-between" alignItems="center">
 
           <IconButton edge="start" aria-label="menu">
             <MenuIcon id="nav-button" />

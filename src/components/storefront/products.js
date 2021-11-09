@@ -48,7 +48,7 @@ const ProductsViewer = ({ loadProducts, products, activatedCategory, addToCart }
                   </CardContent>
 
                   <CardContent>
-                    <Typography variant="p" component="p"> ${product.price} - Freelancer: {product.freelancer} </Typography>
+                    <Typography > ${product.price} - Freelancer: {product.freelancer} </Typography>
                   </CardContent>
 
                   <CardActions id="card-buttons2">
