@@ -11,7 +11,7 @@ import { removeFromCart } from '../../store/cart.js';
 
 import './simplecart.css';
 
-// === === JSS styling taken from material-ui docs === === //
+// === === JSS styling === === //
 const useStyles = makeStyles({
   base: {
     width: '10em',
