@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 
-import { Paper, Typography, Button, Grid, Card, CardContent, CardActions, CardMedia } from '@material-ui/core'
+import { Paper, Typography, Button, Grid, Card, CardContent, CardActions, CardMedia, makeStyles } from '@material-ui/core'
 import { inactive, active } from '../../store/categories.js';
 import { getProducts } from '../../store/products.js';
 import { addToCart } from '../../store/cart.js';
@@ -10,10 +10,40 @@ import { loadProducts } from '../../store/products';
 import { Link } from 'react-router-dom';
 
 import './products.css';
-// import dog from '../../assets/dog.jpg'
 
+
+// === === JSS styling === === //
+const useStyles = makeStyles({
+  container: {
+    textAlign: 'center',
+    fontSize: '',
+    color: 'black',
+    height: '33em',
+    width: '20em',
+    backgroundColor: 'rgba(202, 212, 131)',
+  },
+  name: {
+    fontSize: '20px',
+    marginBottom: '0em',
+  },
+  buttonsContainer: {
+    margin: '0',
+    padding: '0',
+    justifyContent: 'center',
+  },
+  button: {
+    margin: '1em',
+    marginBottom: '0em',
+  },
+  cardContent: {
+    marginBottom: '0em',
+    paddingBottom: '0',
+    paddingTop: '0em',
+  },
+})
 
 const ProductsViewer = ({ loadProducts, products, activatedCategory, addToCart }) => {
+  const cardStyle = useStyles();
   useEffect(() => {
     loadProducts();
   }, [loadProducts]);
@@ -37,23 +67,43 @@ const ProductsViewer = ({ loadProducts, products, activatedCategory, addToCart }
             // console.log('🎭', products);
             return (
               <Grid item key={index}>
-                <Card id="card-image" style={{ backgroundColor: '#e6e8bc' }}>
+                <Card className={cardStyle.container}>
                   <CardMedia
                     image={product.image}
                     style={{ height: 10, paddingTop: '100%' }}
                   />
 
                   <CardContent>
-                    <Typography variant="h5" component="h5"> {product.name} </Typography>
+                    <Typography className={cardStyle.name}> {product.name} </Typography>
                   </CardContent>
 
-                  <CardContent>
-                    <Typography > ${product.price} - Freelancer: {product.freelancer} </Typography>
+                  <CardContent className={cardStyle.cardContent}>
+                    <Typography> ${product.price}</Typography>
+                    <Typography>Freelancer: {product.freelancer} </Typography>
                   </CardContent>
 
-                  <CardActions id="card-buttons2">
-                    <Button size="small" color="primary" variant="contained" onClick={() => addToCart(product)} > Add </Button>
-                    <Button size="small" color="primary" variant="contained" component={Link} to={{ pathname: `/products/${product.id}`, state: { shownItem: product } }}> Details </Button>
+                  <CardActions className={cardStyle.buttonsContainer}>
+                    <div>
+                      <Button
+                        className={cardStyle.button}
+                        size="small"
+                        color="primary"
+                        variant="contained"
+                        onClick={() => addToCart(product)} >
+                        Add
+                      </Button>
+
+                      <Button
+                        className={cardStyle.button}
+                        size="small"
+                        color="primary"
+                        variant="contained"
+                        component={Link}
+                        to={{ pathname: `/products/${product.id}`, state: { shownItem: product } }}>
+                        Details
+                      </Button>
+
+                    </div>
                   </CardActions>
 
                 </Card>
