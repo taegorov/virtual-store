@@ -12,12 +12,11 @@ import { addToCart } from '../../store/cart.js';
 import Accordion from '@material-ui/core/Accordion';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
+import { connect } from 'react-redux';
 
-const mapDispatchToProps = {
-  addToCart
-}
 
-export default function Details(props, mapDispatchToProps) {
+
+function Details(props, mapDispatchToProps) {
 
   const { shownItem } = props.location.state;
   console.log('shownitem', shownItem);
@@ -108,7 +107,7 @@ export default function Details(props, mapDispatchToProps) {
           Add to Cart
         </Button> */}
 
-        <Button size="small" color="primary" variant="contained" onClick={() => addToCart(shownItem)} > Add </Button>
+        <Button size="small" color="primary" variant="contained" onClick={() => props.addToCart(shownItem)} > Add </Button>
 
       </Grid>
 
@@ -151,3 +150,10 @@ export default function Details(props, mapDispatchToProps) {
     </>
   )
 }
+
+
+const mapDispatchToProps = {
+  addToCart
+}
+
+export default connect(null, mapDispatchToProps)(Details);
