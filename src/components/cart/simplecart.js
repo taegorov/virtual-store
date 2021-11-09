@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 
 import Card from '@material-ui/core/Card';
@@ -24,24 +24,43 @@ const useStyles = makeStyles({
     position: 'fixed',
     marginRight: '.5em',
     opacity: '0.9',
+
+  },
+  text: {
+    textAlign: 'left',
+    fontSize: '',
+  },
+  hideButton: {
+    position: 'absolute',
+    top: '16px',
+    right: '10px',
+    cursor: 'pointer',
   }
 })
 
 
 const SimpleCart = (props) => {
+  const [showSimpleCart, setShowSimpleCart] = useState(false);
   const cart = useStyles();
 
-  if (props.cart.cart.length > 0) {
+  useEffect(() => {
+    if (props.cart.cart.length > 0 && !showSimpleCart) {
+      setShowSimpleCart(!showSimpleCart)
+    }
+  }, [props.cart.cart.length])
+
+  if (showSimpleCart) {
     return (
 
-      <Grid id="main-grid" container justify="flex-end">
-        <Card alignContent='center' className={cart.base}>
-          <CardContent >
+      <Grid id="main-grid" container justifyContent="flex-end">
+        <Card className={cart.base}>
+          <CardContent className={cart.text}>
 
-            <p>Cart:</p>
+            <Typography>Cart:</Typography>
+            <Typography className={cart.hideButton} onClick={() => setShowSimpleCart(!showSimpleCart)}>❌</Typography>
             {props.cart.cart.map((product, item) => {
               return (
-                <div id="grid">
+                <div key={product.id} id="grid">
 
                   <Typography key={item}>
                     {product.name}
@@ -54,14 +73,16 @@ const SimpleCart = (props) => {
               )
             })}
 
+
           </CardContent>
         </Card>
-      </Grid>
+      </Grid >
 
     )
 
   } else {
     return null
+
   }
 }
 

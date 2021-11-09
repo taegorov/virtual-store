@@ -35,7 +35,7 @@ function Details(props, mapDispatchToProps) {
     title: {
       fontSize: 30,
       textAlign: 'center',
-      marginBottom: '-1em',
+      marginBottom: '1em',
     },
     p: {
       textAlign: 'center',
@@ -83,7 +83,7 @@ function Details(props, mapDispatchToProps) {
       </Button>
 
       <Typography className={classes.title}>
-        <h1>{shownItem.name}</h1>
+        {shownItem.name}
       </Typography>
 
       <Card className={classes.root}>
@@ -93,21 +93,23 @@ function Details(props, mapDispatchToProps) {
         />
 
         <Typography className={classes.p}>
-          <p>${shownItem.price}</p>
-          <p>{shownItem.freelancer} is the freelancer</p>
+          ${shownItem.price}
+        </Typography>
+        <Typography className={classes.p}>
+          Freelancer ID: {shownItem.freelancer}
         </Typography>
       </Card>
 
-      <Grid container justify="center">
-        {/* <Button
+      <Grid container justifyContent="center">
+        <Button
           className={classes.buy}
           variant="contained"
           style={{ maxWidth: '50em', maxHeight: '3em', minWidth: '50em', minHeight: '3em' }}
-          onClick={() => addToCart(shownItem)} >
+          onClick={() => props.addToCart(shownItem)} >
           Add to Cart
-        </Button> */}
+        </Button>
 
-        <Button size="small" color="primary" variant="contained" onClick={() => props.addToCart(shownItem)} > Add </Button>
+        {/* <Button size="small" color="primary" variant="contained" onClick={() => props.addToCart(shownItem)} > Add </Button> */}
 
       </Grid>
 
@@ -116,31 +118,30 @@ function Details(props, mapDispatchToProps) {
         <Accordion className={classes.accordion}>
           <AccordionSummary>
             <Typography className={classes.productDetails}>
-              <p>Service Details</p>
+              Service Details
             </Typography>
           </AccordionSummary>
           <AccordionDetails className={classes.description}>
-            <Typography>
-              <p>{shownItem.details}</p>
-              <p>Category: {shownItem.category}</p>
-            </Typography>
+            <Typography>{shownItem.details}</Typography>
+            <Typography>Category: {shownItem.category}</Typography>
+
           </AccordionDetails>
         </Accordion>
 
       </Grid>
 
 
-      <Grid container justify="center">
+      <Grid container justifyContent="center">
 
         <Accordion className={classes.accordion}>
           <AccordionSummary>
             <Typography className={classes.productDetails}>
-              <p>User Reviews</p>
+              User Reviews
             </Typography>
           </AccordionSummary>
           <AccordionDetails className={classes.description}>
             <Typography>
-              <p>Reviews Go Here...</p>
+              Reviews Go Here...
             </Typography>
           </AccordionDetails>
         </Accordion>

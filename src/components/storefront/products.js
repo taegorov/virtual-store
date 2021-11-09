@@ -31,7 +31,7 @@ const ProductsViewer = ({ loadProducts, products, activatedCategory, addToCart }
       <CategoryViewer />
       <Paper className="paper" elevation={3}>
 
-        <Grid id="grid-categories" style={{ backgroundColor: '#97b2bd' }} spacing={4} container justify="center" >
+        <Grid id="grid-categories" style={{ backgroundColor: '#97b2bd' }} spacing={4} container justifyContent="center" >
           {renderProducts(products.productList, activatedCategory).map((product, index) => {
             // if (product.category === activatedCategory) {
             // console.log('🎭', products);
