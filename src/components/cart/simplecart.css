@@ -1,8 +1,8 @@
-#delete-button {
-  /* background-color: bisque; */
+/* #delete-button {
+  background-color: bisque;
   color: rgb(245, 145, 145);
   max-height: 1.2em;
-}
+} */
 
 #grid {
   display: flex;
