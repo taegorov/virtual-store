@@ -20,9 +20,11 @@ const useStyles = makeStyles({
     color: 'black',
     height: '33em',
     width: '20em',
-    backgroundColor: 'rgba(202, 212, 131)',
+    backgroundColor: 'white',
+    position: 'relative',
   },
   name: {
+    fontFamily: 'Inter',
     fontSize: '20px',
     marginBottom: '0em',
   },
@@ -30,15 +32,26 @@ const useStyles = makeStyles({
     margin: '0',
     padding: '0',
     justifyContent: 'center',
+    position: 'absolute',
+    right: '0',
+    left: '0',
+    bottom: '1%',
   },
   button: {
     margin: '1em',
     marginBottom: '0em',
   },
   cardContent: {
+    fontFamily: 'Inter',
     marginBottom: '0em',
     paddingBottom: '0',
     paddingTop: '0em',
+  },
+  price: {
+    fontFamily: 'Inter',
+  },
+  freelancer: {
+    fontFamily: 'Inter',
   },
 })
 
@@ -78,8 +91,8 @@ const ProductsViewer = ({ loadProducts, products, activatedCategory, addToCart }
                   </CardContent>
 
                   <CardContent className={cardStyle.cardContent}>
-                    <Typography> ${product.price}</Typography>
-                    <Typography>Freelancer: {product.freelancer} </Typography>
+                    <Typography className={cardStyle.price}> ${product.price}</Typography>
+                    <Typography className={cardStyle.freelancer}>Freelancer: {product.freelancer} </Typography>
                   </CardContent>
 
                   <CardActions className={cardStyle.buttonsContainer}>

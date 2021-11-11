@@ -13,28 +13,43 @@ import './simplecart.css';
 
 // === === JSS styling === === //
 const useStyles = makeStyles({
-  base: {
-    width: '10em',
+  container: {
+    fontFamily: 'Inter',
+    width: '12em',
     color: 'white',
-    background: 'linear-gradient(45deg, #000000 30%, #31364a 90%)',
-    border: 0,
+    background: 'linear-gradient(45deg, #000000 30%, #616161 90%)',
     borderRadius: 3,
     boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
     padding: '0 10px',
     position: 'fixed',
     marginRight: '.5em',
     opacity: '0.9',
-
   },
-  text: {
+  textContainer: {
     textAlign: 'left',
-    fontSize: '',
+    padding: '0',
   },
   hideButton: {
     position: 'absolute',
-    top: '16px',
-    right: '10px',
+    top: '8px',
+    right: '8px',
     cursor: 'pointer',
+  },
+  cartText: {
+    fontFamily: 'Inter',
+    marginTop: '.5em',
+    marginBottom: '.8em',
+  },
+  productName: {
+    fontFamily: 'Inter',
+    fontSize: '.8em',
+    marginTop: '.4em',
+  },
+  deleteButton: {
+    color: 'rgb(245, 145, 145)',
+    maxHeight: '1.2em',
+    position: 'absolute',
+    right: '0px',
   }
 })
 
@@ -54,17 +69,17 @@ const SimpleCart = (props) => {
     return (
 
       <Grid id="main-grid" container justifyContent="flex-end">
-        <Card className={cart.base}>
-          <CardContent className={cart.text}>
+        <Card className={cart.container}>
+          <CardContent className={cart.textContainer}>
 
-            <Typography>Cart:</Typography>
+            <Typography className={cart.cartText}>Cart ({props.cart.cart.length}) </Typography>
             <Typography className={cart.hideButton} onClick={() => setShowSimpleCart(!showSimpleCart)}>❌</Typography>
             {props.cart.cart.map((product, item) => {
               return (
                 <div key={product.id} id="grid">
 
-                  <Typography>{product.name}</Typography>
-                  <IconButton id='delete-button' size='medium' onClick={() => props.removeFromCart(product)} >
+                  <Typography className={cart.productName}>{product.name}</Typography>
+                  <IconButton className={cart.deleteButton} size='medium' onClick={() => props.removeFromCart(product)} >
                     <DeleteTwoToneIcon />
                   </IconButton>
 
