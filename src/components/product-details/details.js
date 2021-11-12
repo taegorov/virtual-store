@@ -134,7 +134,7 @@ function Details(props, mapDispatchToProps) {
 
       </Grid>
 
-      <Grid container justify="center">
+      <Grid container justifyContent="center">
 
         <Paper className={classes.paper} elevation={5}>
           <Typography className={classes.header}>
