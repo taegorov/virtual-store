@@ -110,7 +110,7 @@ function ShoppingCart(props) {
       <h1 className={shoppingCart.header}>Your Cart</h1>
 
       <List className={shoppingCart.listContainer}>
-        {_.map(props.cart, lineItem => {
+        {_.map(props.cart, lineItem => { //uses Lodash to map over the entire cart, and the specific line item
           // const lineItem = Object.values(singleItem)
           // console.log('props.cart.cart', props.cart.cart);
           // console.log('singleItem', singleItem);
