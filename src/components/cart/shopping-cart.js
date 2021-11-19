@@ -1,19 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
 
 import ArrowBackIosTwoToneIcon from '@material-ui/icons/ArrowBackIosTwoTone';
 import { Link } from 'react-router-dom';
 import { List, ListItem, ListItemText, ListItemButton, ListItemAvatar, Avatar, Button } from '@mui/material';
 import { makeStyles } from '@material-ui/core/styles';
-// import DeleteTwoToneIcon from '@material-ui/icons/DeleteTwoTone';
-// import DesignServicesIcon from '@mui/icons/DesignServices';
-import { removeFromCart } from '../../store/cart.js';
+import { removeFromCart, addToCart } from '../../store/cart.js';
+import _ from 'lodash';
+
 
 
 function ShoppingCart(props) {
 
-  let { cart } = useSelector(state => state.cart);
+  // let { cart } = useSelector(state => state.cart);
   // console.log('🥅', cart)
 
   const useStyles = makeStyles({
@@ -22,12 +22,11 @@ function ShoppingCart(props) {
       fontSize: '2.5em',
       textAlign: 'center',
       margin: '.5em',
-      // backgroundColor: 'red',
     },
     listContainer: {
       backgroundColor: 'white',
+      margin: '0 auto !important',
       width: '80%',
-      // maxWidth: '55em',
     },
     rowContainer: {
       background: 'linear-gradient(45deg, #2e2e42 30%, #2b2b2b 90%)',
@@ -78,6 +77,23 @@ function ShoppingCart(props) {
   const shoppingCart = useStyles();
   // const initial = cart.name.shift().charAt(0)
 
+
+  // const grouped = _.groupBy(cart, 'id');
+  // console.log('groupby 🔥', grouped);
+  // const lineItems = _.map(grouped, singleItem => {
+  //   console.log('item 🤦🏼‍♂️', singleItem);
+  //   return {
+  //     ...singleItem[0],
+  //     quantity: singleItem.length,
+  //   }
+  //   // return item
+  // })
+  // console.log('myproduct 🎊', lineItems);
+  // const cartGroups = _.map(grouped[rendered.id], item => {
+  //   console.log('item 💀', item);
+  // })
+
+
   return (
     <>
 
@@ -94,28 +110,31 @@ function ShoppingCart(props) {
       <h1 className={shoppingCart.header}>Your Cart</h1>
 
       <List className={shoppingCart.listContainer}>
-        {cart.map(rendered => {
+        {_.map(props.cart, lineItem => {
+          // const lineItem = Object.values(singleItem)
+          // console.log('props.cart.cart', props.cart.cart);
+          // console.log('singleItem', singleItem);
+          // console.log('lineItem', lineItem);
           return (
-
-            <div key={rendered.id}>
-              {/* <Checkbox edge="end" /> */}
+            <div key={lineItem.id}>
               <ListItem className={shoppingCart.rowContainer} >
                 <ListItemAvatar>
-                  <Avatar
-                    variant="square"
-                    src={rendered.image}
-                  >
-                  </Avatar>
+                  <Avatar src={lineItem.image} variant="square" />
                 </ListItemAvatar>
                 <ListItemText className={shoppingCart.serviceName} >
-                  {rendered.name} ({rendered.name.length})
-                  {/* replace rendered.name.length with quantity */}
+                  <p>
+                    {lineItem.name} ({lineItem.quantity})
+                  </p>
+
+
                 </ListItemText>
-                <ListItemText className={shoppingCart.listPrice}>${rendered.price * rendered.name.length}</ListItemText>
+                <ListItemText className={shoppingCart.listPrice}>${lineItem.price * lineItem.quantity}</ListItemText>
                 <div className={shoppingCart.buttonsContainer}>
-                  <ListItemButton className={shoppingCart.deleteButton} onClick={() => props.removeFromCart(rendered)} >
-                    Remove
-                    {/* <DeleteTwoToneIcon /> */}
+                  <ListItemButton className={shoppingCart.deleteButton} onClick={() => props.addToCart(lineItem)} >
+                    ➕
+                  </ListItemButton>
+                  <ListItemButton className={shoppingCart.deleteButton} onClick={() => props.removeFromCart(lineItem)} >
+                    ➖
                   </ListItemButton>
                 </div>
               </ListItem>
@@ -130,13 +149,14 @@ function ShoppingCart(props) {
 
 const mapStateToProps = (state) => {
   return {
-    cart: state.cart,
+    cart: state.cart.cart,
   }
 }
 
 
 const mapDispatch = {
-  removeFromCart
+  removeFromCart,
+  addToCart
 }
 
 export default connect(mapStateToProps, mapDispatch)(ShoppingCart);
