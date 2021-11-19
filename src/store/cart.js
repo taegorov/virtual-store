@@ -15,7 +15,7 @@ export default function cartReducer(state = initialState, action) {
         cartStateCopy[payload.id] = payload
         cartStateCopy[payload.id].quantity = 1
       }
-      console.log('newCart', cartStateCopy)
+      // console.log('cartStateCopy', cartStateCopy)
       // return { ...state, cart: [...state.cart, payload] }
       return { ...state, cart: cartStateCopy }
 

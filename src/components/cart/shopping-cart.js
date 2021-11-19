@@ -64,13 +64,17 @@ function ShoppingCart(props) {
     //   fontFamily: 'Inter',
     // },
     buttonsContainer: {
-      // position: 'absolute',
-      backgroundColor: 'brown',
+      backgroundColor: '#4287f5',
     },
-    deleteButton: {
-      fontFamily: 'Inter',
+    increaseButton: {
       textAlign: 'right',
-      backgroundColor: 'red',
+      border: 'solid',
+      backgroundColor: '#4287f5',
+    },
+    decreaseButton: {
+      textAlign: 'right',
+      border: 'solid',
+      backgroundColor: '#4287f5',
     },
   });
 
@@ -129,12 +133,14 @@ function ShoppingCart(props) {
 
                 </ListItemText>
                 <ListItemText className={shoppingCart.listPrice}>${lineItem.price * lineItem.quantity}</ListItemText>
-                <div className={shoppingCart.buttonsContainer}>
-                  <ListItemButton className={shoppingCart.deleteButton} onClick={() => props.addToCart(lineItem)} >
-                    ➕
+                <div className={shoppingCart.increaseButton}>
+                  <ListItemButton onClick={() => props.addToCart(lineItem)} >
+                    +
                   </ListItemButton>
-                  <ListItemButton className={shoppingCart.deleteButton} onClick={() => props.removeFromCart(lineItem)} >
-                    ➖
+                </div>
+                <div className={shoppingCart.decreaseButton}>
+                  <ListItemButton onClick={() => props.removeFromCart(lineItem)} >
+                    −
                   </ListItemButton>
                 </div>
               </ListItem>
@@ -149,7 +155,7 @@ function ShoppingCart(props) {
 
 const mapStateToProps = (state) => {
   return {
-    cart: state.cart.cart,
+    cart: state.cart.cart, // makes it so you don't have to write .cart.cart above. Cart 1 is established in initialState, 
   }
 }
 
