@@ -7,8 +7,8 @@ import MenuIcon from '@material-ui/icons/Menu';
 // import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import ShoppingCartTwoToneIcon from '@material-ui/icons/ShoppingCartTwoTone';
 import { StylesProvider } from '@material-ui/styles';
-
 import './header.css';
+// import { LineWeightTwoTone } from '@material-ui/icons';
 
 
 const useStyles = makeStyles({
@@ -20,7 +20,18 @@ const useStyles = makeStyles({
 
 
 
+
+
 function Header(props) {
+
+  // Reduce method below. reduces several values to a single value. Below we are reducing the *quantity* number to a single value by adding each array "item" together
+  const result = Object.keys(props.cart).reduce((acc, curr) => {
+    // console.log(acc, curr, props.cart[curr])
+    return acc + props.cart[curr].quantity
+  }, null);
+
+  // console.log('result', result)
+
   const header = useStyles();
   return (
     <div id="header">
@@ -33,11 +44,18 @@ function Header(props) {
           </IconButton>
           <Typography className={header.text} variant="h3"> Nile </Typography>
           <Grid className={StylesProvider.button}>
+            {/* <NavLink id="cart" to="/cart"> Cart: {props.cart.cart.length} </NavLink> */}
+
             <Button align-content="right" id="nav-button">
               <ShoppingCartTwoToneIcon fontSize="small" />
-              {/* <NavLink id="cart" to="/cart"> Cart: {props.cart.cart.length} </NavLink> */}
-              <Button id="cart" component={Link} to={`/cart`}> Cart: {props.cart.cart.length} </Button>
+              <Button id="cart" component={Link} to={`/cart`}> Cart: {result}
+              </Button>
             </Button>
+
+
+
+
+
           </Grid>
 
         </Grid>
@@ -49,7 +67,7 @@ function Header(props) {
 
 const mapStateToProps = (state) => {
   return {
-    cart: state.cart,
+    cart: state.cart.cart,
   }
 }
 
