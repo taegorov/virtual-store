@@ -18,10 +18,6 @@ const useStyles = makeStyles({
   },
 })
 
-
-
-
-
 function Header(props) {
 
   // Reduce method below. reduces several values to a single value. Below we are reducing the *quantity* number to a single value by adding each array "item" together
