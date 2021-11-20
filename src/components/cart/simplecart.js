@@ -13,9 +13,13 @@ import { removeFromCart } from '../../store/cart.js';
 // import Snackbar from '@mui/material/Snackbar';
 
 import './simplecart.css';
+// import { CardActionArea } from '@material-ui/core';
 
 // === === JSS styling === === //
 const useStyles = makeStyles({
+  // transition: {
+  //   right: '.2em',
+  // },
   container: {
     fontFamily: 'Inter',
     width: '12em',
@@ -25,11 +29,11 @@ const useStyles = makeStyles({
     borderColor: 'black',
     borderWidth: '.1em',
     borderRadius: 3,
-    // boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
     padding: '0 10px',
     position: 'fixed',
     marginRight: '.5em',
-    opacity: '0.93',
+    transition: 'right .5s',
+    // right: '-15em',
   },
   textContainer: {
     textAlign: 'left',
@@ -69,15 +73,15 @@ const useStyles = makeStyles({
 
 
 const SimpleCart = (props) => {
-
   // 'result' will just be total qty
+  // once props change, run 'result' function
   const result = Object.keys(props.cart.cart).reduce((acc, curr) => {
     return acc + props.cart.cart[curr].quantity
   }, null);
 
+
   const [showSimpleCart, setShowSimpleCart] = useState(false);
   const cart = useStyles();
-
   useEffect(() => {
     if (result > 0 && !showSimpleCart) {
       setShowSimpleCart(!showSimpleCart)
@@ -95,44 +99,46 @@ const SimpleCart = (props) => {
   }
 
 
-  if (showSimpleCart) {
-    return (
-      <Grid id="main-grid" container justifyContent="flex-end">
-        <Card className={cart.container}>
-          <CardContent className={cart.textContainer}>
+  // if (showSimpleCart) {
+  return (
+    <Grid id="main-grid" container justifyContent="flex-end">
+      <Card className={cart.container} style={{ right: showSimpleCart ? '.2em' : '-15em' }}>
+        {/* <Card className={`${cart.container} ${showSimpleCart && cart.transition}`}> */}
 
-            <Button component={Link} to={`/cart`} className={cart.cartText}> Cart ({result}) </Button>
-            <Typography className={cart.hideButton} onClick={() => setShowSimpleCart(!showSimpleCart)}>X</Typography>
-            {/* {props.cart.cart.map((product, item) => { */}
+        <CardContent className={cart.textContainer}>
 
-            {_.map(props.cart.cart, product => {
-              console.log('🎧 product!', product)
-              return (
-                <div key={product.id} id="grid">
+          <Button component={Link} to={`/cart`} className={cart.cartText}> Cart ({result}) </Button>
+          <Typography className={cart.hideButton} onClick={() => setShowSimpleCart(!showSimpleCart)}>X</Typography>
+          {/* {props.cart.cart.map((product, item) => { */}
 
-                  <Typography className={cart.productName}>{product.name}</Typography>
-                  <div className={cart.deleteButton} >
-                    <Typography>
-                      {product.quantity}
-                    </Typography>
-                  </div>
+          {_.map(props.cart.cart, product => {
+            console.log('🎧 product!', product)
+            return (
+              <div key={product.id} id="grid">
 
+                <Typography className={cart.productName}>{product.name}</Typography>
+                <div className={cart.deleteButton} >
+                  <Typography>
+                    {product.quantity}
+                  </Typography>
                 </div>
-              )
-            })}
+
+              </div>
+            )
+          })}
 
 
-          </CardContent>
-        </Card>
-      </Grid >
+        </CardContent>
+      </Card>
+    </Grid >
 
-    )
+  )
 
-  } else {
-    return null
-
-  }
+  // } else {
+  //   return null
+  // }
 }
+
 
 const mapState = (state) => {
   return {
