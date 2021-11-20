@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import _ from 'lodash';
 
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles, IconButton, Button } from '@material-ui/core';
-import DeleteTwoToneIcon from '@material-ui/icons/DeleteTwoTone';
+import { makeStyles, Button } from '@material-ui/core';
+// import DeleteTwoToneIcon from '@material-ui/icons/DeleteTwoTone';
 import { removeFromCart } from '../../store/cart.js';
+// import Snackbar from '@mui/material/Snackbar';
 
 import './simplecart.css';
 
@@ -35,9 +37,10 @@ const useStyles = makeStyles({
   },
   hideButton: {
     position: 'absolute',
-    top: '8px',
-    right: '8px',
+    top: '12px',
+    right: '12px',
     cursor: 'pointer',
+    fontSize: '1em',
   },
   cartText: {
     // '&:focus, &:hover, &:visited, &:link, &:active': {
@@ -60,38 +63,59 @@ const useStyles = makeStyles({
     maxHeight: '1.2em',
     position: 'absolute',
     right: '0px',
+    marginRight: '.4em',
   }
 })
 
 
 const SimpleCart = (props) => {
+
+  // 'result' will just be total qty
+  const result = Object.keys(props.cart.cart).reduce((acc, curr) => {
+    return acc + props.cart.cart[curr].quantity
+  }, null);
+
   const [showSimpleCart, setShowSimpleCart] = useState(false);
   const cart = useStyles();
 
   useEffect(() => {
-    if (props.cart.cart.length > 0 && !showSimpleCart) {
+    if (result > 0 && !showSimpleCart) {
       setShowSimpleCart(!showSimpleCart)
+      hideComponent();
     }
     // eslint-disable-next-line
-  }, [props.cart.cart.length])
+  }, [result])
+
+
+  // timeout after X seconds
+  const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
+  const hideComponent = async () => {
+    await wait(5000);
+    setShowSimpleCart(false);
+  }
+
 
   if (showSimpleCart) {
     return (
-
       <Grid id="main-grid" container justifyContent="flex-end">
         <Card className={cart.container}>
           <CardContent className={cart.textContainer}>
 
-            <Button component={Link} to={`/cart`} className={cart.cartText}> Cart ({props.cart.cart.length}) </Button>
-            <Typography className={cart.hideButton} onClick={() => setShowSimpleCart(!showSimpleCart)}>❌</Typography>
-            {props.cart.cart.map((product, item) => {
+            <Button component={Link} to={`/cart`} className={cart.cartText}> Cart ({result}) </Button>
+            <Typography className={cart.hideButton} onClick={() => setShowSimpleCart(!showSimpleCart)}>X</Typography>
+            {/* {props.cart.cart.map((product, item) => { */}
+
+            {_.map(props.cart.cart, product => {
+              console.log('🎧 product!', product)
               return (
                 <div key={product.id} id="grid">
 
                   <Typography className={cart.productName}>{product.name}</Typography>
-                  <IconButton className={cart.deleteButton} size='medium' onClick={() => props.removeFromCart(product)} >
-                    <DeleteTwoToneIcon />
-                  </IconButton>
+                  <div className={cart.deleteButton} >
+                    <Typography>
+                      {product.quantity}
+                    </Typography>
+                  </div>
 
                 </div>
               )
