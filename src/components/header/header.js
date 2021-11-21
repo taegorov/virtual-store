@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { Typography, Toolbar, IconButton, Grid, Button, makeStyles } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 // import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-import ShoppingCartTwoToneIcon from '@material-ui/icons/ShoppingCartTwoTone';
+// import ShoppingCartTwoToneIcon from '@material-ui/icons/ShoppingCartTwoTone';
 import { StylesProvider } from '@material-ui/styles';
 import './header.css';
 // import { LineWeightTwoTone } from '@material-ui/icons';
@@ -16,6 +16,20 @@ const useStyles = makeStyles({
     fontFamily: 'Ceviche One',
     fontSize: '8em',
   },
+  cart: {
+    padding: '0em',
+    minWidth: '5em',
+    color: 'white',
+    fontSize: '1.2em',
+    // -webkit-text-stroke: .5px black;
+    textDecoration: 'none',
+    marginLeft: '0em',
+    textTransform: 'capitalize',
+  },
+  cartLogo: {
+    marginRight: '0em',
+    backgroundColor: 'red',
+  }
 })
 
 function Header(props) {
@@ -41,17 +55,11 @@ function Header(props) {
           <Typography className={header.text} variant="h3"> Nile </Typography>
           <Grid className={StylesProvider.button}>
             {/* <NavLink id="cart" to="/cart"> Cart: {props.cart.cart.length} </NavLink> */}
-
             <Button align-content="right" id="nav-button">
-              <ShoppingCartTwoToneIcon fontSize="small" />
-              <Button id="cart" component={Link} to={`/cart`}> Cart: {result}
+              {/* <ShoppingCartTwoToneIcon fontSize="small" className={header.cartLogo} /> */}
+              <Button className={header.cart} id="cart" component={Link} to={`/cart`}> Cart: {result}
               </Button>
             </Button>
-
-
-
-
-
           </Grid>
 
         </Grid>

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import ArrowBackIosTwoToneIcon from '@material-ui/icons/ArrowBackIosTwoTone';
 import { Link } from 'react-router-dom';
-import { List, ListItem, ListItemText, ListItemButton, ListItemAvatar, Avatar, Button, Typography } from '@mui/material';
+import { List, ListItem, ListItemText, ListItemButton, ListItemAvatar, Avatar, Button } from '@mui/material';
 import { makeStyles } from '@material-ui/core/styles';
 import { removeFromCart, addToCart } from '../../store/cart.js';
 import _ from 'lodash';
@@ -42,20 +42,30 @@ function ShoppingCart(props) {
       // maxWidth: '99%',
     },
     totalsContainer: {
+      fontFamily: 'Inter',
       background: 'linear-gradient(45deg, #2e2e42 30%, #2b2b2b 90%)',
-      border: 'solid',
+      borderLeft: 'solid',
+      borderRight: 'solid',
       borderColor: 'white',
-      borderWidth: '.3em',
+      borderWidth: '.15em',
       padding: '1em',
-      // color: 'white',
-      // margin: '.2em',
-      // textAlign: 'left',
-      // maxWidth: '99%',
+      fontSize: '1.75em',
+      margin: '0em',
+      // color: 'red',
     },
     serviceName: {
       fontFamily: 'Inter',
       fontSize: '1.5em',
+      // marginBottom: '.3em',
+      // border: 'solid',
+      maxWidth: '12em',
+    },
+    listPrice: {
+      fontFamily: 'Inter',
+      fontSize: '1.5em',
       marginBottom: '.3em',
+      // width: '6em',
+      // border: 'solid',
     },
     quantity: {
       fontFamily: 'Inter',
@@ -64,20 +74,6 @@ function ShoppingCart(props) {
       // border: 'solid',
       minWidth: '1.5em',
       textAlign: 'center',
-    },
-    // image: {
-    //   height: 10,
-    //   paddingTop: '100%',
-    //   marginTop: '.5em',
-    //   marginBottom: '.5em',
-    //   borderRadius: 5,
-    //   border: 'solid',
-    //   borderColor: 'black',
-    //   borderWidth: '.1em',
-    // },
-    listPrice: {
-      fontFamily: 'Inter',
-      width: '6em',
     },
     listQuantity: {
       fontFamily: 'Inter',
@@ -159,7 +155,7 @@ function ShoppingCart(props) {
             </div>
           )
         })}
-        <Typography className={shoppingCart.totalsContainer}>Here is your total: ${sumTotal} </Typography>
+        <p className={shoppingCart.totalsContainer}>Your total: ${sumTotal} </p>
       </List>
     </>
   )
