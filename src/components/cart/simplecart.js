@@ -112,7 +112,7 @@ const SimpleCart = (props) => {
           {/* {props.cart.cart.map((product, item) => { */}
 
           {_.map(props.cart.cart, product => {
-            console.log('🎧 product!', product)
+            // console.log('🎧 product!', product)
             return (
               <div key={product.id} id="grid">
 

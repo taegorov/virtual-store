@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import ArrowBackIosTwoToneIcon from '@material-ui/icons/ArrowBackIosTwoTone';
 import { Link } from 'react-router-dom';
-import { List, ListItem, ListItemText, ListItemButton, ListItemAvatar, Avatar, Button } from '@mui/material';
+import { List, ListItem, ListItemText, ListItemButton, ListItemAvatar, Avatar, Button, Typography } from '@mui/material';
 import { makeStyles } from '@material-ui/core/styles';
 import { removeFromCart, addToCart } from '../../store/cart.js';
 import _ from 'lodash';
@@ -15,6 +15,9 @@ function ShoppingCart(props) {
 
   // let { cart } = useSelector(state => state.cart);
   // console.log('🥅', cart)
+  // const sumTotal = props.cart.price && props.cart.value.reduce((val1, val2) => val1 + val2, 0)
+  // console.log(props.cart.price)
+  // console.log('💋 sumTotal', sumTotal);
 
   const useStyles = makeStyles({
     header: {
@@ -31,17 +34,36 @@ function ShoppingCart(props) {
     rowContainer: {
       background: 'linear-gradient(45deg, #2e2e42 30%, #2b2b2b 90%)',
       border: 'solid',
-      borderColor: 'black',
-      borderWidth: '.1em',
-      color: 'white',
-      margin: '.2em',
-      textAlign: 'left',
-      maxWidth: '99%',
+      borderColor: 'white',
+      borderWidth: '.3em',
+      // color: 'white',
+      // margin: '.2em',
+      // textAlign: 'left',
+      // maxWidth: '99%',
+    },
+    totalsContainer: {
+      background: 'linear-gradient(45deg, #2e2e42 30%, #2b2b2b 90%)',
+      border: 'solid',
+      borderColor: 'white',
+      borderWidth: '.3em',
+      padding: '1em',
+      // color: 'white',
+      // margin: '.2em',
+      // textAlign: 'left',
+      // maxWidth: '99%',
     },
     serviceName: {
       fontFamily: 'Inter',
       fontSize: '1.5em',
       marginBottom: '.3em',
+    },
+    quantity: {
+      fontFamily: 'Inter',
+      fontSize: '1em',
+      margin: '.5em',
+      // border: 'solid',
+      minWidth: '1.5em',
+      textAlign: 'center',
     },
     // image: {
     //   height: 10,
@@ -78,25 +100,13 @@ function ShoppingCart(props) {
     },
   });
 
+
   const shoppingCart = useStyles();
-  // const initial = cart.name.shift().charAt(0)
 
-
-  // const grouped = _.groupBy(cart, 'id');
-  // console.log('groupby 🔥', grouped);
-  // const lineItems = _.map(grouped, singleItem => {
-  //   console.log('item 🤦🏼‍♂️', singleItem);
-  //   return {
-  //     ...singleItem[0],
-  //     quantity: singleItem.length,
-  //   }
-  //   // return item
-  // })
-  // console.log('myproduct 🎊', lineItems);
-  // const cartGroups = _.map(grouped[rendered.id], item => {
-  //   console.log('item 💀', item);
-  // })
-
+  const sumTotal = Object.keys(props.cart).reduce((acc, curr) => {
+    console.log('props cart curr', props.cart[curr].price);
+    return acc + props.cart[curr].price * props.cart[curr].quantity
+  }, 0);
 
   return (
     <>
@@ -115,11 +125,11 @@ function ShoppingCart(props) {
 
       <List className={shoppingCart.listContainer}>
         {_.map(props.cart, lineItem => { //uses Lodash to map over the entire cart, and the specific line item
-          // const lineItem = Object.values(singleItem)
-          // console.log('props.cart.cart', props.cart.cart);
-          // console.log('singleItem', singleItem);
-          // console.log('lineItem', lineItem);
+
+          const lineItemTotal = lineItem.price * lineItem.quantity
+
           return (
+
             <div key={lineItem.id}>
               <ListItem className={shoppingCart.rowContainer} >
                 <ListItemAvatar>
@@ -127,17 +137,19 @@ function ShoppingCart(props) {
                 </ListItemAvatar>
                 <ListItemText className={shoppingCart.serviceName} >
                   <p>
-                    {lineItem.name} ({lineItem.quantity})
+                    {lineItem.name}
                   </p>
 
 
                 </ListItemText>
-                <ListItemText className={shoppingCart.listPrice}>${lineItem.price * lineItem.quantity}</ListItemText>
+                <ListItemText className={shoppingCart.listPrice}>${lineItemTotal}</ListItemText>
                 <div className={shoppingCart.increaseButton}>
                   <ListItemButton onClick={() => props.addToCart(lineItem)} >
                     +
                   </ListItemButton>
                 </div>
+                <p className={shoppingCart.quantity}>{lineItem.quantity}</p>
+
                 <div className={shoppingCart.decreaseButton}>
                   <ListItemButton onClick={() => props.removeFromCart(lineItem)} >
                     −
@@ -147,15 +159,15 @@ function ShoppingCart(props) {
             </div>
           )
         })}
+        <Typography className={shoppingCart.totalsContainer}>Here is your total: ${sumTotal} </Typography>
       </List>
-
     </>
   )
 }
 
 const mapStateToProps = (state) => {
   return {
-    cart: state.cart.cart, // makes it so you don't have to write .cart.cart above. Cart 1 is established in initialState, 
+    cart: state.cart.cart, // makes it so you don't have to write .cart.cart above. Cart 1 is established in initialState
   }
 }
 
