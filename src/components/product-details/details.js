@@ -1,15 +1,16 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-
 // import { useSelector } from 'react-redux';
 // import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { Button } from '@material-ui/core';
 import ArrowBackIosTwoToneIcon from '@material-ui/icons/ArrowBackIosTwoTone';
-import { Card, CardMedia, Grid, Paper } from '@material-ui/core';
+import { Card, CardMedia, Paper, Tab, Tabs } from '@material-ui/core';
 // import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import { addToCart, removeFromCart } from '../../store/cart.js';
+
+
 
 
 // function Details(props, mapDispatchToProps) {
@@ -17,11 +18,7 @@ function Details(props) {
 
   const useStyles = makeStyles({
     container: {
-      background: 'linear-gradient(65deg, #ffffff 35%, #f2f2f2 10%)',
-      // background: 'linear-gradient(rgba(135, 60, 255, 1), rgba(135, 60, 255, 0.0) 0%) linear-gradient(-45deg, rgba(120, 155, 255, 0.9) 45%',
-      // backgroundColor: 'white',
-      // maxWidth: '50%'
-      // behavior: 'smooth',
+      background: 'linear-gradient(65deg, #ffffff 25%, #f2f2f2 10%)',
     },
     backButton: {
       margin: '1em',
@@ -188,7 +185,22 @@ function Details(props) {
       fontFamily: 'Inter',
       marginBottom: '0em',
       padding: '1em',
-    }
+    },
+    tabs: {
+      fontFamily: 'Inter',
+      width: '30em',
+      margin: '0 auto',
+      marginTop: '1em',
+      paddingBottom: '1em',
+      // backgroundColor: 'red',
+      minHeight: '15em',
+    },
+    tabHeader: {
+      fontFamily: 'Mukta',
+    },
+    tabText: {
+      fontFamily: 'Inter',
+    },
   });
 
   const classes = useStyles();
@@ -198,16 +210,19 @@ function Details(props) {
     window.scrollTo(0, 0)
   }, [])
 
+  // renders correct product/service
+  const { shownItem } = props.location.state;
 
-
-  const { shownItem } = props.location.state; // this one's important
-
+  // Tabs/Tab functionality 
+  const [value, setValue] = React.useState(0);
+  const handleTabs = (event, val) => {
+    setValue(val);
+  }
 
   return (
     <div>
 
       <Paper className={classes.container} elevation={10}>
-
         <Button
           className={classes.backButton}
           size="large"
@@ -248,36 +263,46 @@ function Details(props) {
           <div container className={classes.quantityContainer}>
             <p className={classes.quantityText}>Quantity </p>
             <div container className={classes.quantitySelector}>
-              <button
-                className={classes.quantityButton}
-                onClick={() => props.addToCart(shownItem)} >
-                +
-              </button>
-
-              <p className={classes.quantityNumber}>
-                {shownItem.quantity || 0}
-              </p>
 
               <button
                 className={classes.quantityButton}
                 onClick={() => props.removeFromCart(shownItem)} >
                 −
               </button>
+              <p className={classes.quantityNumber}>
+                {shownItem.quantity || 0}
+              </p>
+              <button
+                className={classes.quantityButton}
+                onClick={() => props.addToCart(shownItem)} >
+                +
+              </button>
             </div>
           </div>
         </div>
 
-        <Grid container justifyContent="center">
+        <div className={classes.tabs}>
+          <Tabs value={value} onChange={handleTabs}>
+            <Tab className={classes.tabHeader} label='Details' />
+            <Tab className={classes.tabHeader} label='Reviews' />
+            <Tab className={classes.tabHeader} label='Freelancer' />
+          </Tabs>
+          <TabSelection className={classes.tabText} value={value} index={0}> {shownItem.details} </TabSelection>
+          <TabSelection className={classes.tabText} value={value} index={1}> Reviews </TabSelection>
+          <TabSelection className={classes.tabText} value={value} index={2}> Freelancer id: {shownItem.freelancer} </TabSelection>
+        </div>
+
+
+        {/* <Grid container justifyContent="center">
           <Paper className={classes.paper} elevation={5}>
             <p className={classes.header}>
               Description
             </p>
             <p className={classes.details}>{shownItem.details}</p>
-            {/* <p className={classes.details}>Category: {shownItem.category}</p> */}
           </Paper>
-        </Grid>
+        </Grid> */}
 
-        <Grid container justifyContent="center">
+        {/* <Grid container justifyContent="center">
           <Paper className={classes.paper} elevation={5}>
             <p className={classes.header}>
               User Reviews
@@ -286,12 +311,27 @@ function Details(props) {
               Reviews Go Here...
             </p>
           </Paper>
-        </Grid>
+        </Grid> */}
+
       </Paper >
+
     </div >
-  )
+  );
 
+  // below snippet created with the help of  'Code Step By Step' Youtube channel
+  function TabSelection(props) {
+    const { children, value, index } = props
+    return (
+      <div>
+        {
+          value === index && (
+            <p>{children} </p>
+          )
+        }
 
+      </div>
+    )
+  }
 
 
 }

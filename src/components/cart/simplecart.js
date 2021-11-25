@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import _ from 'lodash';
 
 import Card from '@material-ui/core/Card';
@@ -99,7 +99,19 @@ const SimpleCart = (props) => {
   }
 
 
-  // if (showSimpleCart) {
+  const location = useLocation();
+  console.log('location', location)
+
+  const isOnDetailsPage = (result) => {
+    if (location.pathname.contains('products')) {
+      result.push(true);
+    }
+    return result;
+  }
+  console.log('result', result)
+  console.log('is on page', isOnDetailsPage)
+
+
   return (
     <Grid id="main-grid" container justifyContent="flex-end">
       <Card className={cart.container} style={{ right: showSimpleCart ? '.2em' : '-15em' }}>

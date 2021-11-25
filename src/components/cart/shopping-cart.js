@@ -135,22 +135,20 @@ function ShoppingCart(props) {
                   <p>
                     {lineItem.name}
                   </p>
-
-
                 </ListItemText>
                 <ListItemText className={shoppingCart.listPrice}>${lineItemTotal}</ListItemText>
-                <div className={shoppingCart.increaseButton}>
-                  <ListItemButton onClick={() => props.addToCart(lineItem)} >
-                    +
-                  </ListItemButton>
-                </div>
-                <p className={shoppingCart.quantity}>{lineItem.quantity}</p>
-
                 <div className={shoppingCart.decreaseButton}>
                   <ListItemButton onClick={() => props.removeFromCart(lineItem)} >
                     −
                   </ListItemButton>
                 </div>
+                <p className={shoppingCart.quantity}>{lineItem.quantity}</p>
+                <div className={shoppingCart.increaseButton}>
+                  <ListItemButton onClick={() => props.addToCart(lineItem)} >
+                    +
+                  </ListItemButton>
+                </div>
+
               </ListItem>
             </div>
           )
