@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { useLocation } from 'react-router';
 import { Typography, Toolbar, IconButton, Grid, Button, makeStyles } from '@material-ui/core';
 import { Spin as Hamburger } from 'hamburger-react'
 // import MenuIcon from '@material-ui/icons/Menu';
@@ -52,6 +51,7 @@ function Header(props) {
   };
   const handleClose = () => {
     setAnchorEl(null);
+    setOpen(false); // makes Hamburger toggle closed
   };
 
 
@@ -59,14 +59,14 @@ function Header(props) {
   const [isOpen, setOpen] = useState(false)
 
 
-  // hamburger resets when navigating to new page //
-  let location = useLocation();
-  useEffect(() => {
-    // console.log('location pathname', location.pathname)
-    if (location.pathname) {
-      setOpen(false)
-    }
-  }, [location.pathname]);
+  // // hamburger resets when navigating to new page //
+  // let location = useLocation();
+  // useEffect(() => {
+  //   // console.log('location pathname', location.pathname)
+  //   if (location.pathname) {
+  //     setOpen(false)
+  //   }
+  // }, [location.pathname]);
 
 
   const header = useStyles();
