@@ -101,16 +101,10 @@ function Details(props) {
     //   marginBottom: 12,
     // },
     quantityContainer: {
-      // margin: '0 auto',
-      // maxWidth: '20em',
+
       maxWidth: '100%',
       marginLeft: '1em',
       marginRight: '1em',
-      // flexGrow: 5,
-      // display: 'flex',
-      // alignItems: 'center',
-      // alignContent: 'center',
-      // justifyContent: 'flex-start',
       fontFamily: 'Inter',
     },
     quantitySelector: {
@@ -130,9 +124,6 @@ function Details(props) {
     },
     quantityText: {
       fontFamily: 'Inter',
-      // backgroundColor: 'red',
-      // textAlign: 'center',
-      // marginBottom: 12,
       marginBottom: '1em',
       marginLeft: '.5em'
 
@@ -142,25 +133,21 @@ function Details(props) {
       minWidth: '1.5em',
       textAlign: 'center',
       color: 'black',
-      // backgroundColor: 'red',
-      // textAlign: 'center',
-      // marginBottom: 12,
     },
     quantityButton: {
-      // marginTop: '1em',
-      // top: '50%',
-      // marginBottom: '.5em',
       height: '2em',
+      maxHeight: '2em',
       width: '2em',
-      // padding: '1em',
-      // margin: '1em',
+      maxWidth: '2em',
       backgroundColor: '#f2f2f2',
       color: '#828282',
       border: 'solid',
       borderColor: '#f2f2f2',
       borderWidth: '.1em',
       borderRadius: '50px',
-      fontSize: '1em',
+      // fontSize: '1em',
+      justifyContent: 'center',
+      alignItems: 'center',
     },
     paper: {
       color: 'black',
@@ -189,10 +176,10 @@ function Details(props) {
     tabs: {
       fontFamily: 'Inter',
       width: '30em',
+      maxWidth: '30em',
       margin: '0 auto',
       marginTop: '1em',
       paddingBottom: '1em',
-      // backgroundColor: 'red',
       minHeight: '15em',
     },
     tabHeader: {
@@ -266,6 +253,7 @@ function Details(props) {
 
               <button
                 className={classes.quantityButton}
+                disabled={!shownItem.quantity}
                 onClick={() => props.removeFromCart(shownItem)} >
                 −
               </button>
