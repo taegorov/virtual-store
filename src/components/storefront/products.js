@@ -71,6 +71,7 @@ const ProductsViewer = ({ loadProducts, products, activatedCategory, addToCart }
 
   return (
     <>
+
       <CategoryViewer />
       <Paper className="paper" elevation={3}>
 

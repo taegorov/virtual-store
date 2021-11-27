@@ -85,11 +85,13 @@ function ShoppingCart(props) {
       backgroundColor: '#4287f5',
     },
     increaseButton: {
+      color: 'white',
       textAlign: 'right',
       border: 'solid',
       backgroundColor: '#4287f5',
     },
     decreaseButton: {
+      color: 'white',
       textAlign: 'right',
       border: 'solid',
       backgroundColor: '#4287f5',
