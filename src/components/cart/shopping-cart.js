@@ -85,11 +85,13 @@ function ShoppingCart(props) {
       backgroundColor: '#4287f5',
     },
     increaseButton: {
+      color: 'white',
       textAlign: 'right',
       border: 'solid',
       backgroundColor: '#4287f5',
     },
     decreaseButton: {
+      color: 'white',
       textAlign: 'right',
       border: 'solid',
       backgroundColor: '#4287f5',
@@ -103,6 +105,7 @@ function ShoppingCart(props) {
     console.log('props cart curr', props.cart[curr].price);
     return acc + props.cart[curr].price * props.cart[curr].quantity
   }, 0);
+
 
   return (
     <>
@@ -138,7 +141,7 @@ function ShoppingCart(props) {
                 </ListItemText>
                 <ListItemText className={shoppingCart.listPrice}>${lineItemTotal}</ListItemText>
                 <div className={shoppingCart.decreaseButton}>
-                  <ListItemButton onClick={() => props.removeFromCart(lineItem)} >
+                  <ListItemButton disabled={!lineItem.quantity} onClick={() => props.removeFromCart(lineItem)} >
                     −
                   </ListItemButton>
                 </div>
