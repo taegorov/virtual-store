@@ -57,7 +57,7 @@ function Header(props) {
             {/* <NavLink id="cart" to="/cart"> Cart: {props.cart.cart.length} </NavLink> */}
             <Button align-content="right" id="nav-button">
               {/* <ShoppingCartTwoToneIcon fontSize="small" className={header.cartLogo} /> */}
-              <Button className={header.cart} id="cart" component={Link} to={`/cart`}> Cart: {result}
+              <Button className={header.cart} id="cart" component={Link} to={`/cart`}> Cart ({result || 0})
               </Button>
             </Button>
           </Grid>
