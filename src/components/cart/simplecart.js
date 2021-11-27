@@ -100,22 +100,14 @@ const SimpleCart = (props) => {
 
 
   const location = useLocation();
-  console.log('location', location)
-
-  const isOnDetailsPage = (result) => {
-    if (location.pathname.contains('products')) {
-      result.push(true);
-    }
-    return result;
-  }
-  console.log('result', result)
-  console.log('is on page', isOnDetailsPage)
+  // console.log('location', location)
+  const isOnCartPage = location.pathname.includes('cart');
+  // console.log(isOnCartPage);
 
 
   return (
     <Grid id="main-grid" container justifyContent="flex-end">
-      <Card className={cart.container} style={{ right: showSimpleCart ? '.2em' : '-15em' }}>
-        {/* <Card className={`${cart.container} ${showSimpleCart && cart.transition}`}> */}
+      <Card className={cart.container} style={{ right: showSimpleCart && isOnCartPage === false ? '.2em' : '-15em' }}>
 
         <CardContent className={cart.textContainer}>
 
