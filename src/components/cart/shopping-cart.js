@@ -104,6 +104,7 @@ function ShoppingCart(props) {
     return acc + props.cart[curr].price * props.cart[curr].quantity
   }, 0);
 
+
   return (
     <>
 
@@ -138,7 +139,7 @@ function ShoppingCart(props) {
                 </ListItemText>
                 <ListItemText className={shoppingCart.listPrice}>${lineItemTotal}</ListItemText>
                 <div className={shoppingCart.decreaseButton}>
-                  <ListItemButton onClick={() => props.removeFromCart(lineItem)} >
+                  <ListItemButton disabled={!lineItem.quantity} onClick={() => props.removeFromCart(lineItem)} >
                     −
                   </ListItemButton>
                 </div>
