@@ -1,15 +1,17 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 // import { useSelector } from 'react-redux';
 // import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { Button } from '@material-ui/core';
 import ArrowBackIosTwoToneIcon from '@material-ui/icons/ArrowBackIosTwoTone';
-import { Card, CardMedia, Paper, Tab, Tabs } from '@material-ui/core';
+import { Card, CardMedia, Paper, Tab, Tabs, Snackbar } from '@material-ui/core';
+import MuiAlert from '@mui/material/Alert';
+// import CloseIcon from '@mui/icons-material/Close';
 // import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import { addToCart, removeFromCart } from '../../store/cart.js';
-
+import axios from 'axios';
 
 
 
@@ -188,6 +190,21 @@ function Details(props) {
     tabText: {
       fontFamily: 'Inter',
     },
+    deleteStyling: {
+      padding: '.5em',
+      fontFamily: 'Inter',
+      width: '30em',
+      maxWidth: '30em',
+      margin: '0 auto',
+      marginTop: '1em',
+      textAlign: 'center',
+      // border: 'solid',
+    },
+    deleteButton: {
+      backgroundColor: 'red',
+      marginBottom: '-1em',
+      // margin: '0 auto',
+    },
   });
 
   const classes = useStyles();
@@ -199,15 +216,52 @@ function Details(props) {
 
   // renders correct product/service
   const { shownItem } = props.location.state;
+  // console.log('shown item ID is', shownItem.id)
 
   // Tabs/Tab functionality 
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = useState(0);
   const handleTabs = (event, val) => {
     setValue(val);
   }
 
+
+  const [open, setOpen] = useState(false);
+
+  async function deleteService(service) {
+    setOpen(true);
+    await axios.delete(`https://backend-virtual-store.herokuapp.com/services/${shownItem.id}`)
+  }
+
+
+  // === === === snackbar behavior from MUI docs === === === //
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
+
+  const action = (
+    <React.Fragment>
+      {/* <Button color="secondary" size="small" onClick={handleClose}>
+        UNDO
+      </Button> */}
+      <Button
+        size="small"
+        aria-label="close"
+        color="inherit"
+        onClick={handleClose}
+      >
+        ❌
+      </Button>
+    </React.Fragment>
+  );
+
+
   return (
     <div>
+
 
       <Paper className={classes.container} elevation={10}>
         <Button
@@ -280,6 +334,31 @@ function Details(props) {
           <TabSelection className={classes.tabText} value={value} index={2}> Freelancer id: {shownItem.freelancer} </TabSelection>
         </div>
 
+        {/* DELETE is here */}
+        <Paper className={classes.deleteStyling} elevation={10}>
+          <Button
+            className={classes.deleteButton}
+            onClick={() => {
+              // eslint-disable-next-line no-restricted-globals
+              if (confirm('Are you sure? This action is final!')) {
+                deleteService().catch(err => alert(err))
+              }
+            }}
+          >
+            delete this service
+          </Button>
+          <p> WARNING: THIS IS PERMANENT. THIS IS PURELY FOR TESTING PURPOSES </p>
+        </Paper>
+        <Snackbar
+          severity="error"
+          open={open}
+          autoHideDuration={6000}
+          onClose={handleClose}
+          message="Service Deleted!"
+          action={action}
+        >
+          <MuiAlert action={action} onClose={handleClose} severity="error">Service Deleted!</MuiAlert>
+        </Snackbar>
 
         {/* <Grid container justifyContent="center">
           <Paper className={classes.paper} elevation={5}>
