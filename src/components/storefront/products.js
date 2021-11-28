@@ -9,6 +9,7 @@ import CategoryViewer from './categories.js';
 import { loadProducts } from '../../store/products';
 import { Link } from 'react-router-dom';
 
+
 import './products.css';
 
 
@@ -53,6 +54,9 @@ const useStyles = makeStyles({
   freelancer: {
     fontFamily: 'Inter',
   },
+  form: {
+    backgroundColor: 'white',
+  }
 })
 
 const ProductsViewer = ({ loadProducts, products, activatedCategory, addToCart }) => {
@@ -68,6 +72,9 @@ const ProductsViewer = ({ loadProducts, products, activatedCategory, addToCart }
       return productList
     }
   }
+
+
+
 
   return (
     <>
