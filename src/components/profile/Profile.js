@@ -72,7 +72,7 @@ export default function Profile() {
 
     async function addItem(service) {
         console.log('service is', service);
-        let response = await axios.post('http://localhost:3001/services', service)
+        let response = await axios.post('https://backend-virtual-store.herokuapp.com/services', service)
         // setList([...list, item]);
         console.log('GOT TO RESPONSE')
         console.log('🥩 response is: ', response)
