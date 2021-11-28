@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import ArrowBackIosTwoToneIcon from '@material-ui/icons/ArrowBackIosTwoTone';
 
 
-// === temporary form === //
+// === form === //
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
@@ -68,14 +68,12 @@ export default function Profile() {
 
 
     // ADD NEW SERVICE TO BACK END
-    const { handleChange, handleSubmit, values } = useForm(addItem); //this will be used on /profile page
+    const { handleChange, handleSubmit, values } = useForm(addItem);
 
     async function addItem(service) {
-        console.log('service is', service);
-        let response = await axios.post('https://backend-virtual-store.herokuapp.com/services', service)
+        // console.log('service is', service);
+        await axios.post('https://backend-virtual-store.herokuapp.com/services', service)
         // setList([...list, item]);
-        console.log('GOT TO RESPONSE')
-        console.log('🥩 response is: ', response)
         // console.log(item);
         // item.id = uuid();
         // item.complete = false;
