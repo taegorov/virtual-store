@@ -60,8 +60,8 @@ export const getProducts = (category) => {
 export const loadProducts = () => (dispatch, getState) => {
   // return axios.get('https://api-js401.herokuapp.com/api/v1/products') // old
   // return axios.get('https://div-center-backend.herokuapp.com/services') // old, but with working /services info
-  return axios.get('https://backend-virtual-store.herokuapp.com/services') // NEW DEPLOYED
-    // return axios.get('http://localhost:3001/services') // local 3001
+  // return axios.get('https://backend-virtual-store.herokuapp.com/services') // NEW DEPLOYED
+  return axios.get('/services') // local 3001
     .then(response => {
       // console.log('🤬 response.data', response.data);
       dispatch({
