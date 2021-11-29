@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 // import { useSelector } from 'react-redux';
 // import { useParams } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { Button } from '@material-ui/core';
 import ArrowBackIosTwoToneIcon from '@material-ui/icons/ArrowBackIosTwoTone';
 import { Card, CardMedia, Paper, Tab, Tabs, Snackbar } from '@material-ui/core';
@@ -193,7 +193,7 @@ function Details(props) {
     deleteStyling: {
       padding: '.5em',
       fontFamily: 'Inter',
-      width: '30em',
+      // width: '30em',
       maxWidth: '30em',
       margin: '0 auto',
       marginTop: '1em',
@@ -225,11 +225,18 @@ function Details(props) {
   }
 
 
+  const history = useHistory();
   const [open, setOpen] = useState(false);
 
-  async function deleteService(service) {
-    setOpen(true);
-    await axios.delete(`https://backend-virtual-store.herokuapp.com/services/${shownItem.id}`)
+  async function deleteService() {
+    // await axios.delete(`https://backend-virtual-store.herokuapp.com/services/${shownItem.id}`)
+    const res = await axios.delete(`/services/${shownItem.id}`)
+    if (!!res.data.deleted) {
+      console.log('front end RES', res.data);
+      setOpen(true);
+    } else {
+      alert(`ALERT: ${res.data.message}`);
+    }
   }
 
 
@@ -238,8 +245,8 @@ function Details(props) {
     if (reason === 'clickaway') {
       return;
     }
-
     setOpen(false);
+    history.push("/")
   };
 
   const action = (
@@ -352,33 +359,13 @@ function Details(props) {
         <Snackbar
           severity="error"
           open={open}
-          autoHideDuration={6000}
+          autoHideDuration={4000}
           onClose={handleClose}
           message="Service Deleted!"
           action={action}
         >
           <MuiAlert action={action} onClose={handleClose} severity="error">Service Deleted!</MuiAlert>
         </Snackbar>
-
-        {/* <Grid container justifyContent="center">
-          <Paper className={classes.paper} elevation={5}>
-            <p className={classes.header}>
-              Description
-            </p>
-            <p className={classes.details}>{shownItem.details}</p>
-          </Paper>
-        </Grid> */}
-
-        {/* <Grid container justifyContent="center">
-          <Paper className={classes.paper} elevation={5}>
-            <p className={classes.header}>
-              User Reviews
-            </p>
-            <p className={classes.details}>
-              Reviews Go Here...
-            </p>
-          </Paper>
-        </Grid> */}
 
       </Paper >
 

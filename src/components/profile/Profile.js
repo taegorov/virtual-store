@@ -72,12 +72,9 @@ export default function Profile() {
 
     async function addItem(service) {
         // console.log('service is', service);
-        await axios.post('https://backend-virtual-store.herokuapp.com/services', service)
-        // setList([...list, item]);
-        // console.log(item);
-        // item.id = uuid();
-        // item.complete = false;
-        // setList([...list, item]);
+        // await axios.post('https://backend-virtual-store.herokuapp.com/services', service)
+        await axios.post('/services', service)
+
     }
 
     return (
