@@ -50,9 +50,6 @@ function Details(props) {
 
     },
     photo: {
-      // margin: '0 auto',
-      // maxHeight: '30em',
-      // maxWidth: '30em',
       // for some reason necessary to make photo show up:
       paddingTop: '100%',
     },
@@ -66,19 +63,8 @@ function Details(props) {
       fontFamily: 'Inter',
       marginLeft: '1em',
       marginRight: '1em',
-      // margin: '0 auto',
-      // marginBottom: '0em',
       maxWidth: '100%',
       color: 'black',
-      // background: 'linear-gradient(75deg, #000000 30%, #2b2b2b 90%)',
-      // borderColor: 'black',
-      // borderWidth: '.1em',
-      // borderRadius: 3,
-      // flexGrow: 5,
-      // display: 'flex',
-      // alignItems: 'center',
-      // alignContent: 'center',
-      // justifyContent: 'flex-end'
     },
     priceText: {
       fontFamily: 'Inter',
@@ -153,15 +139,9 @@ function Details(props) {
     },
     paper: {
       color: 'black',
-      // maxWidth: '45em',
-      // minWidth: '45em',
       width: '30em',
       padding: '-2em',
       margin: '.5em',
-      // background: 'linear-gradient(25deg, #000000 30%, #2b2b2b 90%)',
-      // border: 'solid',
-      // borderColor: 'black',
-      // borderWidth: '.1em',
     },
     header: {
       fontFamily: 'Inter',
@@ -231,7 +211,9 @@ function Details(props) {
   async function deleteService() {
     // await axios.delete(`https://backend-virtual-store.herokuapp.com/services/${shownItem.id}`)
     const res = await axios.delete(`/services/${shownItem.id}`)
-    if (!!res.data.deleted) {
+    // console.log('response data', res.data)
+    if (!!res.data.success) {
+      // if (res.data.deleted === 1) {
       console.log('front end RES', res.data);
       setOpen(true);
     } else {
@@ -260,7 +242,7 @@ function Details(props) {
         color="inherit"
         onClick={handleClose}
       >
-        ❌
+        X
       </Button>
     </React.Fragment>
   );
@@ -354,7 +336,7 @@ function Details(props) {
           >
             delete this service
           </Button>
-          <p> WARNING: THIS IS PERMANENT. THIS IS PURELY FOR TESTING PURPOSES </p>
+          <p> WARNING: THIS IS PERMANENT. USE PURELY FOR TESTING PURPOSES </p>
         </Paper>
         <Snackbar
           severity="error"
