@@ -1,9 +1,9 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { Button } from '@material-ui/core';
+import React, { useEffect, useState } from 'react';
+import { Link, useHistory } from 'react-router-dom';
+import { Button, Snackbar } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import ArrowBackIosTwoToneIcon from '@material-ui/icons/ArrowBackIosTwoTone';
-
+import MuiAlert from '@mui/material/Alert';
 
 // === form === //
 import Box from '@mui/material/Box';
@@ -26,6 +26,11 @@ export default function Profile() {
 
     const profileStyle = useStyles();
 
+
+    // scroll window to top at page load
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [])
 
     // === categories for 'categories' part of form === //
     const categories = [
@@ -65,16 +70,56 @@ export default function Profile() {
     // const [category, setCategory] = React.useState('CATEGORY');
 
 
+    // === === === snackbar behavior from MUI docs === === === //
+    const [open, setOpen] = useState(false);
+    const history = useHistory();
+
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setOpen(false);
+        history.push("/")
+    };
+
+    const action = (
+        <React.Fragment>
+            {/* <Button color="secondary" size="small" onClick={handleClose}>
+        UNDO
+      </Button> */}
+            <Button
+                size="small"
+                aria-label="close"
+                color="inherit"
+                onClick={handleClose}
+            >
+                ⓧ
+            </Button>
+        </React.Fragment>
+    );
 
 
     // ADD NEW SERVICE TO BACK END
     const { handleChange, handleSubmit, values } = useForm(addItem);
 
-    async function addItem(service) {
-        // console.log('service is', service);
-        // await axios.post('https://backend-virtual-store.herokuapp.com/services', service)
-        await axios.post('/services', service)
+    // // OLD ADD HERE
+    // async function addItem(service) {
+    //     // console.log('service is', service);
+    //     // await axios.post('https://backend-virtual-store.herokuapp.com/services', service)
+    //     await axios.post('/services', service)
+    // }
 
+    async function addItem(service) {
+        // await axios.delete(`https://backend-virtual-store.herokuapp.com/services/${shownItem.id}`)
+        const servicesData = await axios.post('/services', service)
+        // console.log('response data', res.data)
+        if (!!servicesData.data.success) {
+            // if (res.data.deleted === 1) {
+            console.log('front end RES', servicesData.data);
+            setOpen(true);
+        } else {
+            alert(`ALERT: ${servicesData.data.message}`);
+        }
     }
 
     return (
@@ -94,7 +139,7 @@ export default function Profile() {
 
 
             <p> upload new services here, sire </p>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} >
                 <Box
                     className={profileStyle.form}
                     // component="form"
@@ -135,6 +180,17 @@ export default function Profile() {
                     <TextField name="image" label="Image URL" variant="outlined" onChange={handleChange} />
                     <Button variant='outlined' type='submit' > Submit </Button>
                 </Box>
+
+                <Snackbar
+                    severity="error"
+                    open={open}
+                    autoHideDuration={4000}
+                    onClose={handleClose}
+                    message="Service Deleted!"
+                    action={action}
+                >
+                    <MuiAlert action={action} onClose={handleClose} severity="success">Service Service Created!</MuiAlert>
+                </Snackbar>
             </form>
 
 

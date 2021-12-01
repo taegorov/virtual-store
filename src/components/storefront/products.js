@@ -143,7 +143,7 @@ const ProductsViewer = ({ loadProducts, products, activatedCategory, addToCart }
 }
 
 const mapStateToProps = (state) => {
-  console.log('🎲 state.cart ', state.cart)
+  // console.log('🎲 state.cart ', state.cart)
   return {
     products: state.products,
     activatedCategory: state.categories.activatedCategory,
