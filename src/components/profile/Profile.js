@@ -93,7 +93,7 @@ export default function Profile() {
                 color="inherit"
                 onClick={handleClose}
             >
-                ⓧ
+                X
             </Button>
         </React.Fragment>
     );
@@ -135,10 +135,7 @@ export default function Profile() {
                 Back to Store
             </Button>
 
-            <p>helo this is ur profile page :^)</p>
-
-
-            <p> upload new services here, sire </p>
+            <p> upload new services here </p>
             <form onSubmit={handleSubmit} >
                 <Box
                     className={profileStyle.form}
@@ -189,11 +186,9 @@ export default function Profile() {
                     message="Service Deleted!"
                     action={action}
                 >
-                    <MuiAlert action={action} onClose={handleClose} severity="success">Service Service Created!</MuiAlert>
+                    <MuiAlert action={action} onClose={handleClose} severity="success">Service Created!</MuiAlert>
                 </Snackbar>
             </form>
-
-
 
         </div>
     )

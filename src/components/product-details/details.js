@@ -11,6 +11,7 @@ import MuiAlert from '@mui/material/Alert';
 // import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import { addToCart, removeFromCart } from '../../store/cart.js';
+import PutModal from './Modal'
 import axios from 'axios';
 
 
@@ -250,8 +251,6 @@ function Details(props) {
 
   return (
     <div>
-
-
       <Paper className={classes.container} elevation={10}>
         <Button
           className={classes.backButton}
@@ -325,6 +324,7 @@ function Details(props) {
 
         {/* DELETE is here */}
         <Paper className={classes.deleteStyling} elevation={10}>
+          <PutModal service={shownItem} />
           <Button
             className={classes.deleteButton}
             onClick={() => {
@@ -336,7 +336,7 @@ function Details(props) {
           >
             delete this service
           </Button>
-          <p> WARNING: THIS IS PERMANENT. USE PURELY FOR TESTING PURPOSES </p>
+          <p> WARNING: THIS IS PERMANENT.USE PURELY FOR TESTING </p>
         </Paper>
         <Snackbar
           severity="error"
