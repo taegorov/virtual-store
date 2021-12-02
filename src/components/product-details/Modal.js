@@ -7,6 +7,7 @@ import { Button, Snackbar } from '@material-ui/core';
 import Modal from '@mui/material/Modal';
 import MuiAlert from '@mui/material/Alert';
 
+
 // === form === //
 import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
@@ -14,6 +15,7 @@ import useForm from '../../store/form';
 import axios from 'axios';
 // import { sortedLastIndex } from 'lodash';
 
+require('dotenv').config();
 
 
 // Help with Modal code from MUI docs //
@@ -72,7 +74,10 @@ export default function PutModal(props) {
 
     async function updateItem(update) {
         console.log('service is: ', service)
-        const servicesData = await axios.put(`/services/${service.id}`, update)
+        // const servicesData = await axios.put(`/services/${service.id}`, update)
+        const servicesData = await axios.put((process.env.NODE_ENV === 'production' ? process.env.REACT_APP_SERVER_PROD : process.env.REACT_APP_SERVER_DEV) + `/services/${service.id}`)
+
+
         if (!!servicesData.data.success) {
             console.log('res for PUT on front end:', servicesData.data);
             snackSetOpen(true);
