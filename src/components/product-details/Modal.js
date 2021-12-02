@@ -62,6 +62,7 @@ export default function PutModal(props) {
         button: {
             fontFamily: 'Inter',
             padding: '1em',
+            backgroundColor: '#f0f0f0',
             // position: 'absolute',
             // bottom: '1em',
             // right: '1em',
@@ -157,6 +158,7 @@ export default function PutModal(props) {
         <div >
             <Button className={modalStyle.rootButton} onClick={handleOpen}>Edit This Service</Button>
             <Modal
+                sx={{ outline: 'none' }}
                 open={open}
                 onClose={handleClose}
             >
@@ -226,7 +228,7 @@ export default function PutModal(props) {
                             defaultValue={service.image}
                             onChange={handleChange}
                         />
-                        <button className={modalStyle.button} onChange={handleChange} type='submit'>Submit</button>
+                        <Button className={modalStyle.button} onChange={handleChange} type='submit'>Submit</Button>
                     </Box>
                 </form>
             </Modal >
