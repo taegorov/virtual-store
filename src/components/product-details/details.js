@@ -185,8 +185,11 @@ function Details(props) {
       // border: 'solid',
     },
     deleteButton: {
-      backgroundColor: 'red',
-      marginBottom: '-1em',
+      // backgroundColor: 'red',
+      border: 'solid',
+      borderColor: 'red',
+      marginTop: '.5em',
+      // marginBottom: '-1em',
       // margin: '0 auto',
     },
   });
@@ -340,7 +343,7 @@ function Details(props) {
           >
             delete this service
           </Button>
-          <p> WARNING: THIS IS PERMANENT.USE PURELY FOR TESTING </p>
+          {/* <p> WARNING: THIS IS PERMANENT. TESTING PURPOSES ONLY </p> */}
         </Paper>
         <Snackbar
           severity="error"
