@@ -71,11 +71,13 @@ export default function PutModal(props) {
     // ADD NEW SERVICE TO BACK END
     const { handleChange, handleSubmit, values } = useForm(updateItem);
 
+    const root = (process.env.NODE_ENV === 'production' ? process.env.REACT_APP_SERVER_PROD : process.env.REACT_APP_SERVER_DEV)
+    // console.log('root is: ', root)
 
     async function updateItem(update) {
         console.log('service is: ', service)
         // const servicesData = await axios.put(`/services/${service.id}`, update)
-        const servicesData = await axios.put((process.env.NODE_ENV === 'production' ? process.env.REACT_APP_SERVER_PROD : process.env.REACT_APP_SERVER_DEV) + `/services/${service.id}`)
+        const servicesData = await axios.put(root + `/services/${service.id}`, update)
 
 
         if (!!servicesData.data.success) {

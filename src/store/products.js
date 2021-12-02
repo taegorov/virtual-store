@@ -65,10 +65,9 @@ export const loadProducts = () => (dispatch, getState) => {
   // return axios.get('https://div-center-backend.herokuapp.com/services') // old, but with working /services info
   // return axios.get('https://backend-virtual-store.herokuapp.com/services') // NEW DEPLOYED
   // return axios.get('/services') // local 3001
-  // console.log('process.env is: ', process.env)
-  // console.log('server dev is: ', process.env.SERVER_DEV)
+  console.log('process.env is: ', process.env)
+  console.log('server dev is: ', process.env.SERVER_DEV)
   axios.get((process.env.NODE_ENV === 'production' ? process.env.REACT_APP_SERVER_PROD : process.env.REACT_APP_SERVER_DEV) + '/services')
-    // return axios.get('http://localhost:3001/services') // local 3001
 
 
 
