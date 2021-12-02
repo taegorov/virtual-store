@@ -22,6 +22,10 @@ require('dotenv').config();
 export default function PutModal(props) {
 
     const useStyles = makeStyles({
+        rootButton: {
+            border: 'solid',
+            borderColor: 'green',
+        },
         container: {
             fontFamily: 'Inter',
             backgroundColor: 'white',
@@ -29,9 +33,10 @@ export default function PutModal(props) {
             top: '50%',
             left: '50%',
             transform: 'translate(-50%, -50%)',
-            width: 700,
+            // width: 700,
+            width: '80%',
             height: '36em',
-            maxHeight: '40em',
+            maxHeight: '90%',
             border: '2px solid #000',
             boxShadow: 24,
             p: 4,
@@ -40,6 +45,7 @@ export default function PutModal(props) {
             padding: '1em',
             display: 'flex',
             flexDirection: 'column',
+            overflow: 'scroll',
         },
         header: {
             textAlign: 'center',
@@ -47,15 +53,20 @@ export default function PutModal(props) {
             fontSize: '2em',
         },
         form: {
+            justifyContent: 'center',
+            margin: '0 auto',
 
+            width: '95%',
+            maxWidth: '95%',
         },
         button: {
             fontFamily: 'Inter',
             padding: '1em',
-            position: 'absolute',
-            bottom: '1em',
-            right: '1em',
-            margin: '0 auto',
+            // position: 'absolute',
+            // bottom: '1em',
+            // right: '1em',
+            // margin: '0 auto',
+            alignItems: 'flex-end',
         }
     });
 
@@ -143,13 +154,13 @@ export default function PutModal(props) {
     );
 
     return (
-        <div>
-            <Button onClick={handleOpen}>Edit This Service</Button>
+        <div >
+            <Button className={modalStyle.rootButton} onClick={handleOpen}>Edit This Service</Button>
             <Modal
                 open={open}
                 onClose={handleClose}
             >
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit} >
                     <Box className={modalStyle.container} >
                         <p className={modalStyle.header}>
                             Edit Service
@@ -186,6 +197,8 @@ export default function PutModal(props) {
                         <TextField
                             margin="normal"
                             className={modalStyle.form}
+                            inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
+                            type="number"
                             name="price"
                             label="Price"
                             variant="standard"
@@ -216,7 +229,7 @@ export default function PutModal(props) {
                         <button className={modalStyle.button} onChange={handleChange} type='submit'>Submit</button>
                     </Box>
                 </form>
-            </Modal>
+            </Modal >
             <Snackbar
                 severity="error"
                 open={snackOpen}
