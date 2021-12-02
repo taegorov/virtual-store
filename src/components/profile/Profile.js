@@ -12,6 +12,8 @@ import MenuItem from '@mui/material/MenuItem';
 import useForm from '../../store/form';
 import axios from 'axios';
 
+require('dotenv').config();
+
 
 export default function Profile() {
 
@@ -111,7 +113,8 @@ export default function Profile() {
 
     async function addItem(service) {
         // await axios.delete(`https://backend-virtual-store.herokuapp.com/services/${shownItem.id}`)
-        const servicesData = await axios.post('/services', service)
+        // const servicesData = await axios.post('/services', service)
+        const servicesData = await axios.post((process.env.NODE_ENV === 'production' ? process.env.REACT_APP_SERVER_PROD : process.env.REACT_APP_SERVER_DEV) + `/services`, service)
         // console.log('response data', res.data)
         if (!!servicesData.data.success) {
             // if (res.data.deleted === 1) {
