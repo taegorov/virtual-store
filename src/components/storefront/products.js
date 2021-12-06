@@ -26,10 +26,11 @@ const useStyles = makeStyles({
     position: 'relative',
   },
   loader: {
-    marginLeft: '50%',
-    marginRight: '50%',
+    // backgroundColor: 'green',
+    display: 'flex',
+    justifyContent: 'center',
     marginTop: '5em',
-    // margin: '0 auto',
+    margin: '0 auto',
   },
   name: {
     fontFamily: 'Inter',
@@ -107,7 +108,6 @@ const ProductsViewer = ({ loadProducts, products, activatedCategory, addToCart }
   }
 
   const productImage = (image) => {
-    console.log('product  is: ', image)
     if (!image) {
       return 'https://images.unsplash.com/photo-1581922814484-0b48460b7010?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80';
     }
