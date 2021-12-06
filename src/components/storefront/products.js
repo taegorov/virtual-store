@@ -79,7 +79,7 @@ const ProductsViewer = ({ loadProducts, products, activatedCategory, addToCart }
   }, [loadProducts]);
 
   useEffect(() => {
-    console.log(products);
+    // console.log(products);
     if (products.productList.length > 0) {
       setIsLoading(false);
     }
@@ -105,6 +105,15 @@ const ProductsViewer = ({ loadProducts, products, activatedCategory, addToCart }
       </div>
     )
   }
+
+  const productImage = (image) => {
+    console.log('product  is: ', image)
+    if (!image) {
+      return 'https://images.unsplash.com/photo-1581922814484-0b48460b7010?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80';
+    }
+    return image
+  }
+
   return (
     <>
 
@@ -119,7 +128,8 @@ const ProductsViewer = ({ loadProducts, products, activatedCategory, addToCart }
               <Grid item key={index}>
                 <Card className={cardStyle.container}>
                   <CardMedia
-                    image={product.image}
+                    // image={product.image}
+                    image={productImage(product.image)}
                     style={{ height: 10, paddingTop: '100%' }}
                   />
 
