@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Typography, Toolbar, IconButton, Grid, Button, makeStyles } from '@material-ui/core';
+import { Typography, IconButton, Grid, Button, makeStyles } from '@material-ui/core';
 import { Spin as Hamburger } from 'hamburger-react'
 // import MenuIcon from '@material-ui/icons/Menu';
 import Menu from '@mui/material/Menu';
@@ -12,25 +12,43 @@ import './header.css';
 
 
 const useStyles = makeStyles({
+  container: {
+    display: 'flex',
+    backgroundImage: `url(${'https://i.imgur.com/GCJRhiA.png'})`,
+    backgroundPosition: 'center',
+    backgroundSize: '100%',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    alignContent: 'space-between',
+  },
   text: {
     fontFamily: 'Ceviche One',
     fontSize: '8em',
   },
   cart: {
-    fontFamily: 'Mukta',
+    fontFamily: 'Inter',
     padding: '0em',
     minWidth: '5em',
     color: 'white',
     fontSize: '1.2em',
     // -webkit-text-stroke: .5px black;
     textDecoration: 'none',
-    marginLeft: '0em',
     textTransform: 'capitalize',
   },
-  cartLogo: {
-    marginRight: '0em',
-    backgroundColor: 'red',
-  }
+  leftDiv: {
+    flex: 1,
+    // backgroundColor: 'red',
+  },
+  centerDiv: {
+    // backgroundColor: 'green',
+  },
+  rightDiv: {
+    // backgroundColor: 'blue',
+    flex: 1,
+    display: 'flex',
+    justifyContent: 'flex-end',
+
+  },
 })
 
 function Header(props) {
@@ -59,68 +77,64 @@ function Header(props) {
   const [isOpen, setOpen] = useState(false)
 
 
-  // // hamburger resets when navigating to new page //
-  // let location = useLocation();
-  // useEffect(() => {
-  //   // console.log('location pathname', location.pathname)
-  //   if (location.pathname) {
-  //     setOpen(false)
-  //   }
-  // }, [location.pathname]);
-
-
   const header = useStyles();
 
   return (
-    <div id="header">
+    <div className={header.container}>
+      {/* <div> */}
       {/* <AppBar position="static"> */}
-      <Toolbar>
-        <Grid container justifyContent="space-between" alignItems="center">
+      {/* <Toolbar > */}
+      {/* <Grid container justifyContent="space-between" alignItems="center"> */}
+      {/* <div className={header.containerDiv}> */}
+      <div className={header.leftDiv}>
+        <IconButton
+          edge="start"
+          aria-label="menu"
+          id="basic-button"
+          aria-controls="basic-menu"
+          aria-haspopup="true"
+          aria-expanded={open ? 'true' : undefined}
+          onClick={handleClick}
+        >
+          <Hamburger
+            id="nav-button"
+            toggled={isOpen}
+            toggle={setOpen}
+            size={25}
+          />
 
-          <IconButton
-            edge="start"
-            aria-label="menu"
-            id="basic-button"
-            aria-controls="basic-menu"
-            aria-haspopup="true"
-            aria-expanded={open ? 'true' : undefined}
-            onClick={handleClick}
-          >
-            <Hamburger
-              id="nav-button"
-              toggled={isOpen}
-              toggle={setOpen}
-              size={25}
-            />
+        </IconButton>
 
-          </IconButton>
+        <Menu
+          id="basic-menu"
+          anchorEl={anchorEl}
+          open={open}
+          onClose={handleClose}
+          MenuListProps={{
+            'aria-labelledby': 'basic-button',
+          }}
+        >
+          <MenuItem component={Link} to={'/'} onClick={handleClose} >Home</MenuItem>
+          <MenuItem component={Link} to={'/profile'} onClick={handleClose} >Profile</MenuItem>
+          <MenuItem component={Link} to={'/cart'} onClick={handleClose} >Cart</MenuItem>
+        </Menu>
+      </div>
 
-          <Menu
-            id="basic-menu"
-            anchorEl={anchorEl}
-            open={open}
-            onClose={handleClose}
-            MenuListProps={{
-              'aria-labelledby': 'basic-button',
-            }}
-          >
-            <MenuItem component={Link} to={'/'} onClick={handleClose} >Home</MenuItem>
-            <MenuItem component={Link} to={'/profile'} onClick={handleClose} >Profile</MenuItem>
-            <MenuItem component={Link} to={'/cart'} onClick={handleClose} >Cart</MenuItem>
-          </Menu>
+      <div className={header.centerDiv}>
+        <Typography className={header.text} variant="h3"> Nile </Typography>
 
-          <Typography className={header.text} variant="h3"> Nile </Typography>
-          <Grid className={StylesProvider.button}>
-            {/* <NavLink id="cart" to="/cart"> Cart: {props.cart.cart.length} </NavLink> */}
-            {/* <Button align-content="right" id="nav-button"> */}
-            {/* <ShoppingCartTwoToneIcon fontSize="small" className={header.cartLogo} /> */}
-            <Button className={header.cart} component={Link} to={`/cart`}> Cart ({result || 0})
-            </Button>
-            {/* </Button> */}
-          </Grid>
+      </div>
 
+      <div className={header.rightDiv}>
+        <Grid className={StylesProvider.button} >
+
+          <Button className={header.cart} component={Link} to={`/cart`}> Cart ({result || 0})
+          </Button>
         </Grid>
-      </Toolbar>
+      </div>
+      {/* </div> */}
+      {/* </Grid> */}
+      {/* </Toolbar> */}
       {/* </AppBar> */}
     </div >
   )
