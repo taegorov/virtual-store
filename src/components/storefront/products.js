@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 
 import { Paper, Typography, Button, Grid, Card, CardContent, CardActions, CardMedia, makeStyles } from '@material-ui/core'
+import CircularProgress from '@mui/material/CircularProgress';
 import { inactive, active } from '../../store/categories.js';
 import { getProducts } from '../../store/products.js';
 import { addToCart } from '../../store/cart.js';
@@ -23,6 +24,12 @@ const useStyles = makeStyles({
     width: '20em',
     backgroundColor: 'white',
     position: 'relative',
+  },
+  loader: {
+    marginLeft: '50%',
+    marginRight: '50%',
+    marginTop: '5em',
+    // margin: '0 auto',
   },
   name: {
     fontFamily: 'Inter',
@@ -59,11 +66,29 @@ const useStyles = makeStyles({
   }
 })
 
+// timeout after X seconds
+const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
+
 const ProductsViewer = ({ loadProducts, products, activatedCategory, addToCart }) => {
   const cardStyle = useStyles();
+  const [isLoading, setIsLoading] = useState(true)
   useEffect(() => {
-    loadProducts();
+    _loadProducts();
+    // loadProducts();
+    // eslint-disable-next-line
   }, [loadProducts]);
+
+  useEffect(() => {
+    console.log(products);
+    if (products.productList.length > 0) {
+      setIsLoading(false);
+    }
+  }, [products])
+
+  const _loadProducts = async () => {
+    await wait(1000); // change to 1 second for production
+    loadProducts();
+  }
 
   const renderProducts = (productList, isCatActivated) => {
     if (isCatActivated) {
@@ -73,9 +98,13 @@ const ProductsViewer = ({ loadProducts, products, activatedCategory, addToCart }
     }
   }
 
-
-
-
+  if (isLoading) {
+    return (
+      <div className={cardStyle.loader}>
+        <CircularProgress />
+      </div>
+    )
+  }
   return (
     <>
 

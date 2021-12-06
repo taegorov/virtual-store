@@ -44,7 +44,7 @@ export default function productReducer(state = initialState, action) {
       })
       payload.inStock -= 1;
       deductor.push(payload);
-      return { ...state, productsList: deductor };
+      return { ...state, newList: deductor };
     default:
       return state;
   }
@@ -68,9 +68,6 @@ export const loadProducts = () => (dispatch, getState) => {
   console.log('process.env is: ', process.env)
   console.log('server dev is: ', process.env.SERVER_DEV)
   axios.get((process.env.NODE_ENV === 'production' ? process.env.REACT_APP_SERVER_PROD : process.env.REACT_APP_SERVER_DEV) + '/services')
-
-
-
     .then(response => {
       // console.log('🤬 response.data', response.data);
       dispatch({
@@ -79,7 +76,6 @@ export const loadProducts = () => (dispatch, getState) => {
       })
     })
 }
-
 
 export function addToCart(name) {
   return {
