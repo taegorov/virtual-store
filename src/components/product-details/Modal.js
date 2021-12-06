@@ -87,7 +87,7 @@ export default function PutModal(props) {
     // console.log('root is: ', root)
 
     async function updateItem(update) {
-        console.log('service is: ', service)
+        // console.log('service is: ', service)
         // const servicesData = await axios.put(`/services/${service.id}`, update)
         const servicesData = await axios.put(root + `/services/${service.id}`, update)
 
@@ -245,16 +245,3 @@ export default function PutModal(props) {
         </div >
     );
 }
-
-
-// const mapStateToProps = (state) => {
-//     return {
-//         cart: state.cart.cart,
-//     }
-// }
-
-// const mapDispatchToProps = {
-
-// }
-
-// export default connect(mapStateToProps, mapDispatchToProps)(PutModal);
