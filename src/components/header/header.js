@@ -20,10 +20,13 @@ const useStyles = makeStyles({
     justifyContent: 'space-between',
     alignItems: 'center',
     alignContent: 'space-between',
+    marginBottom: '1em',
+
   },
   text: {
     fontFamily: 'Ceviche One',
     fontSize: '8em',
+    lineHeight: '1em',
   },
   cart: {
     fontFamily: 'Inter',
@@ -31,7 +34,6 @@ const useStyles = makeStyles({
     minWidth: '5em',
     color: 'white',
     fontSize: '1.2em',
-    // -webkit-text-stroke: .5px black;
     textDecoration: 'none',
     textTransform: 'capitalize',
   },
@@ -47,8 +49,21 @@ const useStyles = makeStyles({
     flex: 1,
     display: 'flex',
     justifyContent: 'flex-end',
-
   },
+  menu: {
+    "& .MuiMenu-list": {
+      fontFamily: 'Inter',
+      background: 'linear-gradient(45deg, #1d212e 30%, #2b2b2b 90%)',
+      border: 'solid',
+      borderColor: 'black',
+      borderWidth: '.1em',
+      borderRadius: 3,
+      color: 'white',
+      padding: '1em',
+      // transition: 'right .5s',
+
+    }
+  }
 })
 
 function Header(props) {
@@ -81,11 +96,7 @@ function Header(props) {
 
   return (
     <div className={header.container}>
-      {/* <div> */}
-      {/* <AppBar position="static"> */}
-      {/* <Toolbar > */}
       {/* <Grid container justifyContent="space-between" alignItems="center"> */}
-      {/* <div className={header.containerDiv}> */}
       <div className={header.leftDiv}>
         <IconButton
           edge="start"
@@ -106,7 +117,7 @@ function Header(props) {
         </IconButton>
 
         <Menu
-          id="basic-menu"
+          className={header.menu}
           anchorEl={anchorEl}
           open={open}
           onClose={handleClose}
@@ -132,10 +143,7 @@ function Header(props) {
           </Button>
         </Grid>
       </div>
-      {/* </div> */}
       {/* </Grid> */}
-      {/* </Toolbar> */}
-      {/* </AppBar> */}
     </div >
   )
 }
