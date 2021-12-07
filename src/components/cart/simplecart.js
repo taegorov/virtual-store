@@ -24,7 +24,7 @@ const useStyles = makeStyles({
     fontFamily: 'Inter',
     width: '12em',
     color: 'white',
-    background: 'linear-gradient(45deg, #000000 30%, #2b2b2b 90%)',
+    background: 'linear-gradient(45deg, #1d212e 30%, #2b2b2b 90%)',
     border: 'solid',
     borderColor: 'black',
     borderWidth: '.1em',

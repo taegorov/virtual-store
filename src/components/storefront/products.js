@@ -24,13 +24,14 @@ const useStyles = makeStyles({
     width: '20em',
     backgroundColor: 'white',
     position: 'relative',
+    padding: '-1em',
   },
   loader: {
     // backgroundColor: 'green',
     display: 'flex',
     justifyContent: 'center',
     marginTop: '5em',
-    margin: '0 auto',
+    // margin: '0 auto',
   },
   name: {
     fontFamily: 'Inter',
