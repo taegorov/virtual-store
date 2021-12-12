@@ -3,9 +3,10 @@ import { useHistory } from 'react-router-dom';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@mui/material/Box';
-import { Button, Snackbar } from '@material-ui/core';
+import { IconButton, Button, Snackbar } from '@material-ui/core';
 import Modal from '@mui/material/Modal';
 import MuiAlert from '@mui/material/Alert';
+import CancelIcon from '@material-ui/icons/Cancel';
 
 
 // === form === //
@@ -142,16 +143,19 @@ export default function PutModal(props) {
     };
 
     const action = (
-        <React.Fragment>
-            <Button
+        <>
+            {/* <Button color="secondary" size="small" onClick={handleClose}>
+        UNDO
+      </Button> */}
+            <IconButton
                 size="small"
                 aria-label="close"
                 color="inherit"
-                onClick={snackHandleClose}
+                onClick={handleClose}
             >
-                X
-            </Button>
-        </React.Fragment>
+                <CancelIcon />
+            </IconButton>
+        </>
     );
 
     return (

@@ -1,35 +1,12 @@
 import React from 'react';
-import cookie from 'react-cookies';
+// import cookie from 'react-cookies';
 // import jwt from 'jsonwebtoken';
-import axios from 'axios';
 
 // import { useContext } from 'react';
 // import ThemeContext from './Theme';
 
 export const AuthContext = React.createContext();
 
-
-
-// const testUsers = [
-//   {
-//     password: 'password',
-//     name: 'Administrator',
-//     role: 'admin',
-//     capabilities: ['create', 'read', 'update', 'delete']
-//   },
-//   {
-//     password: 'password',
-//     name: 'Editor',
-//     role: 'editor',
-//     capabilities: ['read', 'update']
-//   },
-//   {
-//     password: 'password',
-//     name: 'Writer',
-//     role: 'writer',
-//     capabilities: ['create']
-//   }
-// ]
 
 
 export default class AuthProvider extends React.Component {
@@ -44,24 +21,32 @@ export default class AuthProvider extends React.Component {
         }
     }
 
+
     // validating a username and password, setting a user if found and creating a token
     login = async (username, password) => {
 
+        // search our testUser and return a valid user.
         let authString = `${username}:${password}`
-        let response = await axios.get('https://backend-virtual-store.herokuapp.com/signin', {
-
+        let response = await fetch((process.env.NODE_ENV === 'production' ? process.env.REACT_APP_SERVER_PROD : process.env.REACT_APP_SERVER_DEV) + '/signin', {
             headers: {
                 authorization: `basic ${btoa(authString)}`
             },
-            // method: 'POST'
+            method: 'POST'
         });
         let data = await response.json();
-        console.log('🦅 data', data);
+        console.log('🦅', data);
+
+        if (!data.success) {
+            return data
+        }
+
         // let token = null;
 
-        cookie.save('token', data.token);
+        // cookie.save('token', data.token);
         // cookie.save('token', token);
-        this.setState({ isAuthenticated: true, user: data.user });
+        console.log('data user', data.data.user)
+        this.setState({ isAuthenticated: true, user: data.data.user });
+        return data
     }
 
     logout = () => {
