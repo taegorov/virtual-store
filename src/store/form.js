@@ -6,7 +6,6 @@ const useForm = (callback) => {
   const [values, setValues] = useState({});
 
   const handleSubmit = (event) => {
-    console.log('WE DID IT')
     if (event) event.preventDefault();
     callback(values);
   };

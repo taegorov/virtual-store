@@ -54,9 +54,9 @@ const useStyles = makeStyles({
     "& .MuiMenu-list": {
       fontFamily: 'Inter',
       background: 'linear-gradient(45deg, #1d212e 30%, #2b2b2b 90%)',
-      border: 'solid',
-      borderColor: 'black',
-      borderWidth: '.1em',
+      // border: 'solid',
+      // borderColor: 'black',
+      // borderWidth: '.1em',
       borderRadius: 3,
       color: 'white',
       padding: '1em',

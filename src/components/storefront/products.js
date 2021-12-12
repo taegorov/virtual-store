@@ -24,7 +24,6 @@ const useStyles = makeStyles({
     width: '20em',
     backgroundColor: 'white',
     position: 'relative',
-    padding: '-1em',
   },
   loader: {
     // backgroundColor: 'green',
