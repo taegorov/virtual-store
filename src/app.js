@@ -11,7 +11,7 @@ import Details from './components/product-details/details';
 import ShoppingCart from './components/cart/shopping-cart';
 import Profile from './components/profile/Profile'
 import LoginForm from './components/login/Login'
-import Auth from './context/Auth'
+import Auth from './components/auth/Auth'
 
 
 function App() {
@@ -20,8 +20,8 @@ function App() {
       <Header />
       <SimpleCart />
       <LoginForm />
-      <Auth capability="delete">
-        <p>🙌 hearye hearye, administrator with delete privilege 🙌</p>
+      <Auth capability="read">
+        <p>Login Successful</p>
         <main>
           <Route exact path='/' component={Products} />
           <Route exact path='/products/:id' component={Details} />

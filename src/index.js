@@ -23,17 +23,6 @@ function Main() {
 }
 
 
-// function Main() {
-
-//   return (
-//     <AuthProvider>
-//       <ThemeProvider>
-//         <App />
-//       </ThemeProvider>
-//     </AuthProvider>
-//   );
-// }
-
 const rootElement = document.getElementById('root');
 ReactDOM.render(<Main />, rootElement);
 

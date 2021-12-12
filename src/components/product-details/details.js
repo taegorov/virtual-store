@@ -3,8 +3,9 @@ import { connect } from 'react-redux';
 // import { useSelector } from 'react-redux';
 // import { useParams } from 'react-router-dom';
 import { Link, useHistory } from 'react-router-dom';
-import { Button } from '@material-ui/core';
+import { Button, IconButton } from '@material-ui/core';
 import ArrowBackIosTwoToneIcon from '@material-ui/icons/ArrowBackIosTwoTone';
+import CancelIcon from '@material-ui/icons/Cancel';
 import { Card, CardMedia, Paper, Tab, Tabs, Snackbar } from '@material-ui/core';
 import MuiAlert from '@mui/material/Alert';
 // import CloseIcon from '@mui/icons-material/Close';
@@ -13,10 +14,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import { addToCart, removeFromCart } from '../../store/cart.js';
 import PutModal from './Modal'
 import axios from 'axios';
+import Auth from '../../components/auth/Auth'
 
 
 require('dotenv').config();
-
 
 
 // function Details(props, mapDispatchToProps) {
@@ -175,7 +176,7 @@ function Details(props) {
       fontFamily: 'Inter',
     },
     deleteStyling: {
-      padding: '.5em',
+      // padding: '.5em',
       fontFamily: 'Inter',
       // width: '30em',
       maxWidth: '30em',
@@ -240,19 +241,16 @@ function Details(props) {
   };
 
   const action = (
-    <React.Fragment>
-      {/* <Button color="secondary" size="small" onClick={handleClose}>
-        UNDO
-      </Button> */}
-      <Button
+    <>
+      <IconButton
         size="small"
         aria-label="close"
         color="inherit"
         onClick={handleClose}
       >
-        X
-      </Button>
-    </React.Fragment>
+        <CancelIcon />
+      </IconButton>
+    </>
   );
 
 
@@ -329,22 +327,27 @@ function Details(props) {
           <TabSelection className={classes.tabText} value={value} index={2}> Freelancer id: {shownItem.freelancer} </TabSelection>
         </div>
 
-        {/* DELETE is here */}
         <Paper className={classes.deleteStyling} elevation={10}>
-          <PutModal service={shownItem} />
-          <Button
-            className={classes.deleteButton}
-            onClick={() => {
-              // eslint-disable-next-line no-restricted-globals
-              if (confirm('Are you sure? This action is final!')) {
-                deleteService().catch(err => alert(err))
-              }
-            }}
-          >
-            delete this service
-          </Button>
-          {/* <p> WARNING: THIS IS PERMANENT. TESTING PURPOSES ONLY </p> */}
+          <Auth capability="update">
+            <PutModal service={shownItem} />
+          </Auth>
+
+          <Auth capability="delete">
+            <Button
+              className={classes.deleteButton}
+              onClick={() => {
+                // eslint-disable-next-line no-restricted-globals
+                if (confirm('Are you sure? This action is final!')) {
+                  deleteService().catch(err => alert(err))
+                }
+              }}
+            >
+              delete this service
+            </Button>
+            {/* <p> WARNING: THIS IS PERMANENT. TESTING PURPOSES ONLY </p> */}
+          </Auth>
         </Paper>
+
         <Snackbar
           severity="error"
           open={open}
