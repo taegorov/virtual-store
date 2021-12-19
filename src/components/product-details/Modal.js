@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import { makeStyles } from '@material-ui/core/styles';
-import Box from '@mui/material/Box';
+import { Box, Modal, Alert } from '@mui/material';
 import { IconButton, Button, Snackbar } from '@material-ui/core';
-import Modal from '@mui/material/Modal';
-import MuiAlert from '@mui/material/Alert';
+// import Modal from '@mui/material/Modal';
+// import MuiAlert from '@mui/material/Alert';
 import CancelIcon from '@material-ui/icons/Cancel';
+import { root } from '../../helper'
 
 
 // === form === //
@@ -84,7 +85,7 @@ export default function PutModal(props) {
     // ADD NEW SERVICE TO BACK END
     const { handleChange, handleSubmit, values } = useForm(updateItem);
 
-    const root = (process.env.NODE_ENV === 'production' ? process.env.REACT_APP_SERVER_PROD : process.env.REACT_APP_SERVER_DEV)
+    // const root = (process.env.NODE_ENV === 'production' ? process.env.REACT_APP_SERVER_PROD : process.env.REACT_APP_SERVER_DEV)
     // console.log('root is: ', root)
 
     async function updateItem(update) {
@@ -244,7 +245,7 @@ export default function PutModal(props) {
                 message="Service Updated!"
                 action={action}
             >
-                <MuiAlert action={action} onClose={snackHandleClose} severity="success">Service Updated!</MuiAlert>
+                <Alert action={action} onClose={snackHandleClose} severity="success">Service Updated!</Alert>
             </Snackbar>
         </div >
     );
