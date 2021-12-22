@@ -1,6 +1,8 @@
 // === === imports === === //
 // import dog from '../assets/dog.jpg'
 import axios from 'axios';
+import { root } from '../helper'
+
 
 require('dotenv').config();
 
@@ -67,7 +69,8 @@ export const loadProducts = () => (dispatch, getState) => {
   // return axios.get('/services') // local 3001
   console.log('process.env is: ', process.env)
   console.log('server dev is: ', process.env.SERVER_DEV)
-  axios.get((process.env.NODE_ENV === 'production' ? process.env.REACT_APP_SERVER_PROD : process.env.REACT_APP_SERVER_DEV) + '/services')
+  // axios.get((process.env.NODE_ENV === 'production' ? process.env.REACT_APP_SERVER_PROD : process.env.REACT_APP_SERVER_DEV) + '/services')
+  axios.get(root + '/services')
     .then(response => {
       // console.log('🤬 response.data', response.data);
       dispatch({
