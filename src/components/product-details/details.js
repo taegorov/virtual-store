@@ -15,6 +15,8 @@ import { addToCart, removeFromCart } from '../../store/cart.js';
 import PutModal from './Modal'
 import axios from 'axios';
 import Auth from '../../components/auth/Auth'
+import { root } from '../../helper'
+
 
 
 require('dotenv').config();
@@ -219,7 +221,8 @@ function Details(props) {
   async function deleteService() {
     // await axios.delete(`https://backend-virtual-store.herokuapp.com/services/${shownItem.id}`)
     // const res = await axios.delete(`/services/${shownItem.id}`)
-    const res = await axios.delete((process.env.NODE_ENV === 'production' ? process.env.REACT_APP_SERVER_PROD : process.env.REACT_APP_SERVER_DEV) + `/services/${shownItem.id}`)
+    // const res = await axios.delete((process.env.NODE_ENV === 'production' ? process.env.REACT_APP_SERVER_PROD : process.env.REACT_APP_SERVER_DEV) + `/services/${shownItem.id}`)
+    const res = await axios.delete(root + `/services/${shownItem.id}`)
     // console.log('response data', res.data)
     if (!!res.data.success) {
       // if (res.data.deleted === 1) {

@@ -5,6 +5,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import ArrowBackIosTwoToneIcon from '@material-ui/icons/ArrowBackIosTwoTone';
 import MuiAlert from '@mui/material/Alert';
 import axios from 'axios';
+import { root } from '../../helper'
+
 
 // === form === //
 import Box from '@mui/material/Box';
@@ -114,7 +116,8 @@ export default function Profile() {
     async function addItem(service) {
         // await axios.delete(`https://backend-virtual-store.herokuapp.com/services/${shownItem.id}`)
         // const servicesData = await axios.post('/services', service)
-        const servicesData = await axios.post((process.env.NODE_ENV === 'production' ? process.env.REACT_APP_SERVER_PROD : process.env.REACT_APP_SERVER_DEV) + `/services`, service)
+        // const servicesData = await axios.post((process.env.NODE_ENV === 'production' ? process.env.REACT_APP_SERVER_PROD : process.env.REACT_APP_SERVER_DEV) + `/services`, service)
+        const servicesData = await axios.post(root + `/services`, service)
         // console.log('response data', res.data)
         if (!!servicesData.data.success) {
             // if (res.data.deleted === 1) {
