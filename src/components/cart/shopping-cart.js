@@ -98,6 +98,12 @@ function ShoppingCart(props) {
     },
   });
 
+  const productImage = (image) => {
+    if (!image) {
+      return 'https://images.unsplash.com/photo-1581922814484-0b48460b7010?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80';
+    }
+    return image
+  }
 
   const shoppingCart = useStyles();
 
@@ -132,7 +138,8 @@ function ShoppingCart(props) {
             <div key={lineItem.id}>
               <ListItem className={shoppingCart.rowContainer} >
                 <ListItemAvatar>
-                  <Avatar src={lineItem.image} variant="square" />
+                  {/* <Avatar src={lineItem.image} variant="square" /> */}
+                  <Avatar src={productImage(lineItem.image)} variant="square" />
                 </ListItemAvatar>
                 <ListItemText className={shoppingCart.serviceName} >
                   <p>

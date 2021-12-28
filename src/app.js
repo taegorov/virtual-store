@@ -21,7 +21,7 @@ function App() {
       <SimpleCart />
       <LoginForm />
       <Auth capability="read">
-        <p>Login Successful</p>
+        {/* <p>Login Successful</p> */}
         <main>
           <Route exact path='/' component={Products} />
           <Route exact path='/products/:id' component={Details} />

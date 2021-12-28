@@ -257,6 +257,14 @@ function Details(props) {
   );
 
 
+  const productImage = (image) => {
+    if (!image) {
+      return 'https://images.unsplash.com/photo-1581922814484-0b48460b7010?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80';
+    }
+    return image
+  }
+
+
   return (
     <div>
       <Paper className={classes.container} elevation={10}>
@@ -279,7 +287,8 @@ function Details(props) {
 
         <Card className={classes.photoContainer}>
           <CardMedia
-            image={shownItem.image}
+            // image={shownItem.image}
+            image={productImage(shownItem.image)}
             className={classes.photo}
           />
         </Card>
