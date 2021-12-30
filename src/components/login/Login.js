@@ -1,14 +1,44 @@
 import { useContext, useState } from 'react';
 // import { Button, InputGroup } from '@blueprintjs/core';
 // import { Button } from '@material-ui/core';
-// import TextField from '@mui/material/TextField';
-import { Snackbar, IconButton } from '@material-ui/core';
+import TextField from '@mui/material/TextField';
+import { Snackbar, IconButton, Button, Typography } from '@material-ui/core';
 import MuiAlert from '@mui/material/Alert';
 import { AuthContext } from '../../context/Auth';
 import CancelIcon from '@material-ui/icons/Cancel';
+import { makeStyles } from '@material-ui/core/styles';
 
 
-function Login() {
+
+export default function Login() {
+
+    const useStyles = makeStyles({
+        container: {
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+
+        },
+        formContainer: {
+            margin: '.5em',
+            // width: '70%',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+        },
+        formField: {
+            backgroundColor: 'white',
+        },
+        formButton: {
+            backgroundColor: '#fcba03',
+            margin: '.5em',
+        }
+    });
+
+    const loginStyle = useStyles();
+
 
     const [successMessage, setSuccessMessage] = useState(null);
     const [errorMessage, setErrorMessage] = useState(null);
@@ -52,14 +82,17 @@ function Login() {
     );
 
     return (
-        <div className="login">
+        <div className={loginStyle.container}>
             {isAuthenticated
-                ? <button onClick={logout}>Logout</button>
-                : <form onSubmit={handleSubmit}>
-                    <input name="username" id="username" placeholder="username" />
-                    <input name="password" id="password" placeholder="password" />
-                    <button intent="success" type='submit' large="true">Login</button>
-                </form>
+                ? <Button className={loginStyle.formButton} onClick={logout}>Logout</Button>
+                : <>
+                    <Typography>Is this your service? Sign in to edit or delete</Typography>
+                    <form className={loginStyle.formContainer} onSubmit={handleSubmit}>
+                        <TextField className={loginStyle.formField} variant="filled" name="username" id="username" placeholder="username" />
+                        <TextField className={loginStyle.formField} variant="filled" name="password" id="password" placeholder="password" />
+                        <Button className={loginStyle.formButton} intent="success" type='submit' large="true">Login</Button>
+                    </form>
+                </>
             }
             {errorMessage}
 
@@ -77,4 +110,4 @@ function Login() {
     )
 }
 
-export default Login;
+// export default Login;

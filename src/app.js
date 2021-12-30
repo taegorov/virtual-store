@@ -10,8 +10,8 @@ import { Route } from 'react-router-dom';
 import Details from './components/product-details/details';
 import ShoppingCart from './components/cart/shopping-cart';
 import Profile from './components/profile/Profile'
-import LoginForm from './components/login/Login'
-import Auth from './components/auth/Auth'
+// import LoginForm from './components/login/Login'
+// import Auth from './components/auth/Auth'
 
 
 function App() {
@@ -19,17 +19,17 @@ function App() {
     <>
       <Header />
       <SimpleCart />
-      <LoginForm />
-      <Auth capability="read">
-        {/* <p>Login Successful</p> */}
-        <main>
-          <Route exact path='/' component={Products} />
-          <Route exact path='/products/:id' component={Details} />
-          <Route exact path='/cart' component={ShoppingCart} />
-          <Route exact path='/profile' component={Profile} />
-        </main>
-        <Footer />
-      </Auth>
+      {/* <LoginForm /> */}
+      {/* <Auth capability="read"> */}
+      {/* <p>Login Successful</p> */}
+      <main>
+        <Route exact path='/' component={Products} />
+        <Route exact path='/products/:id' component={Details} />
+        <Route exact path='/cart' component={ShoppingCart} />
+        <Route exact path='/profile' component={Profile} />
+      </main>
+      <Footer />
+      {/* </Auth> */}
     </>
   );
 }
