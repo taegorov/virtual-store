@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-// import { useSelector } from 'react-redux';
-// import { useParams } from 'react-router-dom';
+import Login from '../login/Login';
 import { Link, useHistory } from 'react-router-dom';
 import { Button, IconButton } from '@material-ui/core';
 import ArrowBackIosTwoToneIcon from '@material-ui/icons/ArrowBackIosTwoTone';
@@ -340,6 +339,7 @@ function Details(props) {
         </div>
 
         <Paper className={classes.deleteStyling} elevation={10}>
+          <Login />
           <Auth capability="update">
             <PutModal service={shownItem} />
           </Auth>
