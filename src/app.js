@@ -9,7 +9,8 @@ import SimpleCart from './components/cart/simplecart';
 import { Route } from 'react-router-dom';
 import Details from './components/product-details/details';
 import ShoppingCart from './components/cart/shopping-cart';
-import Profile from './components/profile/Profile'
+import Profile from './components/profile/Profile';
+import Signup from './components/signup/Signup';
 // import LoginForm from './components/login/Login'
 // import Auth from './components/auth/Auth'
 
@@ -27,6 +28,7 @@ function App() {
         <Route exact path='/products/:id' component={Details} />
         <Route exact path='/cart' component={ShoppingCart} />
         <Route exact path='/profile' component={Profile} />
+        <Route exact path='/signup' component={Signup} />
       </main>
       <Footer />
       {/* </Auth> */}
