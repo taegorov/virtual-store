@@ -127,7 +127,9 @@ function Header(props) {
         >
           <MenuItem component={Link} to={'/'} onClick={handleClose} >Home</MenuItem>
           <MenuItem component={Link} to={'/profile'} onClick={handleClose} >Profile</MenuItem>
+          <MenuItem component={Link} to={'/signup'} onClick={handleClose} >Signup</MenuItem>
           <MenuItem component={Link} to={'/cart'} onClick={handleClose} >Cart</MenuItem>
+
         </Menu>
       </div>
 
