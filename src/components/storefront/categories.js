@@ -12,7 +12,7 @@ const CategoryViewer = (props) => {
   return (
     <div id="container">
 
-      <Typography id="filter-text" variant="h4" component='h4'> Filter By Category </Typography>
+      <Typography id="filter-text" variant="h6" component='h6'> Filter By Category </Typography>
 
       <Button id="card-buttons" variant="contained" color="primary" onClick={() => props.allProducts('Accessibility', 'All')}>All</Button>
 
