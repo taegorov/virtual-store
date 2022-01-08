@@ -28,7 +28,7 @@ export default function Profile() {
         },
     });
 
-    const profileStyle = useStyles();
+    const signupStyle = useStyles();
 
 
     // scroll window to top at page load
@@ -39,39 +39,14 @@ export default function Profile() {
     // === categories for 'categories' part of form === //
     const categories = [
         {
-            value: 'Accessibility',
-            label: 'Accessibility',
+            value: 'user',
+            label: 'user',
         },
         {
-            value: 'Web Design',
-            label: 'Web Design',
+            value: 'freelancer',
+            label: 'freelancer',
         },
-        {
-            value: 'Design',
-            label: 'Design',
-        },
-        {
-            value: 'Apps',
-            label: 'Apps',
-        },
-        {
-            value: 'Tutoring',
-            label: 'Tutoring',
-        },
-        {
-            value: 'Misc',
-            label: 'Misc',
-        }
     ];
-
-
-
-    // // handle change for CATEGORY portion of form
-    // const handleCategory = (event) => {
-    //     setCategory(event.target.value);
-    // };
-
-    // const [category, setCategory] = React.useState('CATEGORY');
 
 
     // === === === snackbar behavior from MUI docs === === === //
@@ -88,9 +63,6 @@ export default function Profile() {
 
     const action = (
         <React.Fragment>
-            {/* <Button color="secondary" size="small" onClick={handleClose}>
-        UNDO
-      </Button> */}
             <Button
                 size="small"
                 aria-label="close"
@@ -104,7 +76,7 @@ export default function Profile() {
 
 
     // ADD NEW SERVICE TO BACK END
-    const { handleChange, handleSubmit, values } = useForm(addItem);
+    const { handleChange, handleSubmit, values } = useForm(addUser);
 
     // // OLD ADD HERE
     // async function addItem(service) {
@@ -113,12 +85,12 @@ export default function Profile() {
     //     await axios.post('/services', service)
     // }
 
-    async function addItem(service) {
+    async function addUser(user) {
         // await axios.delete(`https://backend-virtual-store.herokuapp.com/services/${shownItem.id}`)
         // const servicesData = await axios.post('/services', service)
         // const servicesData = await axios.post((process.env.NODE_ENV === 'production' ? process.env.REACT_APP_SERVER_PROD : process.env.REACT_APP_SERVER_DEV) + `/services`, service)
-        const servicesData = await axios.post(root + `/services`, service)
-        // console.log('response data', res.data)
+        const servicesData = await axios.post(root + `/signup`, user)
+        console.log('services data', servicesData)
         if (!!servicesData.data.success) {
             // if (res.data.deleted === 1) {
             console.log('front end RES', servicesData.data);
@@ -131,7 +103,7 @@ export default function Profile() {
     return (
         <div>
             <Button
-                className={profileStyle.backButton}
+                className={signupStyle.backButton}
                 size="large"
                 color="primary"
                 variant="contained"
@@ -141,10 +113,10 @@ export default function Profile() {
                 Back to Store
             </Button>
 
-            <p> upload new services here </p>
+            <p> Create a New Account </p>
             <form onSubmit={handleSubmit} >
                 <Box
-                    className={profileStyle.form}
+                    className={signupStyle.form}
                     // component="form"
                     sx={{
                         '& > :not(style)': { m: 1, width: '25ch' },
@@ -152,35 +124,25 @@ export default function Profile() {
                     noValidate
                     autoComplete="off"
                 >
-                    <TextField name="name" label="Service Name" variant="outlined" onChange={handleChange} />
-                    <TextField name="freelancer" label="Freelancer id" variant="outlined" type="number" onChange={handleChange} />
+                    <TextField name="username" label="Username" variant="outlined" onChange={handleChange} />
+                    <TextField name="password" label="Password" variant="outlined" type="password" onChange={handleChange} />
                     <TextField
                         // disabled
-                        name="category"
+                        name="role"
                         onChange={handleChange}
                         variant="outlined"
                         select
                         label="Select"
-                        defaultValue="Misc"
+                        defaultValue="user"
                         value={values.category}
-                        helperText="Pick a Category">
+                        helperText="Pick a Role">
                         {categories.map((option) => (
                             <MenuItem key={option.value} value={option.value}>
                                 {option.label}
                             </MenuItem>
                         ))}
                     </TextField>
-                    {/* <TextField name="category" label="Category" variant="outlined" onChange={handleChange} /> */}
-                    <TextField name="price" label="Price" variant="outlined" type="number" onChange={handleChange} />
-                    <TextField
-                        onChange={handleChange}
-                        name="details"
-                        label="Details"
-                        variant="outlined"
-                        multiline
-                        maxRows={4}
-                    />
-                    <TextField name="image" label="Image URL" variant="outlined" onChange={handleChange} />
+
                     <Button variant='outlined' type='submit' > Submit </Button>
                 </Box>
 
@@ -192,7 +154,7 @@ export default function Profile() {
                     message="Service Deleted!"
                     action={action}
                 >
-                    <MuiAlert action={action} onClose={handleClose} severity="success">Service Created!</MuiAlert>
+                    <MuiAlert action={action} onClose={handleClose} severity="success">User Created!</MuiAlert>
                 </Snackbar>
             </form>
 
