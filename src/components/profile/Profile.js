@@ -153,7 +153,7 @@ export default function Profile() {
                     autoComplete="off"
                 >
                     <TextField name="name" label="Service Name" variant="outlined" onChange={handleChange} />
-                    <TextField name="freelancer" label="Freelancer id" variant="outlined" type="number" onChange={handleChange} />
+                    {/* <TextField name="freelancer" label="Freelancer id" variant="outlined" type="number" onChange={handleChange} /> */}
                     <TextField
                         // disabled
                         name="category"
