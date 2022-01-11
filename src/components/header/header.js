@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Typography, IconButton, Grid, Button, makeStyles } from '@material-ui/core';
@@ -7,6 +7,7 @@ import { Spin as Hamburger } from 'hamburger-react'
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { StylesProvider } from '@material-ui/styles';
+import { AuthContext } from '../../context/Auth';
 import './header.css';
 
 
@@ -64,9 +65,12 @@ const useStyles = makeStyles({
 
     }
   }
-})
+});
+
+
 
 function Header(props) {
+  const { isAuthenticated } = useContext(AuthContext);
 
   // Reduce method below. reduces several values to a single value. Below we are reducing the *quantity* number to a single value by adding each array "item" together
   const result = Object.keys(props.cart).reduce((acc, curr) => {
@@ -126,10 +130,14 @@ function Header(props) {
           }}
         >
           <MenuItem component={Link} to={'/'} onClick={handleClose} >Home</MenuItem>
-          <MenuItem component={Link} to={'/profile'} onClick={handleClose} >Profile</MenuItem>
-          <MenuItem component={Link} to={'/signup'} onClick={handleClose} >Signup</MenuItem>
           <MenuItem component={Link} to={'/cart'} onClick={handleClose} >Cart</MenuItem>
-
+          {isAuthenticated
+            ? <MenuItem component={Link} to={'/profile'} onClick={handleClose} >Profile</MenuItem>
+            : <>
+              <MenuItem component={Link} to={'/signup'} onClick={handleClose} >Sign up</MenuItem>
+              <MenuItem component={Link} to={'/signin'} onClick={handleClose} >Sign in</MenuItem>
+            </>
+          }
         </Menu>
       </div>
 
