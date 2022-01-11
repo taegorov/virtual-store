@@ -334,7 +334,7 @@ function Details(props) {
           </Tabs>
           <TabSelection className={classes.tabText} value={value} index={0}> {shownItem.details} </TabSelection>
           <TabSelection className={classes.tabText} value={value} index={1}> Reviews </TabSelection>
-          <TabSelection className={classes.tabText} value={value} index={2}> Freelancer id: {shownItem.freelancer} </TabSelection>
+          {/* <TabSelection className={classes.tabText} value={value} index={2}> Freelancer id: {shownItem.freelancer} </TabSelection> */}
         </div>
 
         <Paper className={classes.deleteStyling} elevation={10}>

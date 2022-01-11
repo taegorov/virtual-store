@@ -11,6 +11,7 @@ import Details from './components/product-details/details';
 import ShoppingCart from './components/cart/shopping-cart';
 import Profile from './components/profile/Profile';
 import Signup from './components/signup/Signup';
+import Login from './components/login/Login';
 // import LoginForm from './components/login/Login'
 // import Auth from './components/auth/Auth'
 
@@ -29,6 +30,8 @@ function App() {
         <Route exact path='/cart' component={ShoppingCart} />
         <Route exact path='/profile' component={Profile} />
         <Route exact path='/signup' component={Signup} />
+        <Route exact path='/signin' component={Login} />
+
       </main>
       <Footer />
       {/* </Auth> */}
