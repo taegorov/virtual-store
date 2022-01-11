@@ -7,10 +7,12 @@ import MuiAlert from '@mui/material/Alert';
 import { AuthContext } from '../../context/Auth';
 import CancelIcon from '@material-ui/icons/Cancel';
 import { makeStyles } from '@material-ui/core/styles';
+import { useHistory } from 'react-router';
 
 
 
 export default function Login() {
+
 
     const useStyles = makeStyles({
         container: {
@@ -38,6 +40,7 @@ export default function Login() {
     });
 
     const loginStyle = useStyles();
+    const history = useHistory();
 
 
     const [successMessage, setSuccessMessage] = useState(null);
@@ -61,7 +64,7 @@ export default function Login() {
             return;
         }
         setSuccessMessage(null);
-        // history.push("/")
+        history.push("/")
     };
 
 
@@ -86,7 +89,7 @@ export default function Login() {
             {isAuthenticated
                 ? <Button className={loginStyle.formButton} onClick={logout}>Logout</Button>
                 : <>
-                    <Typography>Is this your service? Sign in to edit or delete</Typography>
+                    <Typography>Sign in here 🤜🏻</Typography>
                     <form className={loginStyle.formContainer} onSubmit={handleSubmit}>
                         <TextField className={loginStyle.formField} variant="filled" name="username" id="username" placeholder="username" />
                         <TextField className={loginStyle.formField} variant="filled" name="password" id="password" placeholder="password" />

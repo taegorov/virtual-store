@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { Button, Snackbar } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
@@ -6,7 +6,7 @@ import ArrowBackIosTwoToneIcon from '@material-ui/icons/ArrowBackIosTwoTone';
 import MuiAlert from '@mui/material/Alert';
 import axios from 'axios';
 import { root } from '../../helper'
-
+import { AuthContext } from '../../context/Auth'
 
 // === form === //
 import Box from '@mui/material/Box';
@@ -23,17 +23,41 @@ export default function Profile() {
         backButton: {
             margin: '1em',
         },
+        container: {
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+            // backgroundColor: 'yellow',
+        },
+        header: {
+            // alignSelf: 'flex-start',
+            margin: '1em',
+            fontSize: '2em',
+        },
         form: {
             backgroundColor: 'white',
         },
+        logoutButton: {
+            display: 'block',
+            backgroundColor: '#fcba03',
+            margin: '0 auto',
+            marginTop: '5em',
+        }
     });
 
     const profileStyle = useStyles();
+    const { isAuthenticated, logout } = useContext(AuthContext);
+    const history = useHistory();
 
 
     // scroll window to top at page load
     useEffect(() => {
+        if (!isAuthenticated) {
+            history.push("/signin")
+        }
         window.scrollTo(0, 0)
+        // eslint-disable-next-line
     }, [])
 
     // === categories for 'categories' part of form === //
@@ -76,7 +100,6 @@ export default function Profile() {
 
     // === === === snackbar behavior from MUI docs === === === //
     const [open, setOpen] = useState(false);
-    const history = useHistory();
 
     const handleClose = (event, reason) => {
         if (reason === 'clickaway') {
@@ -87,7 +110,7 @@ export default function Profile() {
     };
 
     const action = (
-        <React.Fragment>
+        <>
             {/* <Button color="secondary" size="small" onClick={handleClose}>
         UNDO
       </Button> */}
@@ -99,7 +122,8 @@ export default function Profile() {
             >
                 X
             </Button>
-        </React.Fragment>
+        </>
+
     );
 
 
@@ -141,61 +165,67 @@ export default function Profile() {
                 Back to Store
             </Button>
 
-            <p> upload new services here </p>
-            <form onSubmit={handleSubmit} >
-                <Box
-                    className={profileStyle.form}
-                    // component="form"
-                    sx={{
-                        '& > :not(style)': { m: 1, width: '25ch' },
-                    }}
-                    noValidate
-                    autoComplete="off"
-                >
-                    <TextField name="name" label="Service Name" variant="outlined" onChange={handleChange} />
-                    {/* <TextField name="freelancer" label="Freelancer id" variant="outlined" type="number" onChange={handleChange} /> */}
-                    <TextField
-                        // disabled
-                        name="category"
-                        onChange={handleChange}
-                        variant="outlined"
-                        select
-                        label="Select"
-                        defaultValue="Misc"
-                        value={values.category}
-                        helperText="Pick a Category">
-                        {categories.map((option) => (
-                            <MenuItem key={option.value} value={option.value}>
-                                {option.label}
-                            </MenuItem>
-                        ))}
-                    </TextField>
-                    {/* <TextField name="category" label="Category" variant="outlined" onChange={handleChange} /> */}
-                    <TextField name="price" label="Price" variant="outlined" type="number" onChange={handleChange} />
-                    <TextField
-                        onChange={handleChange}
-                        name="details"
-                        label="Details"
-                        variant="outlined"
-                        multiline
-                        maxRows={4}
-                    />
-                    <TextField name="image" label="Image URL" variant="outlined" onChange={handleChange} />
-                    <Button variant='outlined' type='submit' > Submit </Button>
-                </Box>
+            <div className={profileStyle.container}>
+                <p className={profileStyle.header}> Your current offerings </p>
 
-                <Snackbar
-                    severity="error"
-                    open={open}
-                    autoHideDuration={4000}
-                    onClose={handleClose}
-                    message="Service Deleted!"
-                    action={action}
-                >
-                    <MuiAlert action={action} onClose={handleClose} severity="success">Service Created!</MuiAlert>
-                </Snackbar>
-            </form>
+                <p className={profileStyle.header}> Upload new services </p>
+                <form onSubmit={handleSubmit} >
+                    <Box
+                        className={profileStyle.form}
+                        // component="form"
+                        sx={{
+                            '& > :not(style)': { m: 1, width: '25ch' },
+                        }}
+                        noValidate
+                        autoComplete="off"
+                    >
+                        <TextField name="name" label="Service Name" variant="outlined" onChange={handleChange} />
+                        {/* <TextField name="freelancer" label="Freelancer id" variant="outlined" type="number" onChange={handleChange} /> */}
+                        <TextField
+                            // disabled
+                            name="category"
+                            onChange={handleChange}
+                            variant="outlined"
+                            select
+                            label="Select"
+                            defaultValue="Misc"
+                            value={values.category}
+                            helperText="Pick a Category">
+                            {categories.map((option) => (
+                                <MenuItem key={option.value} value={option.value}>
+                                    {option.label}
+                                </MenuItem>
+                            ))}
+                        </TextField>
+                        {/* <TextField name="category" label="Category" variant="outlined" onChange={handleChange} /> */}
+                        <TextField name="price" label="Price" variant="outlined" type="number" onChange={handleChange} />
+                        <TextField
+                            onChange={handleChange}
+                            name="details"
+                            label="Details"
+                            variant="outlined"
+                            multiline
+                            maxRows={4}
+                        />
+                        <TextField name="image" label="Image URL" variant="outlined" onChange={handleChange} />
+                        <Button variant='outlined' type='submit' > Submit </Button>
+                    </Box>
 
-        </div>
+                    <Button className={profileStyle.logoutButton} onClick={logout}>Logout</Button>
+                </form >
+            </div>
+
+            <Snackbar
+                severity="error"
+                open={open}
+                autoHideDuration={4000}
+                onClose={handleClose}
+                message="Service Deleted!"
+                action={action}
+            >
+                <MuiAlert action={action} onClose={handleClose} severity="success">Service Created!</MuiAlert>
+            </Snackbar>
+
+        </div >
     )
 }
