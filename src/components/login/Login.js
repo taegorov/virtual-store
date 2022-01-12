@@ -100,7 +100,6 @@ export default function Login() {
             {errorMessage}
 
             <Snackbar
-                // severity="success"
                 open={!!successMessage}
                 autoHideDuration={4000}
                 onClose={handleClose}

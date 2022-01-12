@@ -4,10 +4,10 @@ import { connect } from 'react-redux';
 import { Paper, Typography, Button, Grid, Card, CardContent, CardActions, CardMedia, makeStyles } from '@material-ui/core'
 import CircularProgress from '@mui/material/CircularProgress';
 import { inactive, active } from '../../store/categories.js';
-import { getProducts } from '../../store/products.js';
+// import { getProducts } from '../../store/products.js';
 import { addToCart } from '../../store/cart.js';
 import CategoryViewer from './categories.js';
-import { loadProducts } from '../../store/products';
+import { loadProducts, getProducts } from '../../store/products';
 import { Link } from 'react-router-dom';
 
 

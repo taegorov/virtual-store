@@ -27,6 +27,7 @@ function Details(props) {
   const useStyles = makeStyles({
     container: {
       background: 'linear-gradient(65deg, #ffffff 25%, #f2f2f2 10%)',
+      // background: 'linear-gradient(65deg, #ffffff 25%, #ebebeb 10%)',
       marginBottom: '1em',
     },
     backButton: {
