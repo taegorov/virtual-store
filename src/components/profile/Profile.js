@@ -1,12 +1,16 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { Button, Snackbar } from '@material-ui/core';
+import { Button, Snackbar, Card, CardContent, CardMedia, Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import ArrowBackIosTwoToneIcon from '@material-ui/icons/ArrowBackIosTwoTone';
 import MuiAlert from '@mui/material/Alert';
 import axios from 'axios';
 import { root } from '../../helper'
 import { AuthContext } from '../../context/Auth'
+// import { loadProducts, getProducts } from '../../store/products';
+import { connect } from 'react-redux';
+import _ from 'lodash';
+
 
 // === form === //
 import Box from '@mui/material/Box';
@@ -17,7 +21,11 @@ import useForm from '../../store/form';
 require('dotenv').config();
 
 
-export default function Profile() {
+function Profile(props) {
+    console.log('PROFILE PAGE props', props.products)
+    // console.log('PROFILE PAGE loadproducts', loadProducts)
+    // console.log('PROFILE PAGE getproducts', getProducts)
+
 
     const useStyles = makeStyles({
         backButton: {
@@ -43,11 +51,21 @@ export default function Profile() {
             backgroundColor: '#fcba03',
             margin: '0 auto',
             marginTop: '5em',
-        }
+        },
+        cardContainer: {
+            fontFamily: 'Inter',
+            textAlign: 'center',
+            fontSize: '',
+            color: 'black',
+            height: '20em',
+            maxHeight: '23em',
+            width: '10em',
+            position: 'relative',
+        },
     });
 
     const profileStyle = useStyles();
-    const { isAuthenticated, logout } = useContext(AuthContext);
+    const { isAuthenticated, logout, user } = useContext(AuthContext);
     const history = useHistory();
 
 
@@ -127,6 +145,8 @@ export default function Profile() {
     );
 
 
+
+
     // ADD NEW SERVICE TO BACK END
     const { handleChange, handleSubmit, values } = useForm(addItem);
 
@@ -137,7 +157,9 @@ export default function Profile() {
     //     await axios.post('/services', service)
     // }
 
+
     async function addItem(service) {
+
         // await axios.delete(`https://backend-virtual-store.herokuapp.com/services/${shownItem.id}`)
         // const servicesData = await axios.post('/services', service)
         // const servicesData = await axios.post((process.env.NODE_ENV === 'production' ? process.env.REACT_APP_SERVER_PROD : process.env.REACT_APP_SERVER_DEV) + `/services`, service)
@@ -151,6 +173,17 @@ export default function Profile() {
             alert(`ALERT: ${servicesData.data.message}`);
         }
     }
+
+
+    const productImage = (image) => {
+        if (!image) {
+            return 'https://images.unsplash.com/photo-1581922814484-0b48460b7010?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80';
+        }
+        return image
+    }
+
+    const renderedProducts = props.products.productList.filter(item => item.freelancer === user.id)
+    console.log('rendered products', renderedProducts)
 
     return (
         <div>
@@ -166,9 +199,29 @@ export default function Profile() {
             </Button>
 
             <div className={profileStyle.container}>
-                <p className={profileStyle.header}> Your current offerings </p>
 
-                <p className={profileStyle.header}> Upload new services </p>
+                <p className={profileStyle.header}> Your current offerings </p>
+                <Grid spacing={4} container justifyContent="center" alignItems="flex-start">
+                    {/* {_.map(props.products.productList, shownService => { */}
+                    {_.map(renderedProducts, shownService => {
+                        return (
+                            <Grid item key={shownService.id}>
+
+                                <Card className={profileStyle.cardContainer}>
+                                    <CardMedia
+                                        image={productImage(shownService.image)}
+                                        style={{ height: 5, paddingTop: '100%' }}
+                                    />
+                                    <CardContent>{shownService.name}</CardContent>
+                                    <CardContent>${shownService.price}</CardContent>
+                                    <Button>Edit</Button>
+                                </Card>
+                            </Grid>
+                        )
+                    })}
+                </Grid>
+
+                <p className={profileStyle.header}> Upload new service </p>
                 <form onSubmit={handleSubmit} >
                     <Box
                         className={profileStyle.form}
@@ -229,3 +282,13 @@ export default function Profile() {
         </div >
     )
 }
+
+
+const mapStateToProps = (state) => {
+    // console.log('🎲 state.cart ', state.cart)
+    return {
+        products: state.products,
+    }
+}
+
+export default connect(mapStateToProps)(Profile);
