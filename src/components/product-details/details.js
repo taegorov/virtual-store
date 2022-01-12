@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { connect } from 'react-redux';
-import Login from '../login/Login';
+// import Login from '../login/Login';
 import { Link, useHistory } from 'react-router-dom';
 import { Button, IconButton } from '@material-ui/core';
 import ArrowBackIosTwoToneIcon from '@material-ui/icons/ArrowBackIosTwoTone';
@@ -14,6 +14,7 @@ import { addToCart, removeFromCart } from '../../store/cart.js';
 import PutModal from './Modal'
 import axios from 'axios';
 import Auth from '../../components/auth/Auth'
+import { AuthContext } from '../../context/Auth'
 import { root } from '../../helper'
 
 
@@ -26,6 +27,7 @@ function Details(props) {
   const useStyles = makeStyles({
     container: {
       background: 'linear-gradient(65deg, #ffffff 25%, #f2f2f2 10%)',
+      marginBottom: '1em',
     },
     backButton: {
       margin: '1em',
@@ -176,11 +178,12 @@ function Details(props) {
       fontFamily: 'Inter',
     },
     deleteStyling: {
-      // padding: '.5em',
+      padding: '1em',
       fontFamily: 'Inter',
       // width: '30em',
-      maxWidth: '30em',
+      maxWidth: '20em',
       margin: '0 auto',
+      marginBottom: '1em',
       marginTop: '1em',
       textAlign: 'center',
       // border: 'solid',
@@ -195,7 +198,11 @@ function Details(props) {
     },
   });
 
+  const { user } = useContext(AuthContext);
+  console.log('user is: ', user);
+
   const classes = useStyles();
+
 
   // scroll window to top at page load
   useEffect(() => {
@@ -334,30 +341,31 @@ function Details(props) {
           </Tabs>
           <TabSelection className={classes.tabText} value={value} index={0}> {shownItem.details} </TabSelection>
           <TabSelection className={classes.tabText} value={value} index={1}> Reviews </TabSelection>
-          {/* <TabSelection className={classes.tabText} value={value} index={2}> Freelancer id: {shownItem.freelancer} </TabSelection> */}
+          <TabSelection className={classes.tabText} value={value} index={2}> Freelancer id: {shownItem.freelancer} </TabSelection>
         </div>
 
-        <Paper className={classes.deleteStyling} elevation={10}>
-          <Login />
-          <Auth capability="update">
-            <PutModal service={shownItem} />
-          </Auth>
+        {user.id === shownItem.freelancer
+          ? < Card className={classes.deleteStyling} elevation={10}>
+            <Auth capability="update">
+              <PutModal service={shownItem} />
+            </Auth>
 
-          <Auth capability="delete">
-            <Button
-              className={classes.deleteButton}
-              onClick={() => {
-                // eslint-disable-next-line no-restricted-globals
-                if (confirm('Are you sure? This action is final!')) {
-                  deleteService().catch(err => alert(err))
-                }
-              }}
-            >
-              delete this service
-            </Button>
-            {/* <p> WARNING: THIS IS PERMANENT. TESTING PURPOSES ONLY </p> */}
-          </Auth>
-        </Paper>
+            <Auth capability="delete">
+              <Button
+                className={classes.deleteButton}
+                onClick={() => {
+                  // eslint-disable-next-line no-restricted-globals
+                  if (confirm('Are you sure? This action is final!')) {
+                    deleteService().catch(err => alert(err))
+                  }
+                }}
+              >
+                delete this service
+              </Button>
+            </Auth>
+          </Card>
+          : <div></div>
+        }
 
         <Snackbar
           severity="error"
