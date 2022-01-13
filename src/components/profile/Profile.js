@@ -32,7 +32,6 @@ function Profile(props) {
             flexDirection: 'column',
             justifyContent: 'center',
             alignItems: 'center',
-            // backgroundColor: 'yellow',
         },
         welcomeText: {
             fontFamily: 'Inter',
@@ -46,11 +45,13 @@ function Profile(props) {
             fontSize: '1.3em',
         },
         offerContainer: {
-            backgroundColor: '#97b2bd',
+            // backgroundColor: '#97b2bd',
+            backgroundColor: 'white',
             maxWidth: '90%',
         },
         form: {
-            backgroundColor: '#97b2bd',
+            // backgroundColor: '#97b2bd',
+            backgroundColor: 'white',
         },
         formField: {
             backgroundColor: 'white',
@@ -170,10 +171,17 @@ function Profile(props) {
 
     async function addItem(service) {
 
-        // await axios.delete(`https://backend-virtual-store.herokuapp.com/services/${shownItem.id}`)
-        // const servicesData = await axios.post('/services', service)
-        // const servicesData = await axios.post((process.env.NODE_ENV === 'production' ? process.env.REACT_APP_SERVER_PROD : process.env.REACT_APP_SERVER_DEV) + `/services`, service)
-        const servicesData = await axios.post(root + `/services`, service)
+        // const servicesData = await axios.post(root + `/services`, service)
+
+        const servicesData = await axios({
+            method: 'post',
+            url: `${root}/services`,
+            data: service,
+            headers: {
+                'Authorization': 'Bearer ' + user.token
+            }
+        });
+
         // console.log('response data', res.data)
         if (!!servicesData.data.success) {
             // if (res.data.deleted === 1) {
@@ -211,13 +219,13 @@ function Profile(props) {
             <div className={profileStyle.container}>
                 <p className={profileStyle.welcomeText}>Hello, {user.username}</p>
                 <p className={profileStyle.header}> Your current offerings </p>
-                <Grid spacing={4} container justifyContent="center" alignItems="flex-start" className={profileStyle.offerContainer}>
+                <Grid spacing={4} container justifyContent="center" alignItems="flex-start" className={profileStyle.offerContainer} elevation={20}>
                     {/* {_.map(props.products.productList, shownService => { */}
                     {_.map(renderedProducts, shownService => {
                         return (
                             <Grid item key={shownService.id}>
 
-                                <Card className={profileStyle.cards}>
+                                <Card className={profileStyle.cards} elevation={5}>
                                     <CardMedia
                                         image={productImage(shownService.image)}
                                         style={{ height: 5, paddingTop: '100%' }}

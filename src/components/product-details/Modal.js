@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -7,6 +7,7 @@ import { IconButton, Button, Snackbar } from '@material-ui/core';
 // import Modal from '@mui/material/Modal';
 // import MuiAlert from '@mui/material/Alert';
 import CancelIcon from '@material-ui/icons/Cancel';
+import { AuthContext } from '../../context/Auth'
 import { root } from '../../helper'
 
 
@@ -79,6 +80,7 @@ export default function PutModal(props) {
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
     const { service } = props
+    const { user } = useContext(AuthContext);
     // console.log('modal props', props)
 
 
@@ -89,9 +91,16 @@ export default function PutModal(props) {
     // console.log('root is: ', root)
 
     async function updateItem(update) {
-        // console.log('service is: ', service)
-        // const servicesData = await axios.put(`/services/${service.id}`, update)
-        const servicesData = await axios.put(root + `/services/${service.id}`, update)
+        // const servicesData = await axios.put(root + `/services/${service.id}`, update)
+
+        const servicesData = await axios({
+            method: 'put',
+            url: `${root}/services/${service.id}`,
+            data: service,
+            headers: {
+                'Authorization': 'Bearer ' + user.token
+            }
+        });
 
 
         if (!!servicesData.data.success) {
