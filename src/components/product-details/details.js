@@ -225,10 +225,16 @@ function Details(props) {
   const [open, setOpen] = useState(false);
 
   async function deleteService() {
-    // await axios.delete(`https://backend-virtual-store.herokuapp.com/services/${shownItem.id}`)
-    // const res = await axios.delete(`/services/${shownItem.id}`)
-    // const res = await axios.delete((process.env.NODE_ENV === 'production' ? process.env.REACT_APP_SERVER_PROD : process.env.REACT_APP_SERVER_DEV) + `/services/${shownItem.id}`)
-    const res = await axios.delete(root + `/services/${shownItem.id}`)
+    // const res = await axios.delete(root + `/services/${shownItem.id}`)
+
+    const res = await axios({
+      method: 'delete',
+      url: `${root}/services/${shownItem.id}`,
+      headers: {
+        'Authorization': 'Bearer ' + user.token
+      }
+    });
+
     // console.log('response data', res.data)
     if (!!res.data.success) {
       // if (res.data.deleted === 1) {
