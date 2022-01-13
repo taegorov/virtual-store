@@ -11,7 +11,6 @@ import { AuthContext } from '../../context/Auth'
 import { connect } from 'react-redux';
 import _ from 'lodash';
 
-
 // === form === //
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
@@ -22,10 +21,7 @@ require('dotenv').config();
 
 
 function Profile(props) {
-    console.log('PROFILE PAGE props', props.products)
-    // console.log('PROFILE PAGE loadproducts', loadProducts)
-    // console.log('PROFILE PAGE getproducts', getProducts)
-
+    // console.log('PROFILE PAGE props', props.products)
 
     const useStyles = makeStyles({
         backButton: {
@@ -38,12 +34,25 @@ function Profile(props) {
             alignItems: 'center',
             // backgroundColor: 'yellow',
         },
-        header: {
-            // alignSelf: 'flex-start',
-            margin: '1em',
+        welcomeText: {
+            fontFamily: 'Inter',
             fontSize: '2em',
+            margin: '.1em',
+        },
+        header: {
+            fontFamily: 'Inter',
+            // alignSelf: 'flex-start',
+            marginBottom: '1em',
+            fontSize: '1.3em',
+        },
+        offerContainer: {
+            backgroundColor: '#97b2bd',
+            maxWidth: '90%',
         },
         form: {
+            backgroundColor: '#97b2bd',
+        },
+        formField: {
             backgroundColor: 'white',
         },
         logoutButton: {
@@ -52,7 +61,7 @@ function Profile(props) {
             margin: '0 auto',
             marginTop: '5em',
         },
-        cardContainer: {
+        cards: {
             fontFamily: 'Inter',
             textAlign: 'center',
             fontSize: '',
@@ -68,6 +77,7 @@ function Profile(props) {
     const { isAuthenticated, logout, user } = useContext(AuthContext);
     const history = useHistory();
 
+    console.log('user is: ', user)
 
     // scroll window to top at page load
     useEffect(() => {
@@ -199,22 +209,26 @@ function Profile(props) {
             </Button>
 
             <div className={profileStyle.container}>
-
+                <p className={profileStyle.welcomeText}>Hello, {user.username}</p>
                 <p className={profileStyle.header}> Your current offerings </p>
-                <Grid spacing={4} container justifyContent="center" alignItems="flex-start">
+                <Grid spacing={4} container justifyContent="center" alignItems="flex-start" className={profileStyle.offerContainer}>
                     {/* {_.map(props.products.productList, shownService => { */}
                     {_.map(renderedProducts, shownService => {
                         return (
                             <Grid item key={shownService.id}>
 
-                                <Card className={profileStyle.cardContainer}>
+                                <Card className={profileStyle.cards}>
                                     <CardMedia
                                         image={productImage(shownService.image)}
                                         style={{ height: 5, paddingTop: '100%' }}
                                     />
                                     <CardContent>{shownService.name}</CardContent>
                                     <CardContent>${shownService.price}</CardContent>
-                                    <Button>Edit</Button>
+                                    <Button
+                                        component={Link}
+                                        to={{ pathname: `/products/${shownService.id}`, state: { shownItem: shownService } }}>
+                                        Edit
+                                    </Button>
                                 </Card>
                             </Grid>
                         )
@@ -232,10 +246,11 @@ function Profile(props) {
                         noValidate
                         autoComplete="off"
                     >
-                        <TextField name="name" label="Service Name" variant="outlined" onChange={handleChange} />
+                        <TextField className={profileStyle.formField} name="name" label="Service Name" variant="outlined" onChange={handleChange} />
                         {/* <TextField name="freelancer" label="Freelancer id" variant="outlined" type="number" onChange={handleChange} /> */}
                         <TextField
                             // disabled
+                            className={profileStyle.formField}
                             name="category"
                             onChange={handleChange}
                             variant="outlined"
@@ -251,8 +266,9 @@ function Profile(props) {
                             ))}
                         </TextField>
                         {/* <TextField name="category" label="Category" variant="outlined" onChange={handleChange} /> */}
-                        <TextField name="price" label="Price" variant="outlined" type="number" onChange={handleChange} />
+                        <TextField className={profileStyle.formField} name="price" label="Price" variant="outlined" type="number" onChange={handleChange} />
                         <TextField
+                            className={profileStyle.formField}
                             onChange={handleChange}
                             name="details"
                             label="Details"
@@ -260,12 +276,11 @@ function Profile(props) {
                             multiline
                             maxRows={4}
                         />
-                        <TextField name="image" label="Image URL" variant="outlined" onChange={handleChange} />
-                        <Button variant='outlined' type='submit' > Submit </Button>
+                        <TextField className={profileStyle.formField} name="image" label="Image URL" variant="outlined" onChange={handleChange} />
+                        <Button className={profileStyle.formField} variant='outlined' type='submit' > Submit </Button>
                     </Box>
-
-                    <Button className={profileStyle.logoutButton} onClick={logout}>Logout</Button>
-                </form >
+                </form>
+                <Button className={profileStyle.logoutButton} onClick={logout}>Logout</Button>
             </div>
 
             <Snackbar
