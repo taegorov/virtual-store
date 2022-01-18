@@ -96,7 +96,7 @@ export default function PutModal(props) {
         const servicesData = await axios({
             method: 'put',
             url: `${root}/services/${service.id}`,
-            data: service,
+            data: update,
             headers: {
                 'Authorization': 'Bearer ' + user.token
             }
