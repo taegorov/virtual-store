@@ -8,11 +8,13 @@ import { AuthContext } from '../../context/Auth';
 import CancelIcon from '@material-ui/icons/Cancel';
 import { makeStyles } from '@material-ui/core/styles';
 import { useHistory } from 'react-router';
+import CircularProgress from '@mui/material/CircularProgress';
 
 
+// // timeout after X seconds
+// const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 export default function Login() {
-
 
     const useStyles = makeStyles({
         container: {
@@ -36,27 +38,44 @@ export default function Login() {
         formButton: {
             backgroundColor: '#fcba03',
             margin: '.5em',
-        }
+        },
+        loader: {
+            display: 'flex',
+            justifyContent: 'center',
+            marginTop: '5em',
+        },
     });
 
     const loginStyle = useStyles();
     const history = useHistory();
 
-
     const [successMessage, setSuccessMessage] = useState(null);
     const [errorMessage, setErrorMessage] = useState(null);
     const { isAuthenticated, login, logout } = useContext(AuthContext);
+    const [isLoading, setIsLoading] = useState(false)
+
+
+    if (isLoading) {
+        return (
+            <div className={loginStyle.loader}>
+                <CircularProgress />
+            </div>
+        )
+    }
+
 
     async function handleSubmit(e) {
         e.preventDefault();
         let username = e.target.username.value;
         let password = e.target.password.value;
+        setIsLoading(true);
 
         const data = await login(username, password);
         if (!data.success) {
             return setErrorMessage(data.message)
         }
         setSuccessMessage(data.message);
+        setIsLoading(false);
     }
 
     const handleClose = (event, reason) => {

@@ -117,8 +117,6 @@ function Profile(props) {
         }
     ];
 
-
-
     // // handle change for CATEGORY portion of form
     // const handleCategory = (event) => {
     //     setCategory(event.target.value);
@@ -156,8 +154,6 @@ function Profile(props) {
     );
 
 
-
-
     // ADD NEW SERVICE TO BACK END
     const { handleChange, handleSubmit, values } = useForm(addItem);
 
@@ -167,7 +163,6 @@ function Profile(props) {
     //     // await axios.post('https://backend-virtual-store.herokuapp.com/services', service)
     //     await axios.post('/services', service)
     // }
-
 
     async function addItem(service) {
 
