@@ -66,8 +66,12 @@ export default function Login() {
 
     async function handleSubmit(e) {
         e.preventDefault();
+        // COMMENT THIS BACK IN FOR PROD
         let username = e.target.username.value;
         let password = e.target.password.value;
+        // // COMMENT THIS OUT FOR PROD
+        // let username = 'freelancer';
+        // let password = 'password';
         setIsLoading(true);
 
         const data = await login(username, password);

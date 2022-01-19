@@ -15,7 +15,7 @@ export default class AuthProvider extends React.Component {
         this.state = {
             login: this.login,
             logout: this.logout,
-            isAuthenticated: false,
+            isAuthenticated: null,
             isAuthorized: this.isAuthorized,
             user: { capabilities: [] },
         }
@@ -39,9 +39,7 @@ export default class AuthProvider extends React.Component {
         if (!data.success) {
             return data
         }
-
         // let token = null;
-
         // cookie.save('token', data.token);
         // cookie.save('token', token);
         console.log('data user', data.data.user)
