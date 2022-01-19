@@ -10,7 +10,6 @@ import CategoryViewer from './categories.js';
 import { loadProducts, getProducts } from '../../store/products';
 import { Link } from 'react-router-dom';
 
-
 import './products.css';
 
 
@@ -80,7 +79,6 @@ const ProductsViewer = ({ loadProducts, products, activatedCategory, addToCart }
   }, [loadProducts]);
 
   useEffect(() => {
-    // console.log(products);
     if (products.productList.length > 0) {
       setIsLoading(false);
     }
