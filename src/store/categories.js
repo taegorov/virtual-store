@@ -6,7 +6,9 @@ const initialState = {
     { _id: 30, name: 'Design', description: 'Category Description Goes Here' },
     { _id: 40, name: 'Apps', description: 'Category Description Goes Here' },
     { _id: 60, name: 'Tutoring', description: 'Category Description Goes Here' },
-    { _id: 60, name: 'Misc', description: 'Category Description Goes Here' }
+    { _id: 60, name: 'Misc', description: 'Category Description Goes Here' },
+    { _id: 70, name: 'Your Services', description: 'Category Description Goes Here' }
+
   ],
 
   activatedCategory: '',

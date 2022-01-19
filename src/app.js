@@ -12,6 +12,7 @@ import ShoppingCart from './components/cart/shopping-cart';
 import Profile from './components/profile/Profile';
 import Signup from './components/signup/Signup';
 import Login from './components/login/Login';
+import { LogoutSnackbar } from './components/profile/LogoutSnackbar';
 // import LoginForm from './components/login/Login'
 // import Auth from './components/auth/Auth'
 
@@ -21,6 +22,7 @@ function App() {
     <>
       <Header />
       <SimpleCart />
+      <LogoutSnackbar />
       {/* <LoginForm /> */}
       {/* <Auth capability="read"> */}
       {/* <p>Login Successful</p> */}
@@ -31,7 +33,6 @@ function App() {
         <Route exact path='/profile' component={Profile} />
         <Route exact path='/signup' component={Signup} />
         <Route exact path='/signin' component={Login} />
-
       </main>
       <Footer />
       {/* </Auth> */}

@@ -41,8 +41,9 @@ function Profile(props) {
         header: {
             fontFamily: 'Inter',
             // alignSelf: 'flex-start',
-            marginBottom: '1em',
+            marginTop: '1.5em',
             fontSize: '1.3em',
+            // backgroundColor: 'red',
         },
         offerContainer: {
             // backgroundColor: '#97b2bd',
@@ -52,15 +53,19 @@ function Profile(props) {
         form: {
             // backgroundColor: '#97b2bd',
             backgroundColor: 'white',
+            marginTop: '0em'
         },
         formField: {
             backgroundColor: 'white',
+        },
+        formFieldButton: {
+            backgroundColor: '#b0e6a5',
         },
         logoutButton: {
             display: 'block',
             backgroundColor: '#fcba03',
             margin: '0 auto',
-            marginTop: '5em',
+            marginTop: '.5em',
         },
         cards: {
             fontFamily: 'Inter',
@@ -127,7 +132,6 @@ function Profile(props) {
 
     // === === === snackbar behavior from MUI docs === === === //
     const [open, setOpen] = useState(false);
-
     const handleClose = (event, reason) => {
         if (reason === 'clickaway') {
             return;
@@ -188,6 +192,7 @@ function Profile(props) {
     }
 
 
+
     const productImage = (image) => {
         if (!image) {
             return 'https://images.unsplash.com/photo-1581922814484-0b48460b7010?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80';
@@ -213,8 +218,9 @@ function Profile(props) {
 
             <div className={profileStyle.container}>
                 <p className={profileStyle.welcomeText}>Hello, {user.username}</p>
+                <Button className={profileStyle.logoutButton} onClick={logout}>Logout</Button>
                 <p className={profileStyle.header}> Your current offerings </p>
-                <Grid spacing={4} container justifyContent="center" alignItems="flex-start" className={profileStyle.offerContainer} elevation={20}>
+                <Grid spacing={4} container justifyContent="center" alignItems="flex-start" className={profileStyle.offerContainer} >
                     {/* {_.map(props.products.productList, shownService => { */}
                     {_.map(renderedProducts, shownService => {
                         return (
@@ -280,10 +286,9 @@ function Profile(props) {
                             maxRows={4}
                         />
                         <TextField className={profileStyle.formField} name="image" label="Image URL" variant="outlined" onChange={handleChange} />
-                        <Button className={profileStyle.formField} variant='outlined' type='submit' > Submit </Button>
+                        <Button className={profileStyle.formFieldButton} variant='outlined' type='submit' > Submit </Button>
                     </Box>
                 </form>
-                <Button className={profileStyle.logoutButton} onClick={logout}>Logout</Button>
             </div>
 
             <Snackbar
@@ -291,7 +296,7 @@ function Profile(props) {
                 open={open}
                 autoHideDuration={4000}
                 onClose={handleClose}
-                message="Service Deleted!"
+                message="Service Created!"
                 action={action}
             >
                 <MuiAlert action={action} onClose={handleClose} severity="success">Service Created!</MuiAlert>
