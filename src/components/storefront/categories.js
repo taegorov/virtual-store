@@ -22,6 +22,9 @@ const CategoryViewer = (props) => {
       fontFamily: 'Inter',
       fontSize: '.8em',
     },
+    button: {
+      margin: '.5em',
+    }
   })
 
   const categoryStyle = useStyles();
@@ -32,23 +35,24 @@ const CategoryViewer = (props) => {
 
       <p className={categoryStyle.header} > Filter By Category </p>
 
-      <Button id="card-buttons" variant="contained" color={(props.activatedCategory === 'All' || !props.activatedCategory) ? "success" : "primary"} onClick={() => props.inactive('All')}>All</Button>
-
-      <Button id="card-buttons" variant="contained" color={(props.activatedCategory === 'Accessibility') ? "success" : "primary"} onClick={() => props.active('Accessibility')}>Accessibility</Button>
-
-      <Button id="card-buttons" variant="contained" color={(props.activatedCategory === 'Web Design') ? "success" : "primary"} onClick={() => props.active('Web Design')}>Web Design</Button>
-
-      <Button id="card-buttons" variant="contained" color={(props.activatedCategory === 'Design') ? "success" : "primary"} onClick={() => props.active('Design')}>Design</Button>
-
-      <Button id="card-buttons" variant="contained" color={(props.activatedCategory === 'Apps') ? "success" : "primary"} onClick={() => props.active('Apps')}>Apps</Button>
-
-      <Button id="card-buttons" variant="contained" color={(props.activatedCategory === 'Tutoring') ? "success" : "primary"} onClick={() => props.active('Tutoring')}>Tutoring</Button>
-
-      <Button id="card-buttons" variant="contained" color={(props.activatedCategory === 'Misc') ? "success" : "primary"} onClick={() => props.active('Misc')}>Misc</Button>
+      <Button className={categoryStyle.button} variant="contained" color={(props.activatedCategory === 'All' || !props.activatedCategory) ? "success" : "primary"} onClick={() => props.inactive('All')}>All</Button>
 
       {isAuthenticated
-        && <Button id="card-buttons" variant="contained" color={(props.activatedDescription === 'Your Services') ? "success" : "primary"} onClick={() => props.active('Your Services')}>Your Services</Button>
+        && <Button className={categoryStyle.button} variant="contained" color={(props.activatedCategory === 'My Services') ? "success" : "primary"} onClick={() => props.active('My Services')}>My Services</Button>
       }
+
+      <Button className={categoryStyle.button} variant="contained" color={(props.activatedCategory === 'Accessibility') ? "success" : "primary"} onClick={() => props.active('Accessibility')}>Accessibility</Button>
+
+      <Button className={categoryStyle.button} variant="contained" color={(props.activatedCategory === 'Web Design') ? "success" : "primary"} onClick={() => props.active('Web Design')}>Web Design</Button>
+
+      <Button className={categoryStyle.button} variant="contained" color={(props.activatedCategory === 'Design') ? "success" : "primary"} onClick={() => props.active('Design')}>Design</Button>
+
+      <Button className={categoryStyle.button} variant="contained" color={(props.activatedCategory === 'Apps') ? "success" : "primary"} onClick={() => props.active('Apps')}>Apps</Button>
+
+      <Button className={categoryStyle.button} variant="contained" color={(props.activatedCategory === 'Tutoring') ? "success" : "primary"} onClick={() => props.active('Tutoring')}>Tutoring</Button>
+
+      <Button className={categoryStyle.button} variant="contained" color={(props.activatedCategory === 'Misc') ? "success" : "primary"} onClick={() => props.active('Misc')}>Misc</Button>
+
       <p className={categoryStyle.description}>{props.activatedDescription}</p>
 
     </div >
