@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import { Paper, Typography, Button, Grid, Card, CardContent, CardActions, CardMedia, makeStyles } from '@material-ui/core'
 import CircularProgress from '@mui/material/CircularProgress';
@@ -8,7 +9,7 @@ import { inactive, active } from '../../store/categories.js';
 import { addToCart } from '../../store/cart.js';
 import CategoryViewer from './categories.js';
 import { loadProducts, getProducts } from '../../store/products';
-import { Link } from 'react-router-dom';
+import { AuthContext } from '../../context/Auth'
 
 import './products.css';
 
@@ -19,7 +20,7 @@ const useStyles = makeStyles({
     textAlign: 'center',
     fontSize: '',
     color: 'black',
-    height: '33em',
+    height: '30em',
     width: '20em',
     backgroundColor: 'white',
     position: 'relative',
@@ -66,12 +67,17 @@ const useStyles = makeStyles({
   }
 })
 
+
 // timeout after X seconds
 const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
 
+
 const ProductsViewer = ({ loadProducts, products, activatedCategory, addToCart }) => {
+
   const cardStyle = useStyles();
   const [isLoading, setIsLoading] = useState(true)
+  const { user } = useContext(AuthContext);
+
   useEffect(() => {
     _loadProducts();
     // loadProducts();
@@ -89,9 +95,26 @@ const ProductsViewer = ({ loadProducts, products, activatedCategory, addToCart }
     loadProducts();
   }
 
+  // const renderProducts = (productList, isCatActivated) => {
+  //   if (isCatActivated) {
+  //     return productList.filter(product => product.category === activatedCategory)
+  //   } else {
+  //     return productList
+  //   }
+  // }
+
+
   const renderProducts = (productList, isCatActivated) => {
     if (isCatActivated) {
-      return productList.filter(product => product.category === activatedCategory)
+      return productList.filter(product => {
+        if (product.category === activatedCategory) {
+          return true
+        }
+        if (activatedCategory === 'My Services') {
+          return product.freelancer === user.id
+        }
+        return false
+      })
     } else {
       return productList
     }
@@ -137,7 +160,7 @@ const ProductsViewer = ({ loadProducts, products, activatedCategory, addToCart }
 
                   <CardContent className={cardStyle.cardContent}>
                     <Typography className={cardStyle.price}> ${product.price}</Typography>
-                    <Typography className={cardStyle.freelancer}>Freelancer: {product.freelancer} </Typography>
+                    {/* <Typography className={cardStyle.freelancer}>Freelancer: {product.freelancer} </Typography> */}
                   </CardContent>
 
                   <CardActions className={cardStyle.buttonsContainer}>
