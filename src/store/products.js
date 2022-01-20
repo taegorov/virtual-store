@@ -35,7 +35,6 @@ export default function productReducer(state = initialState, action) {
     case 'ACTIVE':
       const products = getProducts(payload.category);
       return { ...state, products: products }
-
     case 'LOAD_PRODUCTS':
       return {
         productList: payload,

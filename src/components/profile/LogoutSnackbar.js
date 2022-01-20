@@ -42,8 +42,7 @@ export function LogoutSnackbar() {
         return () => {
             console.log('unmounting...')
         }
-        // eslint-disable-next-line
-    }, [isAuthenticated])
+    }, [isAuthenticated, history])
 
 
     return (
