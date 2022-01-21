@@ -255,11 +255,19 @@ function Profile(props) {
                         noValidate
                         autoComplete="off"
                     >
-                        <TextField className={profileStyle.formField} name="name" label="Service Name" variant="outlined" onChange={handleChange} />
+                        <TextField
+                            className={profileStyle.formField}
+                            required
+                            name="name"
+                            label="Service Name"
+                            variant="outlined"
+                            onChange={handleChange}
+                        />
                         {/* <TextField name="freelancer" label="Freelancer id" variant="outlined" type="number" onChange={handleChange} /> */}
                         <TextField
                             // disabled
                             className={profileStyle.formField}
+                            required
                             name="category"
                             onChange={handleChange}
                             variant="outlined"
@@ -275,7 +283,15 @@ function Profile(props) {
                             ))}
                         </TextField>
                         {/* <TextField name="category" label="Category" variant="outlined" onChange={handleChange} /> */}
-                        <TextField className={profileStyle.formField} name="price" label="Price" variant="outlined" type="number" onChange={handleChange} />
+                        <TextField
+                            className={profileStyle.formField}
+                            required
+                            name="price"
+                            label="Price"
+                            variant="outlined"
+                            type="number"
+                            onChange={handleChange}
+                        />
                         <TextField
                             className={profileStyle.formField}
                             onChange={handleChange}
@@ -285,7 +301,13 @@ function Profile(props) {
                             multiline
                             maxRows={4}
                         />
-                        <TextField className={profileStyle.formField} name="image" label="Image URL" variant="outlined" onChange={handleChange} />
+                        <TextField
+                            className={profileStyle.formField}
+                            name="image"
+                            label="Image URL"
+                            variant="outlined"
+                            onChange={handleChange}
+                        />
                         <Button className={profileStyle.formFieldButton} variant='outlined' type='submit' > Submit </Button>
                     </Box>
                 </form>

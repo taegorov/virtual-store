@@ -114,8 +114,21 @@ export default function Login() {
                 : <>
                     <Typography>Sign in here 🤜🏻</Typography>
                     <form className={loginStyle.formContainer} onSubmit={handleSubmit}>
-                        <TextField className={loginStyle.formField} variant="filled" name="username" id="username" placeholder="username" />
-                        <TextField className={loginStyle.formField} variant="filled" name="password" id="password" placeholder="password" />
+                        <TextField
+                            className={loginStyle.formField}
+                            variant="filled"
+                            name="username"
+                            id="username"
+                            placeholder="username"
+                        />
+                        <TextField
+                            className={loginStyle.formField}
+                            variant="filled"
+                            name="password"
+                            id="password"
+                            placeholder="password"
+                            type="password"
+                        />
                         <Button className={loginStyle.formButton} intent="success" type='submit' large="true">Login</Button>
                     </form>
                 </>
