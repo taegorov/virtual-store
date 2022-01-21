@@ -184,6 +184,7 @@ export default function PutModal(props) {
 
                         <TextField
                             margin="normal"
+                            required
                             className={modalStyle.form}
                             name="name"
                             label="Service Name"
@@ -194,6 +195,7 @@ export default function PutModal(props) {
 
                         <TextField
                             margin="normal"
+                            required
                             className={modalStyle.form}
                             name="category"
                             label="Category"
@@ -212,6 +214,7 @@ export default function PutModal(props) {
 
                         <TextField
                             margin="normal"
+                            required
                             className={modalStyle.form}
                             inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
                             type="number"

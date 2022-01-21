@@ -124,8 +124,20 @@ export default function Profile() {
                     noValidate
                     autoComplete="off"
                 >
-                    <TextField name="username" label="Username" variant="outlined" onChange={handleChange} />
-                    <TextField name="password" label="Password" variant="outlined" type="password" onChange={handleChange} />
+                    <TextField
+                        name="username"
+                        label="Username"
+                        variant="outlined"
+                        required
+                        onChange={handleChange}
+                    />
+                    <TextField
+                        name="password"
+                        label="Password"
+                        variant="outlined"
+                        type="password"
+                        required
+                        onChange={handleChange} />
                     <TextField
                         // disabled
                         name="role"
@@ -143,7 +155,7 @@ export default function Profile() {
                         ))}
                     </TextField>
 
-                    <Button variant='outlined' type='submit' > Submit </Button>
+                    <Button variant='contained' type='submit' color="secondary"> Submit </Button>
                 </Box>
 
                 <Snackbar
