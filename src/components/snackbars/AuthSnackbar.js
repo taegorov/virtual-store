@@ -2,16 +2,17 @@ import React, { useState, useContext, useEffect } from 'react';
 import { Button, Snackbar } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import MuiAlert from '@mui/material/Alert';
-import { AuthContext } from '../../context/Auth'
+import { AuthContext } from '../../context/Auth';
+import CloseIcon from '@mui/icons-material/Close';
 
-
-export function LogoutSnackbar() {
+export function AuthSnackbar() {
 
     const history = useHistory();
 
     // === === === snackbar behavior from MUI docs === === === //
     const [openLogout, setOpenLogout] = useState(false);
     const { isAuthenticated } = useContext(AuthContext);
+
     const handleClose = (event, reason) => {
         if (reason === 'clickaway') {
             return;
@@ -19,7 +20,7 @@ export function LogoutSnackbar() {
         setOpenLogout(false);
     };
 
-    const logoutAction = (
+    const closeButton = (
         <>
             <Button
                 size="small"
@@ -27,7 +28,7 @@ export function LogoutSnackbar() {
                 color="inherit"
                 onClick={handleClose}
             >
-                X
+                <CloseIcon />
             </Button>
         </>
     );
@@ -36,6 +37,10 @@ export function LogoutSnackbar() {
         console.log('is authenticated!', isAuthenticated)
         if (isAuthenticated === false) {
             console.log('logging out now...')
+            setOpenLogout(true);
+            history.push("/")
+        } else if (isAuthenticated === true) {
+            console.log('logging IN now...')
             setOpenLogout(true);
             history.push("/")
         }
@@ -47,14 +52,19 @@ export function LogoutSnackbar() {
 
     return (
         <Snackbar
-            severity="success"
             open={openLogout}
             autoHideDuration={4000}
             onClose={handleClose}
-            message="Successfully Logged Out"
-            action={logoutAction}
         >
-            <MuiAlert action={logoutAction} onClose={handleClose} severity="success">Successfully Logged Out!</MuiAlert>
+            <MuiAlert
+                action={closeButton}
+                severity="success"
+            >
+                {isAuthenticated
+                    ? 'Successfully Logged In!'
+                    : 'Successfully Logged Out!'
+                }
+            </MuiAlert>
         </Snackbar>
     )
 }
