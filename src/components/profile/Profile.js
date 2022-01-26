@@ -1,15 +1,17 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { Button, Snackbar, Card, CardContent, CardMedia, Grid } from '@material-ui/core';
+import { Button, Card, CardContent, CardMedia, Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import ArrowBackIosTwoToneIcon from '@material-ui/icons/ArrowBackIosTwoTone';
-import MuiAlert from '@mui/material/Alert';
+// import MuiAlert from '@mui/material/Alert';
 import axios from 'axios';
 import { root } from '../../helper'
 import { AuthContext } from '../../context/Auth'
 // import { loadProducts, getProducts } from '../../store/products';
 import { connect } from 'react-redux';
 import _ from 'lodash';
+// import Snack from '../snackbars/Snack';
+import { openSnackbar } from '../../store/misc';
 
 // === form === //
 import Box from '@mui/material/Box';
@@ -130,32 +132,31 @@ function Profile(props) {
     // const [category, setCategory] = React.useState('CATEGORY');
 
 
-    // === === === snackbar behavior from MUI docs === === === //
-    const [open, setOpen] = useState(false);
-    const handleClose = (event, reason) => {
-        if (reason === 'clickaway') {
-            return;
-        }
-        setOpen(false);
-        history.push("/")
-    };
+    // // === === === snackbar behavior from MUI docs === === === //
+    // const [open, setOpen] = useState(false);
+    // const handleClose = (event, reason) => {
+    //     if (reason === 'clickaway') {
+    //         return;
+    //     }
+    //     setOpen(false);
+    //     history.push("/")
+    // };
 
-    const action = (
-        <>
-            {/* <Button color="secondary" size="small" onClick={handleClose}>
-        UNDO
-      </Button> */}
-            <Button
-                size="small"
-                aria-label="close"
-                color="inherit"
-                onClick={handleClose}
-            >
-                X
-            </Button>
-        </>
-
-    );
+    // const action = (
+    //     <>
+    //         {/* <Button color="secondary" size="small" onClick={handleClose}>
+    //     UNDO
+    //   </Button> */}
+    //         <Button
+    //             size="small"
+    //             aria-label="close"
+    //             color="inherit"
+    //             onClick={handleClose}
+    //         >
+    //             X
+    //         </Button>
+    //     </>
+    // );
 
 
     // ADD NEW SERVICE TO BACK END
@@ -185,12 +186,13 @@ function Profile(props) {
         if (!!servicesData.data.success) {
             // if (res.data.deleted === 1) {
             console.log('front end RES', servicesData.data);
-            setOpen(true);
+            props.openSnackbar({ open: true, message: servicesData.data.message, severity: 'success' });
+            history.push("/");
         } else {
-            alert(`ALERT: ${servicesData.data.message}`);
+            // alert(`ALERT: ${servicesData.data.message}`);
+            props.openSnackbar({ open: true, message: servicesData.data.message, severity: 'error' });
         }
     }
-
 
 
     const productImage = (image) => {
@@ -313,7 +315,7 @@ function Profile(props) {
                 </form>
             </div>
 
-            <Snackbar
+            {/* <Snackbar
                 severity="error"
                 open={open}
                 autoHideDuration={4000}
@@ -322,7 +324,7 @@ function Profile(props) {
                 action={action}
             >
                 <MuiAlert action={action} onClose={handleClose} severity="success">Service Created!</MuiAlert>
-            </Snackbar>
+            </Snackbar> */}
 
         </div >
     )
@@ -336,4 +338,8 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps)(Profile);
+const mapDispatchToProps = {
+    openSnackbar
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Profile);

@@ -2,12 +2,12 @@ import { useContext, useState } from 'react';
 // import { Button, InputGroup } from '@blueprintjs/core';
 // import { Button } from '@material-ui/core';
 import TextField from '@mui/material/TextField';
-import { Snackbar, IconButton, Button, Typography } from '@material-ui/core';
-import MuiAlert from '@mui/material/Alert';
+import { Button, Typography } from '@material-ui/core';
+// import MuiAlert from '@mui/material/Alert';
 import { AuthContext } from '../../context/Auth';
-import CancelIcon from '@material-ui/icons/Cancel';
+// import CancelIcon from '@material-ui/icons/Cancel';
 import { makeStyles } from '@material-ui/core/styles';
-import { useHistory } from 'react-router';
+// import { useHistory } from 'react-router';
 import CircularProgress from '@mui/material/CircularProgress';
 
 
@@ -47,13 +47,14 @@ export default function Login() {
     });
 
     const loginStyle = useStyles();
-    const history = useHistory();
+    // const history = useHistory();
 
     const [successMessage, setSuccessMessage] = useState(null);
     const [errorMessage, setErrorMessage] = useState(null);
     const { isAuthenticated, login, logout } = useContext(AuthContext);
     const [isLoading, setIsLoading] = useState(false)
 
+    console.log('success message is: ', successMessage)
 
     if (isLoading) {
         return (
@@ -82,30 +83,25 @@ export default function Login() {
         setIsLoading(false);
     }
 
-    const handleClose = (event, reason) => {
-        if (reason === 'clickaway') {
-            return;
-        }
-        setSuccessMessage(null);
-        history.push("/")
-    };
+    // const handleClose = (event, reason) => {
+    //     if (reason === 'clickaway') {
+    //         return;
+    //     }
+    //     setSuccessMessage(null);
+    //     history.push("/")
+    // };
 
 
-    const action = (
-        <>
-            {/* <Button color="secondary" size="small" onClick={handleClose}>
-        UNDO
-      </Button> */}
-            <IconButton
-                size="small"
-                aria-label="close"
-                color="inherit"
-                onClick={handleClose}
-            >
-                <CancelIcon />
-            </IconButton>
-        </>
-    );
+    // const action = (
+    //     <IconButton
+    //         size="small"
+    //         aria-label="close"
+    //         color="inherit"
+    //         onClick={handleClose}
+    //     >
+    //         <CancelIcon />
+    //     </IconButton>
+    // );
 
     return (
         <div className={loginStyle.container}>
@@ -135,7 +131,7 @@ export default function Login() {
             }
             {errorMessage}
 
-            <Snackbar
+            {/* <Snackbar
                 open={!!successMessage}
                 autoHideDuration={4000}
                 onClose={handleClose}
@@ -143,7 +139,7 @@ export default function Login() {
                 action={action}
             >
                 <MuiAlert action={action} onClose={handleClose} severity="success">{successMessage}</MuiAlert>
-            </Snackbar>
+            </Snackbar> */}
         </div>
     )
 }

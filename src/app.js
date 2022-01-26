@@ -12,17 +12,16 @@ import ShoppingCart from './components/cart/shopping-cart';
 import Profile from './components/profile/Profile';
 import Signup from './components/signup/Signup';
 import Login from './components/login/Login';
-import { LogoutSnackbar } from './components/profile/LogoutSnackbar';
-// import LoginForm from './components/login/Login'
-// import Auth from './components/auth/Auth'
-
+import { AuthSnackbar } from './components/snackbars/AuthSnackbar';
+import Snack from './components/snackbars/Snack'
 
 function App() {
   return (
     <>
       <Header />
       <SimpleCart />
-      <LogoutSnackbar />
+      <AuthSnackbar />
+      <Snack />
       {/* <LoginForm /> */}
       {/* <Auth capability="read"> */}
       {/* <p>Login Successful</p> */}

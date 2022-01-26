@@ -2,21 +2,22 @@ import React, { useEffect, useState, useContext } from 'react';
 import { connect } from 'react-redux';
 // import Login from '../login/Login';
 import { Link, useHistory } from 'react-router-dom';
-import { Button, IconButton } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import ArrowBackIosTwoToneIcon from '@material-ui/icons/ArrowBackIosTwoTone';
-import CancelIcon from '@material-ui/icons/Cancel';
-import { Card, CardMedia, Paper, Tab, Tabs, Snackbar } from '@material-ui/core';
-import MuiAlert from '@mui/material/Alert';
+// import CancelIcon from '@material-ui/icons/Cancel';
+import { Card, CardMedia, Paper, Tab, Tabs } from '@material-ui/core';
+// import MuiAlert from '@mui/material/Alert';
 // import CloseIcon from '@mui/icons-material/Close';
 // import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import { addToCart, removeFromCart } from '../../store/cart.js';
-import PutModal from './Modal'
+import PutModal from './Modal';
 import axios from 'axios';
-import Auth from '../../components/auth/Auth'
-import { AuthContext } from '../../context/Auth'
-import { root } from '../../helper'
-
+import { AuthContext } from '../../context/Auth';
+import Auth from '../../components/auth/Auth';
+import { root } from '../../helper';
+// import Snack from '../snackbars/Snack';
+import { openSnackbar } from '../../store/misc';
 
 require('dotenv').config();
 
@@ -204,7 +205,6 @@ function Details(props) {
 
   const classes = useStyles();
 
-
   // scroll window to top at page load
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -222,7 +222,7 @@ function Details(props) {
 
 
   const history = useHistory();
-  const [open, setOpen] = useState(false);
+  // const [open, setOpen] = useState(false);
 
   async function deleteService() {
     // const res = await axios.delete(root + `/services/${shownItem.id}`)
@@ -239,34 +239,37 @@ function Details(props) {
     if (!!res.data.success) {
       // if (res.data.deleted === 1) {
       console.log('front end RES', res.data);
-      setOpen(true);
+      // setOpen(true);
+      props.openSnackbar({ open: true, message: res.data.message, severity: 'warning' })
+      history.push("/");
     } else {
-      alert(`ALERT: ${res.data.message}`);
+      // alert(`ALERT: ${res.data.message}`);
+      props.openSnackbar({ open: true, message: res.data.message, severity: 'error' });
     }
   }
 
 
-  // === === === snackbar behavior from MUI docs === === === //
-  const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-    setOpen(false);
-    history.push("/")
-  };
+  // // === === === snackbar behavior from MUI docs === === === //
+  // const handleClose = (event, reason) => {
+  //   if (reason === 'clickaway') {
+  //     return;
+  //   }
+  //   setOpen(false);
+  //   history.push("/")
+  // };
 
-  const action = (
-    <>
-      <IconButton
-        size="small"
-        aria-label="close"
-        color="inherit"
-        onClick={handleClose}
-      >
-        <CancelIcon />
-      </IconButton>
-    </>
-  );
+  // const action = (
+  //   <>
+  //     <IconButton
+  //       size="small"
+  //       aria-label="close"
+  //       color="inherit"
+  //       onClick={handleClose}
+  //     >
+  //       <CancelIcon />
+  //     </IconButton>
+  //   </>
+  // );
 
 
   const productImage = (image) => {
@@ -374,7 +377,7 @@ function Details(props) {
           : <div></div>
         }
 
-        <Snackbar
+        {/* <Snackbar
           severity="error"
           open={open}
           autoHideDuration={4000}
@@ -383,7 +386,7 @@ function Details(props) {
           action={action}
         >
           <MuiAlert action={action} onClose={handleClose} severity="error">Service Deleted!</MuiAlert>
-        </Snackbar>
+        </Snackbar> */}
 
       </Paper >
 
@@ -417,7 +420,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {
   addToCart,
-  removeFromCart
+  removeFromCart,
+  openSnackbar
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Details);

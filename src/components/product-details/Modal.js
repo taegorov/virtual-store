@@ -1,15 +1,16 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
-
 import { makeStyles } from '@material-ui/core/styles';
-import { Box, Modal, Alert } from '@mui/material';
-import { IconButton, Button, Snackbar } from '@material-ui/core';
+import { Box, Modal } from '@mui/material';
+import { Button } from '@material-ui/core';
 // import Modal from '@mui/material/Modal';
 // import MuiAlert from '@mui/material/Alert';
-import CancelIcon from '@material-ui/icons/Cancel';
+// import CancelIcon from '@material-ui/icons/Cancel';
 import { AuthContext } from '../../context/Auth'
 import { root } from '../../helper'
-
+// import Snack from '../snackbars/Snack';
+import { openSnackbar } from '../../store/misc';
+import { connect } from 'react-redux'
 
 // === form === //
 import TextField from '@mui/material/TextField';
@@ -22,7 +23,7 @@ require('dotenv').config();
 
 
 // Help with Modal code from MUI docs //
-export default function PutModal(props) {
+function PutModal(props) {
 
     const useStyles = makeStyles({
         rootButton: {
@@ -105,9 +106,11 @@ export default function PutModal(props) {
 
         if (!!servicesData.data.success) {
             console.log('res for PUT on front end:', servicesData.data);
-            snackSetOpen(true);
+            props.openSnackbar({ open: true, message: servicesData.data.message, severity: 'success' });
+            history.push("/");
         } else {
-            alert(`ALERT: ${servicesData.data.message}`);
+            // alert(`ALERT: ${servicesData.data.message}`);
+            props.openSnackbar({ open: true, message: servicesData.data.message, severity: 'error' });
         }
     }
 
@@ -141,32 +144,32 @@ export default function PutModal(props) {
 
     // === === === snackbar behavior from MUI docs === === === //
     const history = useHistory();
-    const [snackOpen, snackSetOpen] = useState(false);
+    // const [snackOpen, snackSetOpen] = useState(false);
 
 
-    const snackHandleClose = (event, reason) => {
-        if (reason === 'clickaway') {
-            return;
-        }
-        snackSetOpen(false);
-        history.push("/")
-    };
+    // const snackHandleClose = (event, reason) => {
+    //     if (reason === 'clickaway') {
+    //         return;
+    //     }
+    //     snackSetOpen(false);
+    //     history.push("/")
+    // };
 
-    const action = (
-        <>
-            {/* <Button color="secondary" size="small" onClick={handleClose}>
-        UNDO
-      </Button> */}
-            <IconButton
-                size="small"
-                aria-label="close"
-                color="inherit"
-                onClick={handleClose}
-            >
-                <CancelIcon />
-            </IconButton>
-        </>
-    );
+    // const action = (
+    //     <>
+    //         {/* <Button color="secondary" size="small" onClick={handleClose}>
+    //     UNDO
+    //   </Button> */}
+    //         <IconButton
+    //             size="small"
+    //             aria-label="close"
+    //             color="inherit"
+    //             onClick={handleClose}
+    //         >
+    //             <CancelIcon />
+    //         </IconButton>
+    //     </>
+    // );
 
     return (
         <div >
@@ -249,7 +252,7 @@ export default function PutModal(props) {
                     </Box>
                 </form>
             </Modal >
-            <Snackbar
+            {/* <Snackbar
                 severity="error"
                 open={snackOpen}
                 autoHideDuration={4000}
@@ -258,7 +261,19 @@ export default function PutModal(props) {
                 action={action}
             >
                 <Alert action={action} onClose={snackHandleClose} severity="success">Service Updated!</Alert>
-            </Snackbar>
+            </Snackbar> */}
         </div >
     );
 }
+
+const mapStateToProps = (state) => {
+    return {
+        products: state.products,
+    }
+}
+
+const mapDispatchToProps = {
+    openSnackbar
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PutModal)
