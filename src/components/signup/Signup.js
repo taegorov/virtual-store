@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
-import { Button, Snackbar } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import ArrowBackIosTwoToneIcon from '@material-ui/icons/ArrowBackIosTwoTone';
-import MuiAlert from '@mui/material/Alert';
+// import MuiAlert from '@mui/material/Alert';
 import axios from 'axios';
 import { root } from '../../helper'
+import { openSnackbar } from '../../store/misc';
 
 
 // === form === //
@@ -17,7 +19,7 @@ import useForm from '../../store/form';
 require('dotenv').config();
 
 
-export default function Profile() {
+function Signup(props) {
 
     const useStyles = makeStyles({
         backButton: {
@@ -50,29 +52,29 @@ export default function Profile() {
 
 
     // === === === snackbar behavior from MUI docs === === === //
-    const [open, setOpen] = useState(false);
+    // const [open, setOpen] = useState(false);
     const history = useHistory();
 
-    const handleClose = (event, reason) => {
-        if (reason === 'clickaway') {
-            return;
-        }
-        setOpen(false);
-        history.push("/")
-    };
+    // const handleClose = (event, reason) => {
+    //     if (reason === 'clickaway') {
+    //         return;
+    //     }
+    //     setOpen(false);
+    //     history.push("/")
+    // };
 
-    const action = (
-        <React.Fragment>
-            <Button
-                size="small"
-                aria-label="close"
-                color="inherit"
-                onClick={handleClose}
-            >
-                X
-            </Button>
-        </React.Fragment>
-    );
+    // const action = (
+    //     <React.Fragment>
+    //         <Button
+    //             size="small"
+    //             aria-label="close"
+    //             color="inherit"
+    //             onClick={handleClose}
+    //         >
+    //             X
+    //         </Button>
+    //     </React.Fragment>
+    // );
 
 
     // ADD NEW SERVICE TO BACK END
@@ -94,9 +96,12 @@ export default function Profile() {
         if (!!servicesData.data.success) {
             // if (res.data.deleted === 1) {
             console.log('front end RES', servicesData.data);
-            setOpen(true);
+            // setOpen(true);
+            props.openSnackbar({ open: true, message: servicesData.data.message, severity: 'success' })
+            history.push("/");
         } else {
-            alert(`ALERT: ${servicesData.data.message}`);
+            // alert(`ALERT: ${servicesData.data.message}`);
+            props.openSnackbar({ open: true, message: servicesData.data.message, severity: 'error' });
         }
     }
 
@@ -158,7 +163,7 @@ export default function Profile() {
                     <Button variant='contained' type='submit' color="secondary"> Submit </Button>
                 </Box>
 
-                <Snackbar
+                {/* <Snackbar
                     severity="error"
                     open={open}
                     autoHideDuration={4000}
@@ -167,9 +172,21 @@ export default function Profile() {
                     action={action}
                 >
                     <MuiAlert action={action} onClose={handleClose} severity="success">User Created!</MuiAlert>
-                </Snackbar>
+                </Snackbar> */}
             </form>
 
         </div>
     )
 }
+
+const mapStateToProps = (state) => {
+    return {
+        //   cart: state.cart.cart,
+    }
+}
+
+const mapDispatchToProps = {
+    openSnackbar
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Signup);
