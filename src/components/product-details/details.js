@@ -166,7 +166,7 @@ function Details(props) {
     },
     tabs: {
       fontFamily: 'Inter',
-      width: '30em',
+      // width: '20em',
       maxWidth: '30em',
       margin: '0 auto',
       marginTop: '1em',
@@ -191,12 +191,13 @@ function Details(props) {
       // border: 'solid',
     },
     deleteButton: {
-      // backgroundColor: 'red',
-      border: 'solid',
-      borderColor: 'red',
-      marginTop: '.5em',
+      backgroundColor: '#fa9191',
+      // border: 'solid',
+      // borderColor: 'red',
+      // marginTop: '.5em',
       // marginBottom: '-1em',
       // margin: '0 auto',
+      margin: '.5em',
     },
   });
 
@@ -279,6 +280,8 @@ function Details(props) {
     return image
   }
 
+  console.log(shownItem.freelancer, 'SHOWN ITEM FREELANCER')
+  console.log(user.id, 'USER ID')
 
   return (
     <div>
@@ -344,24 +347,24 @@ function Details(props) {
         </div>
 
         <div className={classes.tabs}>
-          <Tabs value={value} onChange={handleTabs}>
+
+          < Tabs value={value} onChange={handleTabs}>
             <Tab className={classes.tabHeader} label='Details' />
             <Tab className={classes.tabHeader} label='Reviews' />
-            <Tab className={classes.tabHeader} label='Freelancer' />
+            {user.id === shownItem.freelancer &&
+              (<Tab className={classes.tabHeader} label='Make Changes' />)
+            }
           </Tabs>
-          <TabSelection className={classes.tabText} value={value} index={0}> {shownItem.details} </TabSelection>
-          <TabSelection className={classes.tabText} value={value} index={1}> Reviews </TabSelection>
-          <TabSelection className={classes.tabText} value={value} index={2}> Freelancer id: {shownItem.freelancer} </TabSelection>
-        </div>
 
-        {user.id === shownItem.freelancer
-          ? < Card className={classes.deleteStyling} elevation={10}>
+          <TabSelection className={classes.tabText} value={value} index={0}> {shownItem.details} </TabSelection>
+          <TabSelection className={classes.tabText} value={value} index={1}> Reviews/ratings go here </TabSelection>
+          <TabSelection className={classes.tabText} value={value} index={2}>
             <Auth capability="update">
               <PutModal service={shownItem} />
             </Auth>
-
             <Auth capability="delete">
               <Button
+                variant="outlined"
                 className={classes.deleteButton}
                 onClick={() => {
                   // eslint-disable-next-line no-restricted-globals
@@ -373,9 +376,32 @@ function Details(props) {
                 delete this service
               </Button>
             </Auth>
-          </Card>
-          : <div></div>
-        }
+          </TabSelection>
+        </div>
+
+        {/* {
+          user.id === shownItem.freelancer
+            ? < Card className={classes.deleteStyling} elevation={10}>
+              <Auth capability="update">
+                <PutModal service={shownItem} />
+              </Auth>
+
+              <Auth capability="delete">
+                <Button
+                  className={classes.deleteButton}
+                  onClick={() => {
+                    // eslint-disable-next-line no-restricted-globals
+                    if (confirm('Are you sure? This action is final!')) {
+                      deleteService().catch(err => alert(err))
+                    }
+                  }}
+                >
+                  delete this service
+                </Button>
+              </Auth>
+            </Card>
+            : <div></div>
+        } */}
 
         {/* <Snackbar
           severity="error"

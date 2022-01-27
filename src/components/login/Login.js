@@ -49,12 +49,11 @@ export default function Login() {
     const loginStyle = useStyles();
     // const history = useHistory();
 
-    const [successMessage, setSuccessMessage] = useState(null);
+    // const [successMessage, setSuccessMessage] = useState(null);
     const [errorMessage, setErrorMessage] = useState(null);
     const { isAuthenticated, login, logout } = useContext(AuthContext);
     const [isLoading, setIsLoading] = useState(false)
 
-    console.log('success message is: ', successMessage)
 
     if (isLoading) {
         return (
@@ -79,7 +78,7 @@ export default function Login() {
         if (!data.success) {
             return setErrorMessage(data.message)
         }
-        setSuccessMessage(data.message);
+        // setSuccessMessage(data.message);
         setIsLoading(false);
     }
 
