@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
+import StarRating from '../rating/Rating.js';
 import { Paper, Typography, Button, Grid, Card, CardContent, CardActions, CardMedia, makeStyles } from '@material-ui/core'
 import CircularProgress from '@mui/material/CircularProgress';
 import { inactive, active } from '../../store/categories.js';
@@ -20,7 +21,7 @@ const useStyles = makeStyles({
     textAlign: 'center',
     fontSize: '',
     color: 'black',
-    height: '30em',
+    height: '34em',
     width: '20em',
     backgroundColor: 'white',
     position: 'relative',
@@ -135,6 +136,7 @@ const ProductsViewer = ({ loadProducts, products, activatedCategory, addToCart }
     return image
   }
 
+
   return (
     <>
 
@@ -161,6 +163,7 @@ const ProductsViewer = ({ loadProducts, products, activatedCategory, addToCart }
                   <CardContent className={cardStyle.cardContent}>
                     <Typography className={cardStyle.price}> ${product.price}</Typography>
                     {/* <Typography className={cardStyle.freelancer}>Freelancer: {product.freelancer} </Typography> */}
+                    <StarRating serviceId={product.id} service={product} />
                   </CardContent>
 
                   <CardActions className={cardStyle.buttonsContainer}>

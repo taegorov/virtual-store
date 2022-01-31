@@ -46,6 +46,15 @@ export default function productReducer(state = initialState, action) {
       payload.inStock -= 1;
       deductor.push(payload);
       return { ...state, newList: deductor };
+    case 'UPDATE_RATING':
+      const newList = state.productList.map(product => {
+        if (product.id === payload.serviceId) {
+          return { ...product, averageRating: payload.avgRating, totalRatings: payload.count }
+        }
+        return product
+      })
+      console.log(newList, 'NEW LIST: ')
+      return { ...state, productList: newList };
     default:
       return state;
   }
@@ -62,22 +71,36 @@ export const getProducts = (category) => {
 // === === export again again === === //
 
 export const loadProducts = () => (dispatch, getState) => {
-  // return axios.get('https://api-js401.herokuapp.com/api/v1/products') // old
-  // return axios.get('https://div-center-backend.herokuapp.com/services') // old, but with working /services info
-  // return axios.get('https://backend-virtual-store.herokuapp.com/services') // NEW DEPLOYED
-  // return axios.get('/services') // local 3001
   console.log('process.env is: ', process.env)
   console.log('server DEV is: ', process.env.SERVER_DEV)
   console.log('server PROD is: ', process.env.REACT_APP_SERVER_PROD)
   // axios.get((process.env.NODE_ENV === 'production' ? process.env.REACT_APP_SERVER_PROD : process.env.REACT_APP_SERVER_DEV) + '/services')
   axios.get(root + '/services')
     .then(response => {
-      // console.log('🤬 response.data', response.data);
+      console.log('🤬 response.data', response.data);
       dispatch({
         type: 'LOAD_PRODUCTS',
         payload: response.data
       })
     })
+}
+
+export const addRating = ({ rate, serviceId, user }) => async (dispatch, getState) => {
+  console.log('addRating is: ', rate, serviceId)
+  const ratingData = await axios({
+    method: 'put',
+    url: `${root}/services/${serviceId}/rating`,
+    data: { rating: rate },
+    headers: {
+      'Authorization': 'Bearer ' + user.token
+    }
+  });
+  const { avgRating, count } = ratingData.data.data[0]
+  console.log('RATING DATA 2.0: ', avgRating, count);
+  dispatch({
+    type: 'UPDATE_RATING',
+    payload: { avgRating, count, serviceId }
+  })
 }
 
 export function addToCart(name) {

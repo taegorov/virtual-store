@@ -352,7 +352,7 @@ function Details(props) {
             <Tab className={classes.tabHeader} label='Details' />
             <Tab className={classes.tabHeader} label='Reviews' />
             {user.id === shownItem.freelancer &&
-              (<Tab className={classes.tabHeader} label='Make Changes' />)
+              (<Tab className={classes.tabHeader} label='Manage' />)
             }
           </Tabs>
 
