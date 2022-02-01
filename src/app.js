@@ -3,7 +3,7 @@ import './app.css';
 import Header from "./components/header/header.js";
 import Footer from "./components/footer/footer.js";
 // import Products from "./components/storefront/Products.js";
-import Products from './components/storefront/Products'
+import ProductsViewer from './components/storefront/Products'
 // import { Provider } from 'react-redux';
 // import store from './store/index.js';
 import SimpleCart from './components/cart/simplecart';
@@ -27,7 +27,7 @@ function App() {
       {/* <Auth capability="read"> */}
       {/* <p>Login Successful</p> */}
       <main>
-        <Route exact path='/' component={Products} />
+        <Route exact path='/' component={ProductsViewer} />
         <Route exact path='/products/:id' component={Details} />
         <Route exact path='/cart' component={ShoppingCart} />
         <Route exact path='/profile' component={Profile} />
