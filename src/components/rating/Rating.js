@@ -1,8 +1,9 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext } from 'react';
 import { connect } from 'react-redux'
-import { Rating } from 'react-simple-star-rating'
-import { addRating } from '../../store/products'
-import { AuthContext } from '../../context/Auth'
+// import { Rating } from 'react-simple-star-rating'
+import StarRatings from 'react-star-ratings';
+import { addRating } from '../../store/products';
+import { AuthContext } from '../../context/Auth';
 
 
 function StarRating({ serviceId, addRating, service }) {
@@ -14,15 +15,14 @@ function StarRating({ serviceId, addRating, service }) {
     console.log(rate, serviceId);
     setRating(rate);
     addRating({ rate, serviceId, user });
-
   }
 
   return (
     <div>
-      <Rating onClick={handleRating} ratingValue={rating} allowHalfIcon="true" />
+      <StarRatings changeRating={handleRating} rating={rating} starDimension="25px" starSpacing="3px" starRatedColor="#e6bf05" />
       {!service.totalRatings
         ? <p>Service Not Yet Rated</p>
-        : <p> rating is: {service.averageRating / 20} from {service.totalRatings} ratings</p>
+        : <p> rating is: {Math.round(service.averageRating)} from {service.totalRatings} ratings</p>
       }
     </div>
   )
