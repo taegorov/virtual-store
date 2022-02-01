@@ -47,9 +47,10 @@ export default function productReducer(state = initialState, action) {
       deductor.push(payload);
       return { ...state, newList: deductor };
     case 'UPDATE_RATING':
+      console.log(payload, 'UPDATE payload')
       const newList = state.productList.map(product => {
         if (product.id === payload.serviceId) {
-          return { ...product, averageRating: payload.avgRating, totalRatings: payload.count }
+          return { ...product, averageRating: payload.averageRating, totalRatings: payload.totalRatings }
         }
         return product
       })
@@ -95,11 +96,11 @@ export const addRating = ({ rate, serviceId, user }) => async (dispatch, getStat
       'Authorization': 'Bearer ' + user.token
     }
   });
-  const { avgRating, count } = ratingData.data.data[0]
-  console.log('RATING DATA 2.0: ', avgRating, count);
+  const { averageRating, totalRatings } = ratingData.data.data[0]
+  console.log('RATING DATA 2.0: ', averageRating, totalRatings);
   dispatch({
     type: 'UPDATE_RATING',
-    payload: { avgRating, count, serviceId }
+    payload: { averageRating, totalRatings, serviceId }
   })
 }
 

@@ -17,12 +17,14 @@ function StarRating({ serviceId, addRating, service }) {
     addRating({ rate, serviceId, user });
   }
 
+
+
   return (
     <div>
       <StarRatings changeRating={handleRating} rating={rating} starDimension="25px" starSpacing="3px" starRatedColor="#e6bf05" />
       {!service.totalRatings
         ? <p>Service Not Yet Rated</p>
-        : <p> rating is: {Math.round(service.averageRating)} from {service.totalRatings} ratings</p>
+        : <p> rating is: {Math.round(service.averageRating * 10) / 10} from {service.totalRatings} ratings</p>
       }
     </div>
   )
