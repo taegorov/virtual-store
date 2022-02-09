@@ -120,10 +120,10 @@ function PutModal(props) {
       value: 'Accessibility',
       label: 'Accessibility',
     },
-    {
-      value: 'Web Design',
-      label: 'Web Design',
-    },
+    // {
+    //   value: 'Web Design',
+    //   label: 'Web Design',
+    // },
     {
       value: 'Design',
       label: 'Design',

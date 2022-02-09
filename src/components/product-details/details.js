@@ -18,6 +18,8 @@ import Auth from '../../components/auth/Auth';
 import { root } from '../../helper';
 // import Snack from '../snackbars/Snack';
 import { openSnackbar } from '../../store/misc';
+import StarRating from '../rating/Rating.js';
+
 
 require('dotenv').config();
 
@@ -357,7 +359,9 @@ function Details(props) {
           </Tabs>
 
           <TabSelection className={classes.tabText} value={value} index={0}> {shownItem.details} </TabSelection>
-          <TabSelection className={classes.tabText} value={value} index={1}> Reviews/ratings go here </TabSelection>
+          <TabSelection className={classes.tabText} value={value} index={1}>
+            <StarRating serviceId={shownItem.id} service={shownItem} />
+          </TabSelection>
           <TabSelection className={classes.tabText} value={value} index={2}>
             <Auth capability="update">
               <PutModal service={shownItem} />
