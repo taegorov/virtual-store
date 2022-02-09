@@ -4,11 +4,21 @@ import { connect } from 'react-redux'
 import StarRatings from 'react-star-ratings';
 import { addRating } from '../../store/products';
 import { AuthContext } from '../../context/Auth';
+import { makeStyles } from '@mui/styles'
 
 
 function StarRating({ serviceId, addRating, service }) {
+
+  const useStyles = makeStyles({
+    main: {
+      fontFamily: 'Inter',
+    }
+  })
+
+
   const [rating, setRating] = useState(0) // initial rating value
-  const { user } = useContext(AuthContext);
+  const { user, isAuthenticated } = useContext(AuthContext);
+  const ratingStyle = useStyles();
 
 
   const handleRating = (rate) => {
@@ -17,16 +27,16 @@ function StarRating({ serviceId, addRating, service }) {
     addRating({ rate, serviceId, user });
   }
 
-
+  console.log('service total ratings', service.totalRatings)
 
   return (
     <div>
-      <StarRatings changeRating={handleRating} rating={rating} starDimension="25px" starSpacing="3px" starRatedColor="#e6bf05" />
-      {!service.totalRatings
-        ? <p>Service Not Yet Rated</p>
-        : <p> rating is: {Math.round(service.averageRating * 10) / 10} from {service.totalRatings} ratings</p>
+      {isAuthenticated && <StarRatings changeRating={handleRating} rating={rating} starDimension="25px" starSpacing="3px" starRatedColor="#e6bf05" />}
+      {!parseInt(service.totalRatings)
+        ? <p className={ratingStyle.main}> Service Not Yet Rated </p>
+        : <p className={ratingStyle.main}> {Math.round(service.averageRating * 10) / 10} from {service.totalRatings} ratings </p>
       }
-    </div>
+    </div >
   )
 }
 

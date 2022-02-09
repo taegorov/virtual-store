@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import StarRating from '../rating/Rating.js';
+// import StarRating from '../rating/Rating.js';
 import { Paper, Typography, Button, Grid, Card, CardContent, CardActions, CardMedia, makeStyles } from '@material-ui/core'
 import CircularProgress from '@mui/material/CircularProgress';
 import { inactive, active } from '../../store/categories.js';
@@ -63,8 +63,11 @@ const useStyles = makeStyles({
   freelancer: {
     fontFamily: 'Inter',
   },
-  form: {
-    backgroundColor: 'white',
+  // form: {
+  //   backgroundColor: 'red',
+  // }
+  rating: {
+    fontFamily: 'Inter',
   }
 })
 
@@ -77,7 +80,7 @@ const ProductsViewer = ({ loadProducts, products, activatedCategory, addToCart }
 
   const cardStyle = useStyles();
   const [isLoading, setIsLoading] = useState(true)
-  const { user, isAuthenticated } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
 
   useEffect(() => {
     _loadProducts();
@@ -143,7 +146,12 @@ const ProductsViewer = ({ loadProducts, products, activatedCategory, addToCart }
       <CategoryViewer />
       <Paper className="paper" elevation={3}>
 
-        <Grid id="grid-categories" style={{ backgroundColor: '#97b2bd' }} spacing={4} container justifyContent="center" >
+        <Grid
+          style={{ backgroundColor: 'white', padding: '.4em' }}
+          id="grid-categories"
+          spacing={4}
+          container
+          justifyContent="center" >
           {renderProducts(products.productList, activatedCategory).map((product, index) => {
             // if (product.category === activatedCategory) {
             // console.log('🎭', products);
@@ -163,10 +171,10 @@ const ProductsViewer = ({ loadProducts, products, activatedCategory, addToCart }
                   <CardContent className={cardStyle.cardContent}>
                     <Typography className={cardStyle.price}> ${product.price}</Typography>
                     {/* <Typography className={cardStyle.freelancer}>Freelancer: {product.freelancer} </Typography> */}
-                    {isAuthenticated
-                      ? <StarRating serviceId={product.id} service={product} />
-                      : <p> rating is: {Math.round(product.averageRating * 10) / 10} from {product.totalRatings} ratings</p>
-                    }
+                    {/* {isAuthenticated */}
+                    {/* ? <StarRating serviceId={product.id} service={product} /> */}
+                    <p className={cardStyle.rating}> rating is: {Math.round(product.averageRating * 10) / 10} from {product.totalRatings} ratings</p>
+                    {/* } */}
 
                   </CardContent>
 

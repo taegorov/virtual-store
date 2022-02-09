@@ -28,6 +28,7 @@ const useStyles = makeStyles({
     fontFamily: 'Ceviche One',
     fontSize: '8em',
     lineHeight: '1em',
+    color: 'white',
   },
   cart: {
     fontFamily: 'Inter',

@@ -2,10 +2,16 @@ import React, { useContext } from 'react';
 import { connect } from 'react-redux';
 
 import { makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
+import { Button } from '@material-ui/core';
 import { inactive, active } from '../../store/categories.js';
 import { AuthContext } from '../../context/Auth';
-
+import AccessibleIcon from '@mui/icons-material/Accessible';
+import DesignServicesIcon from '@mui/icons-material/DesignServices';
+import AppShortcutIcon from '@mui/icons-material/AppShortcut';
+import SchoolIcon from '@mui/icons-material/School';
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import DensitySmallIcon from '@mui/icons-material/DensitySmall';
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
 
 import './categories.css';
 
@@ -24,6 +30,7 @@ const CategoryViewer = (props) => {
     },
     button: {
       margin: '.5em',
+      padding: '.5em'
     }
   })
 
@@ -35,23 +42,46 @@ const CategoryViewer = (props) => {
 
       <p className={categoryStyle.header} > Filter By Category </p>
 
-      <Button className={categoryStyle.button} variant="contained" color={(props.activatedCategory === 'All' || !props.activatedCategory) ? "default" : "primary"} onClick={() => props.inactive('All')}>All</Button>
+      <Button className={categoryStyle.button} variant="contained" color={(props.activatedCategory === 'All' || !props.activatedCategory) ? "default" : "primary"} onClick={() => props.inactive('All')}>
+        <DensitySmallIcon />
+        All
+      </Button>
 
       {isAuthenticated
-        && <Button className={categoryStyle.button} variant="contained" color={(props.activatedCategory === 'My Services') ? "default" : "primary"} onClick={() => props.active('My Services')}>My Services</Button>
+        && <Button className={categoryStyle.button} variant="contained" color={(props.activatedCategory === 'My Services') ? "default" : "primary"} onClick={() => props.active('My Services')}>
+          <AccountBoxIcon />
+          My Services
+        </Button>
       }
 
-      <Button className={categoryStyle.button} variant="contained" color={(props.activatedCategory === 'Accessibility') ? "default" : "primary"} onClick={() => props.active('Accessibility')}>Accessibility</Button>
+      <Button className={categoryStyle.button} variant="contained" color={(props.activatedCategory === 'Accessibility') ? "default" : "primary"} onClick={() => props.active('Accessibility')}>
+        <AccessibleIcon />
+        Accessibility
+      </Button>
 
-      <Button className={categoryStyle.button} variant="contained" color={(props.activatedCategory === 'Web Design') ? "default" : "primary"} onClick={() => props.active('Web Design')}>Web Design</Button>
+      {/* <Button className={categoryStyle.button} variant="contained" color={(props.activatedCategory === 'Web Design') ? "default" : "primary"} onClick={() => props.active('Web Design')}>
+        Web Design
+      </Button> */}
 
-      <Button className={categoryStyle.button} variant="contained" color={(props.activatedCategory === 'Design') ? "default" : "primary"} onClick={() => props.active('Design')}>Design</Button>
+      <Button className={categoryStyle.button} variant="contained" color={(props.activatedCategory === 'Design') ? "default" : "primary"} onClick={() => props.active('Design')}>
+        <DesignServicesIcon />
+        Design
+      </Button>
 
-      <Button className={categoryStyle.button} variant="contained" color={(props.activatedCategory === 'Apps') ? "default" : "primary"} onClick={() => props.active('Apps')}>Apps</Button>
+      <Button className={categoryStyle.button} variant="contained" color={(props.activatedCategory === 'Apps') ? "default" : "primary"} onClick={() => props.active('Apps')}>
+        <AppShortcutIcon />
+        Apps
+      </Button>
 
-      <Button className={categoryStyle.button} variant="contained" color={(props.activatedCategory === 'Tutoring') ? "default" : "primary"} onClick={() => props.active('Tutoring')}>Tutoring</Button>
+      <Button className={categoryStyle.button} variant="contained" color={(props.activatedCategory === 'Tutoring') ? "default" : "primary"} onClick={() => props.active('Tutoring')}>
+        <SchoolIcon />
+        Tutoring
+      </Button>
 
-      <Button className={categoryStyle.button} variant="contained" color={(props.activatedCategory === 'Misc') ? "default" : "primary"} onClick={() => props.active('Misc')}>Misc</Button>
+      <Button className={categoryStyle.button} variant="contained" color={(props.activatedCategory === 'Misc') ? "default" : "primary"} onClick={() => props.active('Misc')}>
+        <MoreHorizIcon />
+        Misc
+      </Button>
 
       <p className={categoryStyle.description}>{props.activatedDescription}</p>
 
