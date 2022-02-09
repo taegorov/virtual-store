@@ -22,7 +22,7 @@ const initialState = {
   // ],
 
   productList: [],
-  activeProduct: '',
+  activeProduct: {},
   products: [],
   // image: '',
 }
@@ -37,7 +37,13 @@ export default function productReducer(state = initialState, action) {
       return { ...state, products: products }
     case 'LOAD_PRODUCTS':
       return {
+        ...state,
         productList: payload,
+      }
+    case 'GET_ONE_PRODUCT':
+      return {
+        ...state,
+        activeProduct: payload,
       }
     case 'ADD_TO_CART':
       const deductor = state.productList.filter(item => {
@@ -55,7 +61,7 @@ export default function productReducer(state = initialState, action) {
         return product
       })
       console.log(newList, 'NEW LIST: ')
-      return { ...state, productList: newList };
+      return { ...state, productList: newList, activeProduct: { ...state.activeProduct, ...payload } };
     default:
       return state;
   }
@@ -84,6 +90,16 @@ export const loadProducts = () => (dispatch, getState) => {
         payload: response.data
       })
     })
+}
+
+export const getProductById = ({ serviceId }) => async (dispatch, getState) => {
+  console.log(serviceId, 'service ID in redux')
+  const singleProduct = await axios.get(`${root}/services/${serviceId}`);
+  console.log(singleProduct, 'single product is');
+  dispatch({
+    type: 'GET_ONE_PRODUCT',
+    payload: singleProduct.data,
+  })
 }
 
 export const addRating = ({ rate, serviceId, user }) => async (dispatch, getState) => {

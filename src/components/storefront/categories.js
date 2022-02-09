@@ -29,9 +29,23 @@ const CategoryViewer = (props) => {
       fontSize: '.8em',
     },
     button: {
+      // display: 'block',
+      // flexDirection: 'column',
+      // backgroundColor: 'red',
       margin: '.5em',
-      padding: '.5em'
-    }
+      padding: '.5em 1em',
+      fontFamily: 'Inter',
+      fontSize: '.6em',
+      '& p': {
+        margin: 0,
+      }
+    },
+    icon: {
+      height: 'unset !important',
+      fontSize: '3.5em !important',
+      // display: 'block',
+      // marginRight: '4px',
+    },
   })
 
   const categoryStyle = useStyles();
@@ -43,20 +57,26 @@ const CategoryViewer = (props) => {
       <p className={categoryStyle.header} > Filter By Category </p>
 
       <Button className={categoryStyle.button} variant="contained" color={(props.activatedCategory === 'All' || !props.activatedCategory) ? "default" : "primary"} onClick={() => props.inactive('All')}>
-        <DensitySmallIcon />
-        All
+        <div>
+          <DensitySmallIcon className={categoryStyle.icon} />
+          <p>All</p>
+        </div>
       </Button>
 
       {isAuthenticated
         && <Button className={categoryStyle.button} variant="contained" color={(props.activatedCategory === 'My Services') ? "default" : "primary"} onClick={() => props.active('My Services')}>
-          <AccountBoxIcon />
-          My Services
+          <div>
+            <AccountBoxIcon className={categoryStyle.icon} />
+            <p>My Services</p>
+          </div>
         </Button>
       }
 
       <Button className={categoryStyle.button} variant="contained" color={(props.activatedCategory === 'Accessibility') ? "default" : "primary"} onClick={() => props.active('Accessibility')}>
-        <AccessibleIcon />
-        Accessibility
+        <div>
+          <AccessibleIcon className={categoryStyle.icon} />
+          <p>Accessibility</p>
+        </div>
       </Button>
 
       {/* <Button className={categoryStyle.button} variant="contained" color={(props.activatedCategory === 'Web Design') ? "default" : "primary"} onClick={() => props.active('Web Design')}>
@@ -64,23 +84,31 @@ const CategoryViewer = (props) => {
       </Button> */}
 
       <Button className={categoryStyle.button} variant="contained" color={(props.activatedCategory === 'Design') ? "default" : "primary"} onClick={() => props.active('Design')}>
-        <DesignServicesIcon />
-        Design
+        <div>
+          <DesignServicesIcon className={categoryStyle.icon} />
+          <p>Design</p>
+        </div>
       </Button>
 
       <Button className={categoryStyle.button} variant="contained" color={(props.activatedCategory === 'Apps') ? "default" : "primary"} onClick={() => props.active('Apps')}>
-        <AppShortcutIcon />
-        Apps
+        <div>
+          <AppShortcutIcon className={categoryStyle.icon} />
+          <p>Apps</p>
+        </div>
       </Button>
 
       <Button className={categoryStyle.button} variant="contained" color={(props.activatedCategory === 'Tutoring') ? "default" : "primary"} onClick={() => props.active('Tutoring')}>
-        <SchoolIcon />
-        Tutoring
+        <div>
+          <SchoolIcon className={categoryStyle.icon} />
+          <p>Tutoring</p>
+        </div>
       </Button>
 
       <Button className={categoryStyle.button} variant="contained" color={(props.activatedCategory === 'Misc') ? "default" : "primary"} onClick={() => props.active('Misc')}>
-        <MoreHorizIcon />
-        Misc
+        <div>
+          <MoreHorizIcon className={categoryStyle.icon} />
+          <p>Misc</p>
+        </div>
       </Button>
 
       <p className={categoryStyle.description}>{props.activatedDescription}</p>
