@@ -77,7 +77,7 @@ const ProductsViewer = ({ loadProducts, products, activatedCategory, addToCart }
 
   const cardStyle = useStyles();
   const [isLoading, setIsLoading] = useState(true)
-  const { user } = useContext(AuthContext);
+  const { user, isAuthenticated } = useContext(AuthContext);
 
   useEffect(() => {
     _loadProducts();
@@ -163,7 +163,11 @@ const ProductsViewer = ({ loadProducts, products, activatedCategory, addToCart }
                   <CardContent className={cardStyle.cardContent}>
                     <Typography className={cardStyle.price}> ${product.price}</Typography>
                     {/* <Typography className={cardStyle.freelancer}>Freelancer: {product.freelancer} </Typography> */}
-                    <StarRating serviceId={product.id} service={product} />
+                    {isAuthenticated
+                      ? <StarRating serviceId={product.id} service={product} />
+                      : <p> rating is: {Math.round(product.averageRating * 10) / 10} from {product.totalRatings} ratings</p>
+                    }
+
                   </CardContent>
 
                   <CardActions className={cardStyle.buttonsContainer}>
