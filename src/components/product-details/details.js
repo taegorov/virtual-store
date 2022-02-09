@@ -1,14 +1,9 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { connect } from 'react-redux';
-// import Login from '../login/Login';
 import { Link, useHistory } from 'react-router-dom';
 import { Button } from '@material-ui/core';
 import ArrowBackIosTwoToneIcon from '@material-ui/icons/ArrowBackIosTwoTone';
-// import CancelIcon from '@material-ui/icons/Cancel';
 import { Card, CardMedia, Paper, Tab, Tabs } from '@material-ui/core';
-// import MuiAlert from '@mui/material/Alert';
-// import CloseIcon from '@mui/icons-material/Close';
-// import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import { addToCart, removeFromCart } from '../../store/cart.js';
 import PutModal from './Modal';
@@ -16,17 +11,17 @@ import axios from 'axios';
 import { AuthContext } from '../../context/Auth';
 import Auth from '../../components/auth/Auth';
 import { root } from '../../helper';
-// import Snack from '../snackbars/Snack';
 import { openSnackbar } from '../../store/misc';
 import StarRating from '../rating/Rating.js';
+import { getProductById } from '../../store/products'
 
 
 require('dotenv').config();
 
 
-// function Details(props, mapDispatchToProps) {
 function Details(props) {
-
+  console.log('props: ', props)
+  const { activeProduct, getProductById } = props
   const useStyles = makeStyles({
     container: {
       background: 'linear-gradient(65deg, #ffffff 25%, #f2f2f2 10%)',
@@ -208,13 +203,15 @@ function Details(props) {
 
   const classes = useStyles();
 
-  // scroll window to top at page load
   useEffect(() => {
+    // scroll window to top at page load
     window.scrollTo(0, 0)
-  }, [])
+    getProductById({ serviceId: props.match.params.id })
+    // props.getProductById(props.match.params.id);
+  }, [getProductById, props.match.params.id])
 
   // renders correct product/service
-  const { shownItem } = props.location.state;
+  // const { shownItem } = props.location.state;
   // console.log('shown item ID is', shownItem.id)
 
   // Tabs/Tab functionality 
@@ -232,7 +229,7 @@ function Details(props) {
 
     const res = await axios({
       method: 'delete',
-      url: `${root}/services/${shownItem.id}`,
+      url: `${root}/services/${activeProduct.id}`,
       headers: {
         'Authorization': 'Bearer ' + user.token
       }
@@ -282,9 +279,9 @@ function Details(props) {
     return image
   }
 
-  console.log(shownItem.freelancer, 'SHOWN ITEM FREELANCER')
-  console.log(user.id, 'USER ID')
-
+  // console.log(activeProduct.freelancer, 'SHOWN ITEM FREELANCER')
+  // console.log(user.id, 'USER ID')
+  console.log(activeProduct, 'active product is')
   return (
     <div>
       <Paper className={classes.container} elevation={10}>
@@ -299,16 +296,16 @@ function Details(props) {
           Back to Store
         </Button>
         <p className={classes.title}>
-          {shownItem.name}
+          {activeProduct.name}
         </p>
         <p className={classes.category}>
-          {shownItem.category}
+          {activeProduct.category}
         </p>
 
         <Card className={classes.photoContainer}>
           <CardMedia
             // image={shownItem.image}
-            image={productImage(shownItem.image)}
+            image={productImage(activeProduct.image)}
             className={classes.photo}
           />
         </Card>
@@ -319,7 +316,7 @@ function Details(props) {
               Price
             </p>
             <p className={classes.price}>
-              ${shownItem.price}
+              ${activeProduct.price}
             </p>
             {/* <p className={classes.freelancer}>
               Freelancer ID: {shownItem.freelancer}
@@ -332,16 +329,16 @@ function Details(props) {
 
               <button
                 className={classes.quantityButton}
-                disabled={!shownItem.quantity}
-                onClick={() => props.removeFromCart(shownItem)} >
+                disabled={!activeProduct.quantity}
+                onClick={() => props.removeFromCart(activeProduct)} >
                 −
               </button>
               <p className={classes.quantityNumber}>
-                {shownItem.quantity || 0}
+                {activeProduct.quantity || 0}
               </p>
               <button
                 className={classes.quantityButton}
-                onClick={() => props.addToCart(shownItem)} >
+                onClick={() => props.addToCart(activeProduct)} >
                 +
               </button>
             </div>
@@ -352,19 +349,19 @@ function Details(props) {
 
           < Tabs value={value} onChange={handleTabs}>
             <Tab className={classes.tabHeader} label='Details' />
-            <Tab className={classes.tabHeader} label='Reviews' />
-            {user.id === shownItem.freelancer &&
+            <Tab className={classes.tabHeader} label='Rating' />
+            {user.id === activeProduct.freelancer &&
               (<Tab className={classes.tabHeader} label='Manage' />)
             }
           </Tabs>
 
-          <TabSelection className={classes.tabText} value={value} index={0}> {shownItem.details} </TabSelection>
+          <TabSelection className={classes.tabText} value={value} index={0}> {activeProduct.details} </TabSelection>
           <TabSelection className={classes.tabText} value={value} index={1}>
-            <StarRating serviceId={shownItem.id} service={shownItem} />
+            <StarRating serviceId={activeProduct.id} service={activeProduct} />
           </TabSelection>
           <TabSelection className={classes.tabText} value={value} index={2}>
             <Auth capability="update">
-              <PutModal service={shownItem} />
+              <PutModal service={activeProduct} />
             </Auth>
             <Auth capability="delete">
               <Button
@@ -423,7 +420,7 @@ function Details(props) {
     </div >
   );
 
-  // below snippet created with the help of  'Code Step By Step' Youtube channel
+  // below snippet created with the help of 'Code Step By Step' Youtube channel
   function TabSelection(props) {
     const { children, value, index } = props
     return (
@@ -443,15 +440,18 @@ function Details(props) {
 
 
 const mapStateToProps = (state) => {
+  console.log(state, 'state:')
   return {
     cart: state.cart.cart,
+    activeProduct: state.products.activeProduct
   }
 }
 
 const mapDispatchToProps = {
   addToCart,
   removeFromCart,
-  openSnackbar
+  openSnackbar,
+  getProductById
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Details);

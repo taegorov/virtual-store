@@ -195,7 +195,7 @@ const ProductsViewer = ({ loadProducts, products, activatedCategory, addToCart }
                         color="primary"
                         variant="contained"
                         component={Link}
-                        to={{ pathname: `/products/${product.id}`, state: { shownItem: product } }}>
+                        to={{ pathname: `/products/${product.id}` }}>
                         Details
                       </Button>
 
