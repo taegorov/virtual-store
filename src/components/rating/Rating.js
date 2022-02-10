@@ -7,7 +7,7 @@ import { AuthContext } from '../../context/Auth';
 // import { makeStyles } from '@mui/styles'
 
 
-function StarRating({ serviceId, addRating, service }) {
+function StarRating({ serviceId, addRating, service, rate }) {
 
   // const useStyles = makeStyles({
   //   main: {
@@ -16,23 +16,24 @@ function StarRating({ serviceId, addRating, service }) {
   // })
 
 
-  const [, setRating] = useState(0) // initial rating value
+  const [rating, setRating] = useState(0) // initial rating value
   const { user, isAuthenticated } = useContext(AuthContext);
   // const ratingStyle = useStyles();
 
 
   const handleRating = (rate) => {
-    console.log(rate, serviceId);
+    console.log('RatingJS rate, serviceid', rate, serviceId);
     setRating(rate);
     addRating({ rate, serviceId, user });
   }
 
-  // console.log('service total ratings', service.totalRatings)
-  // console.log('service average ratings', service.averageRating)
+  console.log('service total ratings', service.totalRatings)
+  console.log('service average ratings', service.averageRating)
+  console.log('service is', service)
 
   return (
     <div>
-      {isAuthenticated && <StarRatings changeRating={handleRating} rating={Number(service.averageRating)} starDimension="25px" starSpacing="3px" starRatedColor="#e6bf05" />}
+      {isAuthenticated && <StarRatings changeRating={handleRating} rating={rating || Number(service.averageRating)} starDimension="25px" starSpacing="3px" starRatedColor="#e6bf05" />}
       {!parseInt(service.totalRatings)
         ? <p style={{ fontFamily: 'Inter', }}> Service Not Yet Rated </p>
         // : <p className={ratingStyle.main}> {Math.round(service.averageRating * 10) / 10} from {service.totalRatings} ratings </p>
