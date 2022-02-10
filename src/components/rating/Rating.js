@@ -33,8 +33,9 @@ function StarRating({ serviceId, addRating, service }) {
     <div>
       {isAuthenticated && <StarRatings changeRating={handleRating} rating={rating} starDimension="25px" starSpacing="3px" starRatedColor="#e6bf05" />}
       {!parseInt(service.totalRatings)
-        ? <p className={ratingStyle.main}> Service Not Yet Rated </p>
-        : <p className={ratingStyle.main}> {Math.round(service.averageRating * 10) / 10} from {service.totalRatings} ratings </p>
+        ? <p style={{ fontFamily: 'Inter', }}> Service Not Yet Rated </p>
+        // : <p className={ratingStyle.main}> {Math.round(service.averageRating * 10) / 10} from {service.totalRatings} ratings </p>
+        : <p style={{ fontFamily: 'Inter', }}> rating is: {Math.round(service.averageRating * 10) / 10} from {service.totalRatings} ratings</p>
       }
     </div >
   )
