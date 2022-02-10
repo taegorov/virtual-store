@@ -173,7 +173,8 @@ const ProductsViewer = ({ loadProducts, products, activatedCategory, addToCart }
                     {/* <Typography className={cardStyle.freelancer}>Freelancer: {product.freelancer} </Typography> */}
                     {/* {isAuthenticated */}
                     {/* ? <StarRating serviceId={product.id} service={product} /> */}
-                    <p className={cardStyle.rating}> rating is: {Math.round(product.averageRating * 10) / 10} from {product.totalRatings} ratings</p>
+                    {/* <p className={cardStyle.rating}> rating is: {Math.round(product.averageRating * 10) / 10} from {product.totalRatings} ratings</p> */}
+                    <p style={{ fontFamily: 'Inter', }}> rating is: {Math.round(product.averageRating * 10) / 10} from {product.totalRatings} ratings</p>
                     {/* } */}
 
 
