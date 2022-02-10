@@ -176,6 +176,7 @@ const ProductsViewer = ({ loadProducts, products, activatedCategory, addToCart }
                     <p className={cardStyle.rating}> rating is: {Math.round(product.averageRating * 10) / 10} from {product.totalRatings} ratings</p>
                     {/* } */}
 
+
                   </CardContent>
 
                   <CardActions className={cardStyle.buttonsContainer}>

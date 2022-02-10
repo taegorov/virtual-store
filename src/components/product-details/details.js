@@ -176,6 +176,9 @@ function Details(props) {
     tabText: {
       fontFamily: 'Inter',
     },
+    login: {
+      fontFamily: 'Inter',
+    },
     deleteStyling: {
       padding: '1em',
       fontFamily: 'Inter',
@@ -198,7 +201,7 @@ function Details(props) {
     },
   });
 
-  const { user } = useContext(AuthContext);
+  const { user, isAuthenticated } = useContext(AuthContext);
   console.log('user is: ', user);
 
   const classes = useStyles();
@@ -358,6 +361,8 @@ function Details(props) {
           <TabSelection className={classes.tabText} value={value} index={0}> {activeProduct.details} </TabSelection>
           <TabSelection className={classes.tabText} value={value} index={1}>
             <StarRating serviceId={activeProduct.id} service={activeProduct} />
+            {!isAuthenticated && <p className={classes.login}>Log in to rate service</p>
+            }
           </TabSelection>
           <TabSelection className={classes.tabText} value={value} index={2}>
             <Auth capability="update">
