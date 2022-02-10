@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 // import StarRating from '../rating/Rating.js';
+import StarRatings from 'react-star-ratings';
+
 import { Paper, Typography, Button, Grid, Card, CardContent, CardActions, CardMedia, makeStyles } from '@material-ui/core'
 import CircularProgress from '@mui/material/CircularProgress';
 import { inactive, active } from '../../store/categories.js';
@@ -139,7 +141,6 @@ const ProductsViewer = ({ loadProducts, products, activatedCategory, addToCart }
     return image
   }
 
-
   return (
     <>
 
@@ -174,7 +175,17 @@ const ProductsViewer = ({ loadProducts, products, activatedCategory, addToCart }
                     {/* {isAuthenticated */}
                     {/* ? <StarRating serviceId={product.id} service={product} /> */}
                     {/* <p className={cardStyle.rating}> rating is: {Math.round(product.averageRating * 10) / 10} from {product.totalRatings} ratings</p> */}
-                    <p style={{ fontFamily: 'Inter', }}> rating is: {Math.round(product.averageRating * 10) / 10} from {product.totalRatings} ratings</p>
+                    <StarRatings
+                      rating={Number(product.averageRating)}
+                      starDimension="15px"
+                      starSpacing="2px"
+                      starRatedColor="#e6bf05"
+                    />
+
+                    {!parseInt(product.totalRatings)
+                      ? <p style={{ fontFamily: 'Inter', fontSize: '.8em', margin: 0 }}> Service Not Yet Rated </p>
+                      : <p style={{ fontFamily: 'Inter', fontSize: '.8em', margin: 0 }}> rating is: {Math.round(product.averageRating * 10) / 10} from {product.totalRatings} ratings</p>
+                    }
                     {/* } */}
 
 
