@@ -25,18 +25,23 @@ const useStyles = makeStyles({
     // textAlign: 'center',
     fontSize: '',
     color: 'black',
-    // height: '32em',
-    width: '20em',
+    height: '30em',
+    width: '18em',
+    maxWidth: '20em',
     backgroundColor: 'white',
     position: 'relative',
     padding: '1em',
-    borderRadius: '25px'
+    borderRadius: '25px',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+
   },
   textContainer: {
     // backgroundColor: 'grey',
-    // display: 'flex',
-    // flexDirection: 'column',
-    // justifyContent: 'space-around',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-around',
   },
   loader: {
     // backgroundColor: 'green',
@@ -62,7 +67,7 @@ const useStyles = makeStyles({
   // },
   name: {
     fontFamily: 'Inter',
-    fontSize: '1.6em',
+    fontSize: '1.4em',
     marginBottom: '0em',
     margin: 0,
     lineHeight: '120% !important'
@@ -83,9 +88,11 @@ const useStyles = makeStyles({
     justifyContent: 'space-between',
     width: '100%',
     // flex: 1,
-    height: '100%',
+    // height: '100%',
     // marginTop: 'auto',
     // marginBottom: 'auto',
+    position: 'relative',
+    bottom: 0,
   },
   button: {
     // margin: '1em',
@@ -101,7 +108,7 @@ const useStyles = makeStyles({
   },
   price: {
     fontFamily: 'Inter',
-    fontSize: '1.5em',
+    fontSize: '1.3em',
     // alignSelf: 'flex-end',
 
   },
@@ -109,15 +116,22 @@ const useStyles = makeStyles({
     fontFamily: 'Inter',
   },
   // form: {
-  //   backgroundColor: 'red',
+  // backgroundColor: 'red',
   // }
   rating: {
     fontFamily: 'Inter',
+    textAlign: 'left',
+    backgroundColor: 'rgba(230, 193, 5, .05)',
+    // display: 'inline',
+    color: '#e6bf05',
+    borderRadius: '5px',
     // backgroundColor: 'brown',
-    padding: 0,
-    margin: 0,
-    marginBottom: '1em',
-    marginTop: '.3em',
+    padding: '.5em',
+    margin: '0 auto',
+    marginTop: '0',
+    // width: '45%',
+    // marginBottom: '1em',
+    // marginTop: '.3em',
   }
 })
 
@@ -228,19 +242,20 @@ const ProductsViewer = ({ loadProducts, products, activatedCategory, addToCart }
                     <CardMedia
                       // image={product.image}
                       image={productImage(product.image)}
-                      style={{ height: 10, paddingTop: '100%', borderRadius: '25px' }}
+                      style={{
+                        maxHeight: '100%',
+                        width: '100%',
+                        paddingTop: '100%',
+                        borderRadius: '25px'
+                      }}
                     />
                     <CardContent className={cardStyle.nameContainer}>
                       <Typography className={cardStyle.name}> {product.name} </Typography>
                       {/* <Typography className={cardStyle.category}> {product.category} </Typography> */}
                     </CardContent>
                   </CardActionArea>
-                  {/* <div className={cardStyle.textContainer}> */}
                   <CardContent className={cardStyle.rating}>
-                    {/* <Typography className={cardStyle.freelancer}>Freelancer: {product.freelancer} </Typography> */}
-                    {/* {isAuthenticated */}
-                    {/* ? <StarRating serviceId={product.id} service={product} /> */}
-                    {/* <p className={cardStyle.rating}> rating is: {Math.round(product.averageRating * 10) / 10} from {product.totalRatings} ratings</p> */}
+
                     {!parseInt(product.totalRatings)
                       ? <p style={{
                         fontFamily: 'Inter',
@@ -268,33 +283,34 @@ const ProductsViewer = ({ loadProducts, products, activatedCategory, addToCart }
                     {/* } */}
                   </CardContent>
 
-                  <CardActions className={cardStyle.buttonsContainer}>
-                    <div>
-                      <IconButton
-                        className={cardStyle.button}
-                        size="small"
-                        // color="primary"
-                        style={{ backgroundColor: '#729ec4', color: 'white', width: '2em', height: '2em' }}
-                        variant="contained"
-                        onClick={() => addToCart(product)} >
-                        <AddIcon />
-                      </IconButton>
+                  <div className={cardStyle.textContainer}>
+                    <CardActions className={cardStyle.buttonsContainer}>
+                      <div>
+                        <IconButton
+                          className={cardStyle.button}
+                          size="small"
+                          // color="primary"
+                          style={{ backgroundColor: '#729ec4', color: 'white', width: '2em', height: '2em' }}
+                          variant="contained"
+                          onClick={() => addToCart(product)} >
+                          <AddIcon />
+                        </IconButton>
 
-                      <IconButton
-                        className={cardStyle.button}
-                        size="small"
-                        // color="primary"
-                        style={{ backgroundColor: '#729ec4', color: 'white', width: '2em', height: '2em' }}
-                        variant="contained"
-                        component={Link}
-                        to={{ pathname: `/products/${product.id}` }}
-                      >
-                        <InfoOutlinedIcon />
-                      </IconButton>
-                    </div>
-                    <Typography className={cardStyle.price}> ${product.price}</Typography>
-                  </CardActions>
-                  {/* </div> */}
+                        <IconButton
+                          className={cardStyle.button}
+                          size="small"
+                          // color="primary"
+                          style={{ backgroundColor: '#729ec4', color: 'white', width: '2em', height: '2em' }}
+                          variant="contained"
+                          component={Link}
+                          to={{ pathname: `/products/${product.id}` }}
+                        >
+                          <InfoOutlinedIcon />
+                        </IconButton>
+                      </div>
+                      <Typography className={cardStyle.price}> ${product.price}</Typography>
+                    </CardActions>
+                  </div>
                 </Card>
               </Grid>
             )
