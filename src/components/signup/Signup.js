@@ -21,149 +21,149 @@ require('dotenv').config();
 
 function Signup(props) {
 
-    const useStyles = makeStyles({
-        backButton: {
-            margin: '1em',
-        },
-        form: {
-            backgroundColor: 'white',
-        },
-    });
+  const useStyles = makeStyles({
+    backButton: {
+      margin: '1em',
+    },
+    form: {
+      backgroundColor: 'white',
+    },
+  });
 
-    const signupStyle = useStyles();
-
-
-    // scroll window to top at page load
-    useEffect(() => {
-        window.scrollTo(0, 0)
-    }, [])
-
-    // === categories for 'categories' part of form === //
-    const categories = [
-        {
-            value: 'user',
-            label: 'user',
-        },
-        {
-            value: 'freelancer',
-            label: 'freelancer',
-        },
-    ];
+  const signupStyle = useStyles();
 
 
-    // === === === snackbar behavior from MUI docs === === === //
-    // const [open, setOpen] = useState(false);
-    const history = useHistory();
+  // scroll window to top at page load
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
 
-    // const handleClose = (event, reason) => {
-    //     if (reason === 'clickaway') {
-    //         return;
-    //     }
-    //     setOpen(false);
-    //     history.push("/")
-    // };
-
-    // const action = (
-    //     <React.Fragment>
-    //         <Button
-    //             size="small"
-    //             aria-label="close"
-    //             color="inherit"
-    //             onClick={handleClose}
-    //         >
-    //             X
-    //         </Button>
-    //     </React.Fragment>
-    // );
+  // === categories for 'categories' part of form === //
+  const categories = [
+    {
+      value: 'user',
+      label: 'user',
+    },
+    {
+      value: 'freelancer',
+      label: 'freelancer',
+    },
+  ];
 
 
-    // ADD NEW SERVICE TO BACK END
-    const { handleChange, handleSubmit, values } = useForm(addUser);
+  // === === === snackbar behavior from MUI docs === === === //
+  // const [open, setOpen] = useState(false);
+  const history = useHistory();
 
-    // // OLD ADD HERE
-    // async function addItem(service) {
-    //     // console.log('service is', service);
-    //     // await axios.post('https://backend-virtual-store.herokuapp.com/services', service)
-    //     await axios.post('/services', service)
-    // }
+  // const handleClose = (event, reason) => {
+  //     if (reason === 'clickaway') {
+  //         return;
+  //     }
+  //     setOpen(false);
+  //     history.push("/")
+  // };
 
-    async function addUser(user) {
-        // await axios.delete(`https://backend-virtual-store.herokuapp.com/services/${shownItem.id}`)
-        // const servicesData = await axios.post('/services', service)
-        // const servicesData = await axios.post((process.env.NODE_ENV === 'production' ? process.env.REACT_APP_SERVER_PROD : process.env.REACT_APP_SERVER_DEV) + `/services`, service)
-        const servicesData = await axios.post(root + `/signup`, user)
-        console.log('services data', servicesData)
-        if (!!servicesData.data.success) {
-            // if (res.data.deleted === 1) {
-            console.log('front end RES', servicesData.data);
-            // setOpen(true);
-            props.openSnackbar({ open: true, message: servicesData.data.message, severity: 'success' })
-            history.push("/");
-        } else {
-            // alert(`ALERT: ${servicesData.data.message}`);
-            props.openSnackbar({ open: true, message: servicesData.data.message, severity: 'error' });
-        }
+  // const action = (
+  //     <React.Fragment>
+  //         <Button
+  //             size="small"
+  //             aria-label="close"
+  //             color="inherit"
+  //             onClick={handleClose}
+  //         >
+  //             X
+  //         </Button>
+  //     </React.Fragment>
+  // );
+
+
+  // ADD NEW SERVICE TO BACK END
+  const { handleChange, handleSubmit, values } = useForm(addUser);
+
+  // // OLD ADD HERE
+  // async function addItem(service) {
+  //     // console.log('service is', service);
+  //     // await axios.post('https://backend-virtual-store.herokuapp.com/services', service)
+  //     await axios.post('/services', service)
+  // }
+
+  async function addUser(user) {
+    // await axios.delete(`https://backend-virtual-store.herokuapp.com/services/${shownItem.id}`)
+    // const servicesData = await axios.post('/services', service)
+    // const servicesData = await axios.post((process.env.NODE_ENV === 'production' ? process.env.REACT_APP_SERVER_PROD : process.env.REACT_APP_SERVER_DEV) + `/services`, service)
+    const servicesData = await axios.post(root + `/signup`, user)
+    console.log('services data', servicesData)
+    if (!!servicesData.data.success) {
+      // if (res.data.deleted === 1) {
+      console.log('front end RES', servicesData.data);
+      // setOpen(true);
+      props.openSnackbar({ open: true, message: servicesData.data.message, severity: 'success' })
+      history.push("/signin");
+    } else {
+      // alert(`ALERT: ${servicesData.data.message}`);
+      props.openSnackbar({ open: true, message: servicesData.data.message, severity: 'error' });
     }
+  }
 
-    return (
-        <div>
-            <Button
-                className={signupStyle.backButton}
-                size="large"
-                color="primary"
-                variant="contained"
-                startIcon={<ArrowBackIosTwoToneIcon />}
-                component={Link} to={'/'}
-            >
-                Back to Store
-            </Button>
+  return (
+    <div>
+      <Button
+        className={signupStyle.backButton}
+        size="large"
+        color="primary"
+        variant="contained"
+        startIcon={<ArrowBackIosTwoToneIcon />}
+        component={Link} to={'/'}
+      >
+        Back to Store
+      </Button>
 
-            <p> Create a New Account </p>
-            <form onSubmit={handleSubmit} >
-                <Box
-                    className={signupStyle.form}
-                    // component="form"
-                    sx={{
-                        '& > :not(style)': { m: 1, width: '25ch' },
-                    }}
-                    noValidate
-                    autoComplete="off"
-                >
-                    <TextField
-                        name="username"
-                        label="Username"
-                        variant="outlined"
-                        required
-                        onChange={handleChange}
-                    />
-                    <TextField
-                        name="password"
-                        label="Password"
-                        variant="outlined"
-                        type="password"
-                        required
-                        onChange={handleChange} />
-                    <TextField
-                        // disabled
-                        name="role"
-                        onChange={handleChange}
-                        variant="outlined"
-                        select
-                        label="Select"
-                        defaultValue="user"
-                        value={values.category}
-                        helperText="Pick a Role">
-                        {categories.map((option) => (
-                            <MenuItem key={option.value} value={option.value}>
-                                {option.label}
-                            </MenuItem>
-                        ))}
-                    </TextField>
+      <p> Create a New Account </p>
+      <form onSubmit={handleSubmit} >
+        <Box
+          className={signupStyle.form}
+          // component="form"
+          sx={{
+            '& > :not(style)': { m: 1, width: '25ch' },
+          }}
+          noValidate
+          autoComplete="off"
+        >
+          <TextField
+            name="username"
+            label="Username"
+            variant="outlined"
+            required
+            onChange={handleChange}
+          />
+          <TextField
+            name="password"
+            label="Password"
+            variant="outlined"
+            type="password"
+            required
+            onChange={handleChange} />
+          <TextField
+            // disabled
+            name="role"
+            onChange={handleChange}
+            variant="outlined"
+            select
+            label="Select"
+            defaultValue="user"
+            value={values.category}
+            helperText="Pick a Role">
+            {categories.map((option) => (
+              <MenuItem key={option.value} value={option.value}>
+                {option.label}
+              </MenuItem>
+            ))}
+          </TextField>
 
-                    <Button variant='contained' type='submit' color="secondary"> Submit </Button>
-                </Box>
+          <Button variant='contained' type='submit' color="secondary"> Submit </Button>
+        </Box>
 
-                {/* <Snackbar
+        {/* <Snackbar
                     severity="error"
                     open={open}
                     autoHideDuration={4000}
@@ -173,20 +173,20 @@ function Signup(props) {
                 >
                     <MuiAlert action={action} onClose={handleClose} severity="success">User Created!</MuiAlert>
                 </Snackbar> */}
-            </form>
+      </form>
 
-        </div>
-    )
+    </div>
+  )
 }
 
 const mapStateToProps = (state) => {
-    return {
-        //   cart: state.cart.cart,
-    }
+  return {
+    //   cart: state.cart.cart,
+  }
 }
 
 const mapDispatchToProps = {
-    openSnackbar
+  openSnackbar
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Signup);

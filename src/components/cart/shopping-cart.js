@@ -7,6 +7,8 @@ import { Link } from 'react-router-dom';
 import { List, ListItem, ListItemText, ListItemButton, ListItemAvatar, Avatar, Button } from '@mui/material';
 import { makeStyles } from '@material-ui/core/styles';
 import { removeFromCart, addToCart } from '../../store/cart.js';
+import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import _ from 'lodash';
 
 
@@ -30,9 +32,12 @@ function ShoppingCart(props) {
       backgroundColor: 'white',
       margin: '0 auto !important',
       width: '80%',
+      '& p': {
+        fontFamily: 'Inter',
+      },
     },
     rowContainer: {
-      background: 'linear-gradient(45deg, #2e2e42 30%, #2b2b2b 90%)',
+      // background: 'linear-gradient(45deg, #2e2e42 30%, #2b2b2b 90%)',
       border: 'solid',
       borderColor: 'white',
       borderWidth: '.3em',
@@ -43,15 +48,16 @@ function ShoppingCart(props) {
     },
     totalsContainer: {
       fontFamily: 'Inter',
-      background: 'linear-gradient(45deg, #2e2e42 30%, #2b2b2b 90%)',
-      borderLeft: 'solid',
-      borderRight: 'solid',
-      borderColor: 'white',
-      borderWidth: '.15em',
+      // background: 'linear-gradient(45deg, #2e2e42 30%, #2b2b2b 90%)',
+      // borderLeft: 'solid',
+      // borderRight: 'solid',
+      // borderColor: 'white',
+      // borderWidth: '.15em',
       padding: '1em',
       fontSize: '1.75em',
       margin: '0em',
       // color: 'red',
+
     },
     serviceName: {
       fontFamily: 'Inter',
@@ -64,6 +70,9 @@ function ShoppingCart(props) {
       fontFamily: 'Inter',
       fontSize: '1.5em',
       marginBottom: '.3em',
+      '& .css-10hburv-MuiTypography-root': {
+        fontFamily: 'Inter !important',
+      },
       // width: '6em',
       // border: 'solid',
     },
@@ -84,18 +93,18 @@ function ShoppingCart(props) {
     buttonsContainer: {
       backgroundColor: '#4287f5',
     },
-    increaseButton: {
-      color: 'white',
-      textAlign: 'right',
-      border: 'solid',
-      backgroundColor: '#4287f5',
-    },
-    decreaseButton: {
-      color: 'white',
-      textAlign: 'right',
-      border: 'solid',
-      backgroundColor: '#4287f5',
-    },
+    // increaseButton: {
+    //   color: 'white',
+    //   textAlign: 'right',
+    //   border: 'solid',
+    //   backgroundColor: '#4287f5',
+    // },
+    // decreaseButton: {
+    //   color: 'white',
+    //   textAlign: 'right',
+    //   border: 'solid',
+    //   backgroundColor: '#4287f5',
+    // },
   });
 
   const productImage = (image) => {
@@ -149,13 +158,13 @@ function ShoppingCart(props) {
                 <ListItemText className={shoppingCart.listPrice}>${lineItemTotal}</ListItemText>
                 <div className={shoppingCart.decreaseButton}>
                   <ListItemButton disabled={!lineItem.quantity} onClick={() => props.removeFromCart(lineItem)} >
-                    −
+                    <ArrowDropDownIcon style={{ color: '#729ec4' }} />
                   </ListItemButton>
                 </div>
                 <p className={shoppingCart.quantity}>{lineItem.quantity}</p>
                 <div className={shoppingCart.increaseButton}>
                   <ListItemButton onClick={() => props.addToCart(lineItem)} >
-                    +
+                    <ArrowDropUpIcon style={{ color: '#729ec4' }} />
                   </ListItemButton>
                 </div>
 
