@@ -32,7 +32,7 @@ const CategoryViewer = (props) => {
       // display: 'block',
       // flexDirection: 'column',
       // backgroundColor: 'red',
-      margin: '.5em',
+      margin: '.7em',
       padding: '.5em 1em',
       fontFamily: 'Inter',
       fontSize: '.6em',
@@ -56,15 +56,18 @@ const CategoryViewer = (props) => {
 
       <p className={categoryStyle.header} > Filter By Category </p>
 
-      <Button className={categoryStyle.button} variant="contained" color={(props.activatedCategory === 'All' || !props.activatedCategory) ? "default" : "primary"} onClick={() => props.inactive('All')}>
+      <Button className={categoryStyle.button} variant="contained" style={(props.activatedCategory === 'All' || !props.activatedCategory) ? { backgroundColor: "#729ec4", color: 'white' } : { backgroundColor: "#e3e3e3" }} onClick={() => props.inactive('All')}>
         <div>
           <DensitySmallIcon className={categoryStyle.icon} />
           <p>All</p>
         </div>
       </Button>
 
+      {/* expected color below: */}
+      {/* style={{ backgroundColor: '#729ec4', color: 'white' }} */}
+
       {isAuthenticated
-        && <Button className={categoryStyle.button} variant="contained" color={(props.activatedCategory === 'My Services') ? "default" : "primary"} onClick={() => props.active('My Services')}>
+        && <Button className={categoryStyle.button} variant="contained" style={(props.activatedCategory === 'My Services') ? { backgroundColor: "#729ec4", color: 'white' } : { backgroundColor: "#e3e3e3" }} onClick={() => props.active('My Services')}>
           <div>
             <AccountBoxIcon className={categoryStyle.icon} />
             <p>My Services</p>
@@ -72,7 +75,7 @@ const CategoryViewer = (props) => {
         </Button>
       }
 
-      <Button className={categoryStyle.button} variant="contained" color={(props.activatedCategory === 'Accessibility') ? "default" : "primary"} onClick={() => props.active('Accessibility')}>
+      <Button className={categoryStyle.button} variant="contained" style={(props.activatedCategory === 'Accessibility') ? { backgroundColor: "#729ec4", color: 'white' } : { backgroundColor: "#e3e3e3" }} onClick={() => props.active('Accessibility')}>
         <div>
           <AccessibleIcon className={categoryStyle.icon} />
           <p>Accessibility</p>
@@ -83,28 +86,28 @@ const CategoryViewer = (props) => {
         Web Design
       </Button> */}
 
-      <Button className={categoryStyle.button} variant="contained" color={(props.activatedCategory === 'Design') ? "default" : "primary"} onClick={() => props.active('Design')}>
+      <Button className={categoryStyle.button} variant="contained" style={(props.activatedCategory === 'Design') ? { backgroundColor: "#729ec4", color: 'white' } : { backgroundColor: "#e3e3e3" }} onClick={() => props.active('Design')}>
         <div>
           <DesignServicesIcon className={categoryStyle.icon} />
           <p>Design</p>
         </div>
       </Button>
 
-      <Button className={categoryStyle.button} variant="contained" color={(props.activatedCategory === 'Apps') ? "default" : "primary"} onClick={() => props.active('Apps')}>
+      <Button className={categoryStyle.button} variant="contained" style={(props.activatedCategory === 'Apps') ? { backgroundColor: "#729ec4", color: 'white' } : { backgroundColor: "#e3e3e3" }} onClick={() => props.active('Apps')}>
         <div>
           <AppShortcutIcon className={categoryStyle.icon} />
           <p>Apps</p>
         </div>
       </Button>
 
-      <Button className={categoryStyle.button} variant="contained" color={(props.activatedCategory === 'Tutoring') ? "default" : "primary"} onClick={() => props.active('Tutoring')}>
+      <Button className={categoryStyle.button} variant="contained" style={(props.activatedCategory === 'Tutoring') ? { backgroundColor: "#729ec4", color: 'white' } : { backgroundColor: "#e3e3e3" }} onClick={() => props.active('Tutoring')}>
         <div>
           <SchoolIcon className={categoryStyle.icon} />
           <p>Tutoring</p>
         </div>
       </Button>
 
-      <Button className={categoryStyle.button} variant="contained" color={(props.activatedCategory === 'Misc') ? "default" : "primary"} onClick={() => props.active('Misc')}>
+      <Button className={categoryStyle.button} variant="contained" style={(props.activatedCategory === 'Misc') ? { backgroundColor: "#729ec4", color: 'white' } : { backgroundColor: "#e3e3e3" }} onClick={() => props.active('Misc')}>
         <div>
           <MoreHorizIcon className={categoryStyle.icon} />
           <p>Misc</p>

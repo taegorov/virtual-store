@@ -1,11 +1,9 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-
 // import StarRating from '../rating/Rating.js';
 import StarRatings from 'react-star-ratings';
-
-import { Paper, Typography, Button, Grid, Card, CardContent, CardActions, CardMedia, makeStyles } from '@material-ui/core'
+import { Paper, Typography, IconButton, Grid, Card, CardContent, CardActions, CardMedia, makeStyles } from '@material-ui/core'
 import CircularProgress from '@mui/material/CircularProgress';
 import { inactive, active } from '../../store/categories.js';
 // import { getProducts } from '../../store/products.js';
@@ -13,6 +11,10 @@ import { addToCart } from '../../store/cart.js';
 import CategoryViewer from './categories.js';
 import { loadProducts, getProducts } from '../../store/products';
 import { AuthContext } from '../../context/Auth'
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import AddIcon from '@mui/icons-material/Add';
+import { CardActionArea } from '@mui/material';
+// import Masonry from '@mui/lab/Masonry';
 
 import './products.css';
 
@@ -20,13 +22,21 @@ import './products.css';
 // === === JSS styling === === //
 const useStyles = makeStyles({
   container: {
-    textAlign: 'center',
+    // textAlign: 'center',
     fontSize: '',
     color: 'black',
-    height: '34em',
+    // height: '32em',
     width: '20em',
     backgroundColor: 'white',
     position: 'relative',
+    padding: '1em',
+    borderRadius: '25px'
+  },
+  textContainer: {
+    // backgroundColor: 'grey',
+    // display: 'flex',
+    // flexDirection: 'column',
+    // justifyContent: 'space-around',
   },
   loader: {
     // backgroundColor: 'green',
@@ -35,23 +45,53 @@ const useStyles = makeStyles({
     marginTop: '5em',
     // margin: '0 auto',
   },
+  nameContainer: {
+    padding: 0,
+    marginTop: '.5em',
+    display: "-webkit-box",
+    boxOrient: "vertical",
+    lineClamp: 2,
+    // wordBreak: "break-all",
+    overflow: "hidden",
+    // display: 'flex',
+    // flex: 1,
+    // backgroundColor: 'green',
+  },
+  // nameContainer2: {
+  //   flex: 1,
+  // },
   name: {
     fontFamily: 'Inter',
-    fontSize: '20px',
+    fontSize: '1.6em',
+    marginBottom: '0em',
+    margin: 0,
+    lineHeight: '120% !important'
+  },
+  category: {
+    fontFamily: 'Inter',
+    fontSize: '14px',
     marginBottom: '0em',
   },
   buttonsContainer: {
+    alignSelf: 'flex-end',
     margin: '0',
     padding: '0',
-    justifyContent: 'center',
-    position: 'absolute',
-    right: '0',
-    left: '0',
-    bottom: '1%',
+    // backgroundColor: 'red',
+    display: 'flex',
+    alignContent: 'flex-end',
+    // alignItems: 'center',
+    justifyContent: 'space-between',
+    width: '100%',
+    // flex: 1,
+    height: '100%',
+    // marginTop: 'auto',
+    // marginBottom: 'auto',
   },
   button: {
-    margin: '1em',
-    marginBottom: '0em',
+    // margin: '1em',
+    // marginBottom: '0em',
+    padding: 0,
+    margin: '.2em',
   },
   cardContent: {
     fontFamily: 'Inter',
@@ -61,6 +101,9 @@ const useStyles = makeStyles({
   },
   price: {
     fontFamily: 'Inter',
+    fontSize: '1.5em',
+    // alignSelf: 'flex-end',
+
   },
   freelancer: {
     fontFamily: 'Inter',
@@ -70,6 +113,11 @@ const useStyles = makeStyles({
   // }
   rating: {
     fontFamily: 'Inter',
+    // backgroundColor: 'brown',
+    padding: 0,
+    margin: 0,
+    marginBottom: '1em',
+    marginTop: '.3em',
   }
 })
 
@@ -148,73 +196,105 @@ const ProductsViewer = ({ loadProducts, products, activatedCategory, addToCart }
       <Paper className="paper" elevation={3}>
 
         <Grid
-          style={{ backgroundColor: 'white', padding: '.4em' }}
+          style={{ backgroundColor: 'white', padding: '.4em', }}
           id="grid-categories"
-          spacing={4}
+          // columns={4}
+          spacing={3}
           container
-          justifyContent="center" >
+          justifyContent="center"
+          alignItems="baseline"
+        >
           {renderProducts(products.productList, activatedCategory).map((product, index) => {
             // if (product.category === activatedCategory) {
             // console.log('🎭', products);
+
+            const ratingText = () => {
+              // console.log('product dot totalratings', product.totalRatings)
+              if (product.totalRatings === '1') {
+                return 'rating'
+              } else {
+                return 'ratings'
+              }
+            }
+            // console.log('rating text here: ', ratingText());
+
+
             return (
               <Grid item key={index}>
                 <Card className={cardStyle.container}>
-                  <CardMedia
-                    // image={product.image}
-                    image={productImage(product.image)}
-                    style={{ height: 10, paddingTop: '100%' }}
-                  />
-
-                  <CardContent>
-                    <Typography className={cardStyle.name}> {product.name} </Typography>
-                  </CardContent>
-
-                  <CardContent className={cardStyle.cardContent}>
-                    <Typography className={cardStyle.price}> ${product.price}</Typography>
+                  <CardActionArea
+                    component={Link}
+                    to={{ pathname: `/products/${product.id}` }}>
+                    <CardMedia
+                      // image={product.image}
+                      image={productImage(product.image)}
+                      style={{ height: 10, paddingTop: '100%', borderRadius: '25px' }}
+                    />
+                    <CardContent className={cardStyle.nameContainer}>
+                      <Typography className={cardStyle.name}> {product.name} </Typography>
+                      {/* <Typography className={cardStyle.category}> {product.category} </Typography> */}
+                    </CardContent>
+                  </CardActionArea>
+                  {/* <div className={cardStyle.textContainer}> */}
+                  <CardContent className={cardStyle.rating}>
                     {/* <Typography className={cardStyle.freelancer}>Freelancer: {product.freelancer} </Typography> */}
                     {/* {isAuthenticated */}
                     {/* ? <StarRating serviceId={product.id} service={product} /> */}
                     {/* <p className={cardStyle.rating}> rating is: {Math.round(product.averageRating * 10) / 10} from {product.totalRatings} ratings</p> */}
-                    <StarRatings
-                      rating={Number(product.averageRating)}
-                      starDimension="15px"
-                      starSpacing="2px"
-                      starRatedColor="#e6bf05"
-                    />
-
                     {!parseInt(product.totalRatings)
-                      ? <p style={{ fontFamily: 'Inter', fontSize: '.8em', margin: 0 }}> Service Not Yet Rated </p>
-                      : <p style={{ fontFamily: 'Inter', fontSize: '.8em', margin: 0 }}> rating is: {Math.round(product.averageRating * 10) / 10} from {product.totalRatings} ratings</p>
+                      ? <p style={{
+                        fontFamily: 'Inter',
+                        fontSize: '.8em',
+                        margin: 0
+                      }}>
+                        Service Not Yet Rated
+                      </p>
+                      : <>
+                        <StarRatings
+                          rating={Number(product.averageRating)}
+                          starDimension="15px"
+                          starSpacing="2px"
+                          starRatedColor="#e6bf05"
+                        />
+                        <p style={{
+                          fontFamily: 'Inter',
+                          fontSize: '.8em',
+                          margin: 0
+                        }}>
+                          {(Math.round(product.averageRating * 10) / 10).toFixed(1)} ({product.totalRatings} {ratingText()})
+                        </p>
+                      </>
                     }
                     {/* } */}
-
-
                   </CardContent>
 
                   <CardActions className={cardStyle.buttonsContainer}>
                     <div>
-                      <Button
+                      <IconButton
                         className={cardStyle.button}
                         size="small"
-                        color="primary"
+                        // color="primary"
+                        style={{ backgroundColor: '#729ec4', color: 'white', width: '2em', height: '2em' }}
                         variant="contained"
                         onClick={() => addToCart(product)} >
-                        Add
-                      </Button>
+                        <AddIcon />
+                      </IconButton>
 
-                      <Button
+                      <IconButton
                         className={cardStyle.button}
                         size="small"
-                        color="primary"
+                        // color="primary"
+                        style={{ backgroundColor: '#729ec4', color: 'white', width: '2em', height: '2em' }}
                         variant="contained"
                         component={Link}
-                        to={{ pathname: `/products/${product.id}` }}>
-                        Details
-                      </Button>
-
+                        to={{ pathname: `/products/${product.id}` }}
+                      >
+                        <InfoOutlinedIcon />
+                      </IconButton>
                     </div>
+                    <Typography className={cardStyle.price}> ${product.price}</Typography>
                   </CardActions>
-
+                  {/* </div> */}
                 </Card>
               </Grid>
             )

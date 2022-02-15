@@ -18,6 +18,8 @@ p {
 
 #grid-categories {
   margin-top: 1em;
+  /* display: grid; */
+  /* grid-template-rows: masonry; */
 }
 
 #card-image {
