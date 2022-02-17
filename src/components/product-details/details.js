@@ -36,9 +36,10 @@ function Details(props) {
       color: 'black',
       fontSize: '3.3em',
       textAlign: 'center',
-      marginBottom: '0em',
+      marginBottom: '.3em',
       marginTop: '0em',
       padding: '0',
+      lineHeight: '100%',
       // border: 'solid',
     },
     category: {
@@ -175,6 +176,8 @@ function Details(props) {
     },
     tabText: {
       fontFamily: 'Inter',
+      margin: '1em',
+      // backgroundColor: 'red',
     },
     login: {
       fontFamily: 'Inter',
@@ -350,7 +353,7 @@ function Details(props) {
 
         <div className={classes.tabs}>
 
-          < Tabs value={value} onChange={handleTabs}>
+          < Tabs variant="fullWidth" value={value} onChange={handleTabs}>
             <Tab className={classes.tabHeader} label='Details' />
             <Tab className={classes.tabHeader} label='Rating' />
             {user.id === activeProduct.freelancer &&
@@ -358,31 +361,33 @@ function Details(props) {
             }
           </Tabs>
 
-          <TabSelection className={classes.tabText} value={value} index={0}> {activeProduct.details} </TabSelection>
-          <TabSelection className={classes.tabText} value={value} index={1}>
-            <StarRating serviceId={activeProduct.id} service={activeProduct} />
-            {!isAuthenticated && <p className={classes.login}>Log in to rate service</p>
-            }
-          </TabSelection>
-          <TabSelection className={classes.tabText} value={value} index={2}>
-            <Auth capability="update">
-              <PutModal service={activeProduct} />
-            </Auth>
-            <Auth capability="delete">
-              <Button
-                variant="outlined"
-                className={classes.deleteButton}
-                onClick={() => {
-                  // eslint-disable-next-line no-restricted-globals
-                  if (confirm('Are you sure? This action is final!')) {
-                    deleteService().catch(err => alert(err))
-                  }
-                }}
-              >
-                delete this service
-              </Button>
-            </Auth>
-          </TabSelection>
+          <div className={classes.tabText}>
+            <TabSelection className={classes.tabText} value={value} index={0}> {activeProduct.details} </TabSelection>
+            <TabSelection className={classes.tabText} value={value} index={1}>
+              <StarRating serviceId={activeProduct.id} service={activeProduct} />
+              {!isAuthenticated && <p className={classes.login}>Log in to rate service</p>
+              }
+            </TabSelection>
+            <TabSelection className={classes.tabText} value={value} index={2}>
+              <Auth capability="update">
+                <PutModal service={activeProduct} />
+              </Auth>
+              <Auth capability="delete">
+                <Button
+                  variant="outlined"
+                  className={classes.deleteButton}
+                  onClick={() => {
+                    // eslint-disable-next-line no-restricted-globals
+                    if (confirm('Are you sure? This action is final!')) {
+                      deleteService().catch(err => alert(err))
+                    }
+                  }}
+                >
+                  delete this service
+                </Button>
+              </Auth>
+            </TabSelection>
+          </div>
         </div>
 
         {/* {
