@@ -223,7 +223,7 @@ const ProductsViewer = ({ loadProducts, products, activatedCategory, addToCart }
             // console.log('🎭', products);
 
             const ratingText = () => {
-              // console.log('product dot totalratings', product.totalRatings)
+              console.log('product dot totalratings', product.totalRatings)
               if (product.totalRatings === '1') {
                 return 'rating'
               } else {

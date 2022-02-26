@@ -95,6 +95,11 @@ const useStyles = makeStyles({
     fontSize: '.9em',
     margin: 0,
     // marginTop: '.4em',
+    display: "-webkit-box",
+    boxOrient: "vertical",
+    lineClamp: 2,
+    // wordBreak: "break-all",
+    overflow: "hidden",
   },
   productCategory: {
     fontFamily: 'Inter',
