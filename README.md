@@ -1,144 +1,110 @@
-# Virtual Store
+# Nile Virtual Store
 
-An online shopping portal for a fictional store
+A mock e-commerce platform which allows freelancers to list their various offerings for sale. For example: tutoring, web design, and accessibility improvements.
 
+## Important Links
 
-## Requirements
+[Deployed Site via Netlify](https://nile-store.netlify.app)
 
-Our application will power an online storefront that will allow our users to browse our product offerings by category, place items in their shopping cart, and check-out when they are ready to make their purchase
+[Back End Repo](https://github.com/taegorov/virtual-store-backend)
 
-### Phase 1 Requirements
+---
 
-**Virtual Store Phase 1: For this assignment, you will be starting the process of creating an e-Commerce storefront using React with Redux, coupled with your live API server**
+## Table of Contents
 
-Today, we begin the first of a 4-Phase build of the storefront application, written in React. In this first phase, our goal is to setup the basic scaffolding of the application with initial styling and basic behaviors. This initial build sets up the file structure and state management so that we can progressively build this application in a scalable manner
+[Features](#features)
 
-The following user/developer stories detail the major functionality for this phase of the project.
+[Getting Started](#getting-started)
 
-- As a user, I expect to see a list of available product categories in the store so that I can easily browse products
-  
-- As a user, I want to choose a category and see a list of all available products matching that category
-  
-- As a user, I want a clean, easy to use user interface so that I can shop the online store with confidence
+[Routes](#routes)
 
+[Technologies](#technologies)
 
-### Phase 2 Requirements
+---
 
-In phase 2, we will be adding the “Add to Cart” feature to our application, which will allow our users to not only browse items in the store, but also select them and have them persist in their “shopping cart” for later purchase.
+## Features
 
-The user stories from Phase 1 remain unchanged. For this phase, we are now adding the following new user stories to meet the new requirements.
+- Create new profiles, as either a Freelancer or a User
+  - Both Freelancers and Users are able to view (read/get) all services offered by all Freelancers
+  - Freelancers have the ability to create new services, update their existing services, and delete their existing services
+- Log in to your account and view your dashboard, which contains all your services
+- Rate services 1-5 ⭐️  (only if logged in)
+- Filter shown services by category
+- Add services to your cart
+- View your cart and quickly change quantities
+- View details of a service you're interested in
 
-- As a user, I want to choose from products in the list and add them to my shopping cart
+---
 
-- As a user, I want to see the products that I’ve added to my shopping cart so that
+## Getting Started
 
-- As a user, I want to change the quantity of items I intend to purchase in my shopping cart
+[Back to Top](#nile-virtual-store)
 
-- As a user, I want to be able to remove an item from my shopping cart
+To install Nile locally, follow these steps:
 
+1. Clone the repo from GitHub ([link here](https://github.com/taegorov/virtual-store))
 
-### Phase 3 Requirements
+2. Install dependencies in your terminal with `npm i`
 
-In phase 3, we will be connecting our Virtual Store to a live API so that our data is persistent and able to be separately managed.
+3. Start up the server in your terminal with `npm start`
 
-The user stories from Phases 1 and 2 remain unchanged. For this phase, we are now adding the following new user stories to meet the new requirements.
+---
 
-- As a user, I want to interact with live inventory so that I have confidence that the displayed products are in stock
+## Routes
 
+[Back to Top](#nile-virtual-store)
 
-- As a user, I want to know to that when I add an item to my cart, that it is removed from inventory so that no other users can purchase it
+#### Auth
 
+- POST to /signup
+- POST to /signin
+- GET to /users
 
-### Phase 4 Requirements
+#### Users
 
-Phase 4 Requirements
+- POST to /user (create)
+- GET to /user (get all)
+- GET to /user/:id (get one)
+- PUT to /user/:id (update one)
+- DELETE to /user/:id (delete one)
 
-In phase 4, we will be completing work on our Virtual Store by adding a two full page views to the application: Product Details and Checkout
+#### Services
 
-The user stories from Phases 1, 2 and 3 remain unchanged. For this phase, we are now adding the following new user stories to meet the new requirements.
+- POST to /services (create)
+- GET to /services (get all)
+- GET to /services/:servicesId (get one)
+- PUT to /services/:servicesId (update one)
+- DELETE to /services/:servicesId (delete one)
 
-- As a user, I want to see a full detail view of a product so that I can make a more informed choice about purchasing it.
+#### Ratings
 
+- PUT to /services/:servicesId/rating (add / update)
 
-- As a user, I want to view my full cart and initiate the checkout process so that I can purchase my items and have them delivered
+---
 
+## Technologies
 
-## UML
+[Back to Top](#nile-virtual-store)
 
-![UML1](./src/assets/virtual-store-UML.jpg)
+Here are some of the technologies I used when working on this project:
 
-## Deployed Site
-https://sharp-panini-d4b21b.netlify.app/ 
+Front end:
 
---- 
+- React
+- Redux
+- ContextAPI
+- MUI (formerly known as Material UI)
+- Axios
+- Lodash
+- React-Hamburger
+- React Star Ratings
 
-# Getting Started with Create React App
+Back end:
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+- Bcrypt
+- Cors
+- Express
+- Sequelize
+- PostgreSQL
 
-## Available Scripts
-
-In the project directory, you can run:
-
-### `yarn start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+---
